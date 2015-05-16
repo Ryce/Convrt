@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DAC3EDB01B0741D200E304AC /* AAWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC3EDAF1B0741D200E304AC /* AAWindow.swift */; };
 		DADD1B1C1B073D6A00DC9269 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD1B1B1B073D6A00DC9269 /* AppDelegate.swift */; };
 		DADD1B1E1B073D6A00DC9269 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD1B1D1B073D6A00DC9269 /* ViewController.swift */; };
 		DADD1B211B073D6A00DC9269 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DADD1B1F1B073D6A00DC9269 /* Main.storyboard */; };
@@ -26,6 +27,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DAC3EDAF1B0741D200E304AC /* AAWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AAWindow.swift; path = Frameworks/AAWindow.swift; sourceTree = "<group>"; };
 		DADD1B161B073D6A00DC9269 /* Convrt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Convrt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DADD1B1A1B073D6A00DC9269 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DADD1B1B1B073D6A00DC9269 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -56,6 +58,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DAC3EDAE1B0741BB00E304AC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DAC3EDAF1B0741D200E304AC /* AAWindow.swift */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		DADD1B0D1B073D6A00DC9269 = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +93,7 @@
 				DADD1B221B073D6A00DC9269 /* Images.xcassets */,
 				DADD1B241B073D6A00DC9269 /* LaunchScreen.xib */,
 				DADD1B191B073D6A00DC9269 /* Supporting Files */,
+				DAC3EDAE1B0741BB00E304AC /* Frameworks */,
 			);
 			path = Convrt;
 			sourceTree = "<group>";
@@ -214,6 +225,7 @@
 			files = (
 				DADD1B1E1B073D6A00DC9269 /* ViewController.swift in Sources */,
 				DADD1B1C1B073D6A00DC9269 /* AppDelegate.swift in Sources */,
+				DAC3EDB01B0741D200E304AC /* AAWindow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,6 +421,7 @@
 				DADD1B371B073D6A00DC9269 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DADD1B381B073D6A00DC9269 /* Build configuration list for PBXNativeTarget "ConvrtTests" */ = {
 			isa = XCConfigurationList;
@@ -417,6 +430,7 @@
 				DADD1B3A1B073D6A00DC9269 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
