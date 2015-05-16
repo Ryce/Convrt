@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>ApplicationSettingsStorage Protocol Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Protocol/ApplicationSettingsStorage" class="dashAnchor"></a>
+    <a title="ApplicationSettingsStorage Protocol Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">CleanroomBase Docs</a> (100% documented)</p>
+        <p class="header-right"><a href="https://github.com/emaloney/CleanroomBase"><img src="../img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">CleanroomBase Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        ApplicationSettingsStorage Protocol Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+          <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/ApplicationSettingsReader.html">ApplicationSettingsReader</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ApplicationSettingsWriter.html">ApplicationSettingsWriter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DefaultApplicationSettings.html">DefaultApplicationSettings</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DefaultApplicationSettingsProvider.html">DefaultApplicationSettingsProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DefaultApplicationSettingsStorage.html">DefaultApplicationSettingsStorage</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DictionaryApplicationSettingsProvider.html">DictionaryApplicationSettingsProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MutableDictionaryApplicationSettingsStorage.html">MutableDictionaryApplicationSettingsStorage</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/TargetAction.html">TargetAction</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+          <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/NSDate.html">NSDate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/String.html">String</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+          <a href="../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F13CleanroomBase5asyncFFT_T_T_">async(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F13CleanroomBase5asyncFT5delaySdFT_T__T_">async(delay:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F13CleanroomBase12asyncBarrierFFT_T_T_">asyncBarrier(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F13CleanroomBase19errorNotImplementedFT8functionSS_T_">errorNotImplemented(function:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F13CleanroomBase18errorUnhandledCaseFT8functionSS_T_">errorUnhandledCase(function:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F13CleanroomBase10mainThreadFFT_T_T_">mainThread(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F13CleanroomBase10mainThreadFT5delaySdFT_T__T_">mainThread(delay:_:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+          <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/ApplicationSettingsProvider.html">ApplicationSettingsProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ApplicationSettingsStorage.html">ApplicationSettingsStorage</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ApplicationURL.html">ApplicationURL</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols.html#/s:P13CleanroomBase18DebugPrintableEnum">DebugPrintableEnum</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/EnumerableEnum.html">EnumerableEnum</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/PrintableAssociatedValueEnum.html">PrintableAssociatedValueEnum</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/PrintableEnum.html">PrintableEnum</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/QueryString.html">QueryString</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+          <a href="../Structs.html">Structs</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/CriticalSection.html">CriticalSection</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/DefaultApplicationURL.html">DefaultApplicationURL</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/EnumPrinter.html">EnumPrinter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Pluralizer.html">Pluralizer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/QueryStringImpl.html">QueryStringImpl</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ReadWriteCoordinator.html">ReadWriteCoordinator</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ThreadLocalValue.html">ThreadLocalValue</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>ApplicationSettingsStorage</h1>
+            <p>This protocol extends <code>ApplicationSettingsProvider</code> by adding the ability
+to store and remove values. The <code>DefaultApplicationSettingsStorage</code> class
+provides the default implementation of this protocol. Consider using an
+instance of the class <code>ApplicationSettingsWriter</code> for writing values to
+an <code>ApplicationSettingsStorage</code> instance.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FP13CleanroomBase26ApplicationSettingsStorage8setValueUS0___FQPS0_FTCSo8NSObject10forSettingSS_T_"></a>
+                    <a name="//apple_ref/swift/Method/setValue(_:forSetting:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FP13CleanroomBase26ApplicationSettingsStorage8setValueUS0___FQPS0_FTCSo8NSObject10forSettingSS_T_">setValue(_:forSetting:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sets a new value for the specified setting.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">setValue</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="n">forSetting</span> <span class="nv">settingName</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>value</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The new value for <code>settingName</code></p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>settingName</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of the setting that will receive <code>value</code></p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FP13CleanroomBase26ApplicationSettingsStorage21removeValueForSettingUS0___FQPS0_FSST_"></a>
+                    <a name="//apple_ref/swift/Method/removeValueForSetting(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FP13CleanroomBase26ApplicationSettingsStorage21removeValueForSettingUS0___FQPS0_FSST_">removeValueForSetting(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Removes the existing value (if any) for the setting with the given name.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">removeValueForSetting</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>name</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of the setting whose value will be removed</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>© 2014-2015 <a class="link" href="http://tech.gilt.com/" target="_blank" rel="external">Gilt Groupe</a>. All rights reserved. (Last updated: 2015-05-15)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.2.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

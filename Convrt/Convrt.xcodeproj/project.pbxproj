@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		DAC3EDB01B0741D200E304AC /* AAWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC3EDAF1B0741D200E304AC /* AAWindow.swift */; };
+		DAC3EDB51B07AEDE00E304AC /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAC3EDB11B07AEDE00E304AC /* Alamofire.framework */; };
+		DAC3EDB61B07AEDE00E304AC /* CleanroomASL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAC3EDB21B07AEDE00E304AC /* CleanroomASL.framework */; };
+		DAC3EDB71B07AEDE00E304AC /* CleanroomBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAC3EDB31B07AEDE00E304AC /* CleanroomBase.framework */; };
+		DAC3EDB81B07AEDE00E304AC /* CleanroomLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAC3EDB41B07AEDE00E304AC /* CleanroomLogger.framework */; };
+		DAC3EDBB1B07B05600E304AC /* ConvrtSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC3EDBA1B07B05600E304AC /* ConvrtSession.swift */; };
 		DADD1B1C1B073D6A00DC9269 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD1B1B1B073D6A00DC9269 /* AppDelegate.swift */; };
 		DADD1B1E1B073D6A00DC9269 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD1B1D1B073D6A00DC9269 /* ViewController.swift */; };
 		DADD1B211B073D6A00DC9269 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DADD1B1F1B073D6A00DC9269 /* Main.storyboard */; };
@@ -28,6 +33,11 @@
 
 /* Begin PBXFileReference section */
 		DAC3EDAF1B0741D200E304AC /* AAWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AAWindow.swift; path = Frameworks/AAWindow.swift; sourceTree = "<group>"; };
+		DAC3EDB11B07AEDE00E304AC /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Frameworks/Alamofire.framework; sourceTree = "<group>"; };
+		DAC3EDB21B07AEDE00E304AC /* CleanroomASL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CleanroomASL.framework; path = Frameworks/CleanroomASL.framework; sourceTree = "<group>"; };
+		DAC3EDB31B07AEDE00E304AC /* CleanroomBase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CleanroomBase.framework; path = Frameworks/CleanroomBase.framework; sourceTree = "<group>"; };
+		DAC3EDB41B07AEDE00E304AC /* CleanroomLogger.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CleanroomLogger.framework; path = Frameworks/CleanroomLogger.framework; sourceTree = "<group>"; };
+		DAC3EDBA1B07B05600E304AC /* ConvrtSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvrtSession.swift; sourceTree = "<group>"; };
 		DADD1B161B073D6A00DC9269 /* Convrt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Convrt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DADD1B1A1B073D6A00DC9269 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DADD1B1B1B073D6A00DC9269 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -45,6 +55,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAC3EDB61B07AEDE00E304AC /* CleanroomASL.framework in Frameworks */,
+				DAC3EDB81B07AEDE00E304AC /* CleanroomLogger.framework in Frameworks */,
+				DAC3EDB51B07AEDE00E304AC /* Alamofire.framework in Frameworks */,
+				DAC3EDB71B07AEDE00E304AC /* CleanroomBase.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,6 +75,10 @@
 		DAC3EDAE1B0741BB00E304AC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DAC3EDB11B07AEDE00E304AC /* Alamofire.framework */,
+				DAC3EDB21B07AEDE00E304AC /* CleanroomASL.framework */,
+				DAC3EDB31B07AEDE00E304AC /* CleanroomBase.framework */,
+				DAC3EDB41B07AEDE00E304AC /* CleanroomLogger.framework */,
 				DAC3EDAF1B0741D200E304AC /* AAWindow.swift */,
 			);
 			name = Frameworks;
@@ -89,6 +107,7 @@
 			children = (
 				DADD1B1B1B073D6A00DC9269 /* AppDelegate.swift */,
 				DADD1B1D1B073D6A00DC9269 /* ViewController.swift */,
+				DAC3EDBA1B07B05600E304AC /* ConvrtSession.swift */,
 				DADD1B1F1B073D6A00DC9269 /* Main.storyboard */,
 				DADD1B221B073D6A00DC9269 /* Images.xcassets */,
 				DADD1B241B073D6A00DC9269 /* LaunchScreen.xib */,
@@ -133,6 +152,7 @@
 				DADD1B121B073D6A00DC9269 /* Sources */,
 				DADD1B131B073D6A00DC9269 /* Frameworks */,
 				DADD1B141B073D6A00DC9269 /* Resources */,
+				DAC3EDB91B07AF0600E304AC /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -218,6 +238,26 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		DAC3EDB91B07AF0600E304AC /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Convrt/Frameworks/Alamofire.framework",
+				"$(SRCROOT)/Convrt/Frameworks/CleanroomASL.framework",
+				"$(SRCROOT)/Convrt/Frameworks/CleanroomBase.framework",
+				"$(SRCROOT)/Convrt/Frameworks/CleanroomLogger.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		DADD1B121B073D6A00DC9269 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -225,6 +265,7 @@
 			files = (
 				DADD1B1E1B073D6A00DC9269 /* ViewController.swift in Sources */,
 				DADD1B1C1B073D6A00DC9269 /* AppDelegate.swift in Sources */,
+				DAC3EDBB1B07B05600E304AC /* ConvrtSession.swift in Sources */,
 				DAC3EDB01B0741D200E304AC /* AAWindow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -352,6 +393,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Convrt/Frameworks",
+				);
 				INFOPLIST_FILE = Convrt/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -362,6 +407,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Convrt/Frameworks",
+				);
 				INFOPLIST_FILE = Convrt/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
