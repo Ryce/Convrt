@@ -9,16 +9,27 @@
 import UIKit
 import Alamofire
 
-struct Currency {
+struct Currency: Equatable {
     let name: String
     let identifier: String
 }
 
-struct CurrencyPair {
+func ==(lhs: Currency, rhs: Currency) -> Bool {
+    return lhs.name == rhs.name
+}
+
+struct CurrencyPair: Equatable {
     let fromCurrency: Currency
     let toCurrency: Currency
     var rate: Double?
+    
 }
+
+func ==(lhs: CurrencyPair, rhs: CurrencyPair) -> Bool {
+    return lhs.fromCurrency == rhs.fromCurrency && lhs.toCurrency == rhs.toCurrency
+}
+
+let klastUpdatedDateKey = ""
 
 class ConvrtSession: NSObject {
     
@@ -33,20 +44,71 @@ class ConvrtSession: NSObject {
         return Static.instance!
     }
     
+    let dateFormatter: NSDateFormatter = {
+        let formatter = NSDateFormatter()
+        return formatter
+    }()
+    
+    private var _lastUpdated: NSDate?
+    internal(set) var lastUpdated: NSDate {
+        get {
+            if let lup = self._lastUpdated {
+                return lup
+            }
+            if let date = NSUserDefaults.standardUserDefaults().valueForKey(klastUpdatedDateKey) as? NSDate {
+                self._lastUpdated = date
+                return self._lastUpdated!
+            }
+            return NSDate(timeIntervalSinceNow: 0)
+        }
+        set {
+            self._lastUpdated = newValue
+            NSUserDefaults.standardUserDefaults().setValue(_lastUpdated, forKey: klastUpdatedDateKey)
+            NSUserDefaults.standardUserDefaults().synchronize()
+        }
+    }
+    
     let manager: Manager = Alamofire.Manager.sharedInstance
     let baseURL = "http://query.yahooapis.com/v1/public/yql?q="
     
     func fetchRatesForCurrencies(currencies: Array<CurrencyPair>, completion: (items: Array<CurrencyPair>?, error: NSError?) -> ()) {
-        let urlString = baseURL + (self.constructYQL(currencies) as NSString).stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
+        let urlString = baseURL + self.constructYQL(currencies)
         manager.request(Method.GET, urlString, parameters: nil, encoding: .URL)
-            .responseJSON(options: NSJSONReadingOptions.AllowFragments) { (_, _, data, error) -> Void in
-                let newCurrencies = Array<CurrencyPair>()
-                completion(items: newCurrencies, error: nil)
-        }
+            .responseJSON { (_, _, JSON, error) -> Void in
+                
+                let objects = JSON?["query"] as? NSDictionary
+                if let _objects = objects?.valueForKeyPath("results.rate") as? Array<Dictionary<String, String>> {
+                    var newCurrencies = Array<CurrencyPair>()
+
+                    for dict in _objects {
+                        let nameArray = dict["Name"]?.componentsSeparatedByString("/")
+                        let fromCurrency = Currency(name: nameArray![0], identifier: nameArray![0])
+                        let toCurrency = Currency(name: nameArray![1], identifier: nameArray![1])
+                        let rate = dict["Rate"]! as NSString
+                        newCurrencies.append(CurrencyPair(fromCurrency: fromCurrency, toCurrency: toCurrency, rate: rate.doubleValue))
+                    }
+                    
+                    completion(items: newCurrencies, error: nil)
+                } else {
+                    completion(items: nil, error: NSError())
+                }
+                
+            }
     }
     
     func constructYQL(currencies: Array<CurrencyPair>) -> String {
-        return ""
+        var constructionString = ""
+        let prefix = "select%20*%20from%20yahoo.finance.xchange%20where%20pair%20in%20%28"
+        let suffix = "%29&format=json&env=store://datatables.org/alltableswithkeys"
+        
+        for (index, pair) in enumerate(currencies) {
+            constructionString += "%22" + pair.fromCurrency.identifier + pair.toCurrency.identifier + "%22"
+            if count(currencies) != index + 1 {
+                constructionString += ",%20"
+            }
+        }
+        
+        return prefix + constructionString + suffix
     }
     
 }
