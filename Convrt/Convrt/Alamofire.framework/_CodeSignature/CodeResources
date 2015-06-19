@@ -4,76 +4,68 @@
 <dict>
 	<key>files</key>
 	<dict>
-		<key>Headers/AssociatedObject.h</key>
+		<key>Headers/Alamofire-Swift.h</key>
 		<data>
-		mIBpVK4orcQJg959ZlfCIJ4cHiQ=
+		HiQtSuDBMB+nsgQg1fOFtUYxpE0=
 		</data>
-		<key>Headers/CleanroomBase-Swift.h</key>
+		<key>Headers/Alamofire.h</key>
 		<data>
-		Bz5pKBEXv/5QXDU0RsiXzlavNoU=
-		</data>
-		<key>Headers/ExceptionTrap.h</key>
-		<data>
-		SAQTW3mKFHmG14p2XhXK6IlXagk=
+		wyYe0HQCA0Vux7J1SUB1vFFWZ0o=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		mEvwPP3A5lLd4CQo6ARFnfRWtRo=
+		68gVfXpbIeE3fxTChRc7e0WUYCI=
 		</data>
-		<key>Modules/CleanroomBase.swiftmodule/arm.swiftdoc</key>
+		<key>Modules/Alamofire.swiftmodule/arm.swiftdoc</key>
 		<data>
-		AjdECnx9I0tFBRqG91DJlQsWeZA=
+		z0J1iKF0L7MzkoRvSo6EFoAoSjE=
 		</data>
-		<key>Modules/CleanroomBase.swiftmodule/arm.swiftmodule</key>
+		<key>Modules/Alamofire.swiftmodule/arm.swiftmodule</key>
 		<data>
-		/6Hbfg9ZXiada8siqx3V68JMCJo=
+		YK9FJ73iMWj08Vzjjskt51iII9k=
 		</data>
-		<key>Modules/CleanroomBase.swiftmodule/arm64.swiftdoc</key>
+		<key>Modules/Alamofire.swiftmodule/arm64.swiftdoc</key>
 		<data>
-		wI5r8gW9/95j+gtZe8lxoQ7Ux08=
+		3L0wY9RGmza29vUhfscRNugA1Cs=
 		</data>
-		<key>Modules/CleanroomBase.swiftmodule/arm64.swiftmodule</key>
+		<key>Modules/Alamofire.swiftmodule/arm64.swiftmodule</key>
 		<data>
-		elE4jRcMdjKAQm9Fdm7pMaFR8eA=
+		iHWp7IYSqHZPchzsBO6tM7nPv8A=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
-		sqJmdhRLjGmPYof21Dw7o033Bok=
+		oUms7QxpPFGK02DLqqScqq/7uwc=
 		</data>
 	</dict>
 	<key>files2</key>
 	<dict>
-		<key>Headers/AssociatedObject.h</key>
+		<key>Headers/Alamofire-Swift.h</key>
 		<data>
-		mIBpVK4orcQJg959ZlfCIJ4cHiQ=
+		HiQtSuDBMB+nsgQg1fOFtUYxpE0=
 		</data>
-		<key>Headers/CleanroomBase-Swift.h</key>
+		<key>Headers/Alamofire.h</key>
 		<data>
-		Bz5pKBEXv/5QXDU0RsiXzlavNoU=
+		wyYe0HQCA0Vux7J1SUB1vFFWZ0o=
 		</data>
-		<key>Headers/ExceptionTrap.h</key>
+		<key>Modules/Alamofire.swiftmodule/arm.swiftdoc</key>
 		<data>
-		SAQTW3mKFHmG14p2XhXK6IlXagk=
+		z0J1iKF0L7MzkoRvSo6EFoAoSjE=
 		</data>
-		<key>Modules/CleanroomBase.swiftmodule/arm.swiftdoc</key>
+		<key>Modules/Alamofire.swiftmodule/arm.swiftmodule</key>
 		<data>
-		AjdECnx9I0tFBRqG91DJlQsWeZA=
+		YK9FJ73iMWj08Vzjjskt51iII9k=
 		</data>
-		<key>Modules/CleanroomBase.swiftmodule/arm.swiftmodule</key>
+		<key>Modules/Alamofire.swiftmodule/arm64.swiftdoc</key>
 		<data>
-		/6Hbfg9ZXiada8siqx3V68JMCJo=
+		3L0wY9RGmza29vUhfscRNugA1Cs=
 		</data>
-		<key>Modules/CleanroomBase.swiftmodule/arm64.swiftdoc</key>
+		<key>Modules/Alamofire.swiftmodule/arm64.swiftmodule</key>
 		<data>
-		wI5r8gW9/95j+gtZe8lxoQ7Ux08=
-		</data>
-		<key>Modules/CleanroomBase.swiftmodule/arm64.swiftmodule</key>
-		<data>
-		elE4jRcMdjKAQm9Fdm7pMaFR8eA=
+		iHWp7IYSqHZPchzsBO6tM7nPv8A=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
-		sqJmdhRLjGmPYof21Dw7o033Bok=
+		oUms7QxpPFGK02DLqqScqq/7uwc=
 		</data>
 	</dict>
 	<key>rules</key>

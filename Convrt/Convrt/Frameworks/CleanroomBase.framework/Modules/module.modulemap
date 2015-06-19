@@ -1,3 +1,0 @@
-framework module CleanroomBase {
-    header "CleanroomBase-Swift.h"
-}

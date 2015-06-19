@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CleanroomLogger
 
 class ViewController: UIViewController {
 
@@ -30,7 +29,7 @@ class ViewController: UIViewController {
             CurrencyPair(fromCurrency: eur, toCurrency: gbp, rate: nil),
             CurrencyPair(fromCurrency: usd, toCurrency: eur, rate: nil)]
         ConvrtSession.sharedInstance.fetchRatesForCurrencies(currencyArray, completion: { (items, error) -> () in
-            Log.debug
+            
         })
     }
     

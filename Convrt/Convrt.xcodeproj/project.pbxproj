@@ -7,11 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DA51B9491B344F06006AD73B /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA51B9481B344F06006AD73B /* Alamofire.framework */; };
 		DAC3EDB01B0741D200E304AC /* AAWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC3EDAF1B0741D200E304AC /* AAWindow.swift */; };
-		DAC3EDB51B07AEDE00E304AC /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAC3EDB11B07AEDE00E304AC /* Alamofire.framework */; };
-		DAC3EDB61B07AEDE00E304AC /* CleanroomASL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAC3EDB21B07AEDE00E304AC /* CleanroomASL.framework */; };
-		DAC3EDB71B07AEDE00E304AC /* CleanroomBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAC3EDB31B07AEDE00E304AC /* CleanroomBase.framework */; };
-		DAC3EDB81B07AEDE00E304AC /* CleanroomLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAC3EDB41B07AEDE00E304AC /* CleanroomLogger.framework */; };
 		DAC3EDBB1B07B05600E304AC /* ConvrtSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC3EDBA1B07B05600E304AC /* ConvrtSession.swift */; };
 		DADD1B1C1B073D6A00DC9269 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD1B1B1B073D6A00DC9269 /* AppDelegate.swift */; };
 		DADD1B1E1B073D6A00DC9269 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD1B1D1B073D6A00DC9269 /* ViewController.swift */; };
@@ -32,11 +29,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DA51B9481B344F06006AD73B /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Alamofire.framework; sourceTree = "<group>"; };
 		DAC3EDAF1B0741D200E304AC /* AAWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AAWindow.swift; path = Frameworks/AAWindow.swift; sourceTree = "<group>"; };
-		DAC3EDB11B07AEDE00E304AC /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Frameworks/Alamofire.framework; sourceTree = "<group>"; };
-		DAC3EDB21B07AEDE00E304AC /* CleanroomASL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CleanroomASL.framework; path = Frameworks/CleanroomASL.framework; sourceTree = "<group>"; };
-		DAC3EDB31B07AEDE00E304AC /* CleanroomBase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CleanroomBase.framework; path = Frameworks/CleanroomBase.framework; sourceTree = "<group>"; };
-		DAC3EDB41B07AEDE00E304AC /* CleanroomLogger.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CleanroomLogger.framework; path = Frameworks/CleanroomLogger.framework; sourceTree = "<group>"; };
 		DAC3EDBA1B07B05600E304AC /* ConvrtSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvrtSession.swift; sourceTree = "<group>"; };
 		DADD1B161B073D6A00DC9269 /* Convrt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Convrt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DADD1B1A1B073D6A00DC9269 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -55,10 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DAC3EDB61B07AEDE00E304AC /* CleanroomASL.framework in Frameworks */,
-				DAC3EDB81B07AEDE00E304AC /* CleanroomLogger.framework in Frameworks */,
-				DAC3EDB51B07AEDE00E304AC /* Alamofire.framework in Frameworks */,
-				DAC3EDB71B07AEDE00E304AC /* CleanroomBase.framework in Frameworks */,
+				DA51B9491B344F06006AD73B /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,10 +66,7 @@
 		DAC3EDAE1B0741BB00E304AC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DAC3EDB11B07AEDE00E304AC /* Alamofire.framework */,
-				DAC3EDB21B07AEDE00E304AC /* CleanroomASL.framework */,
-				DAC3EDB31B07AEDE00E304AC /* CleanroomBase.framework */,
-				DAC3EDB41B07AEDE00E304AC /* CleanroomLogger.framework */,
+				DA51B9481B344F06006AD73B /* Alamofire.framework */,
 				DAC3EDAF1B0741D200E304AC /* AAWindow.swift */,
 			);
 			name = Frameworks;
@@ -247,9 +235,6 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Convrt/Frameworks/Alamofire.framework",
-				"$(SRCROOT)/Convrt/Frameworks/CleanroomASL.framework",
-				"$(SRCROOT)/Convrt/Frameworks/CleanroomBase.framework",
-				"$(SRCROOT)/Convrt/Frameworks/CleanroomLogger.framework",
 			);
 			outputPaths = (
 			);

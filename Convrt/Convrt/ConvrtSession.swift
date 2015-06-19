@@ -12,6 +12,7 @@ import Alamofire
 struct Currency: Equatable {
     let name: String
     let identifier: String
+    
 }
 
 func ==(lhs: Currency, rhs: Currency) -> Bool {
