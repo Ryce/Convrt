@@ -187,6 +187,7 @@
 		DADD1B0E1B073D6A00DC9269 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = ryce;
 				TargetAttributes = {

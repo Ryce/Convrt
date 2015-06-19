@@ -101,9 +101,9 @@ class ConvrtSession: NSObject {
         let prefix = "select%20*%20from%20yahoo.finance.xchange%20where%20pair%20in%20%28"
         let suffix = "%29&format=json&env=store://datatables.org/alltableswithkeys"
         
-        for (index, pair) in enumerate(currencies) {
+        for (index, pair) in currencies.enumerate() {
             constructionString += "%22" + pair.fromCurrency.identifier + pair.toCurrency.identifier + "%22"
-            if count(currencies) != index + 1 {
+            if currencies.count != index + 1 {
                 constructionString += ",%20"
             }
         }

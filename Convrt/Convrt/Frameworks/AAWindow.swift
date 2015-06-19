@@ -79,7 +79,7 @@ class AAWindow: UIWindow {
         //Filter touches from other UIEventTypes.
         if (event.type == UIEventType.Touches) {
             for touchevent in event.allTouches()! {
-                var touch = touchevent as! UITouch
+                let touch = touchevent as UITouch
 
                 if (touch.phase == UITouchPhase.Began && touch.locationInView(self).y - self.frame.height * 0.9 >= 0) {
                     //willOpenControlCenter is true for a short period of time when the user touches in the bottom area of the screen. If in this period of time "applicationWillResignActive" is called it's highly likely (basically certain) that the user has launched Control Center.
@@ -90,7 +90,7 @@ class AAWindow: UIWindow {
                     }
                     
                     //If the Statusbar is hidden (which means the app is in full-screen mode) the timerInterval has to be longer since it will take the user a maximum amount of ~3 seconds to open Control Center since he has to use the little handle coming up from the bottom.
-                    var timerInterval : Double = {
+                    let timerInterval : Double = {
                         if (UIApplication.sharedApplication().statusBarHidden) {
                             return 2.75
                         } else {
@@ -111,7 +111,7 @@ class AAWindow: UIWindow {
     //CornerRadius Animation setup.
     private func animateCornerRadius(fromValue : CGFloat, toValue: CGFloat, withDuration : Double, forKey : String) -> CABasicAnimation {
         
-        var animation : CABasicAnimation = CABasicAnimation(keyPath: forKey)
+        let animation : CABasicAnimation = CABasicAnimation(keyPath: forKey)
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
         animation.fromValue = fromValue
         animation.toValue = toValue
