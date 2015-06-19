@@ -9,10 +9,13 @@
 import UIKit
 import Alamofire
 
+enum ConvrtError : ErrorType {
+    case ConnectionError
+}
+
 struct Currency: Equatable {
     let name: String
     let identifier: String
-    
 }
 
 func ==(lhs: Currency, rhs: Currency) -> Bool {
@@ -23,7 +26,6 @@ struct CurrencyPair: Equatable {
     let fromCurrency: Currency
     let toCurrency: Currency
     var rate: Double?
-    
 }
 
 func ==(lhs: CurrencyPair, rhs: CurrencyPair) -> Bool {
@@ -91,7 +93,7 @@ class ConvrtSession: NSObject {
                     
                     completion(items: newCurrencies, error: nil)
                 } else {
-                    completion(items: nil, error: NSError())
+                    completion(items: nil, error: NSError(domain: NSURLErrorDomain, code: 999, userInfo: nil))
                 }
                 
             }

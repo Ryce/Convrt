@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		DA51B94B1B3462D4006AD73B /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA51B94A1B3462D4006AD73B /* Alamofire.framework */; };
+		DA51B94D1B3469FF006AD73B /* currency.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA51B94C1B3469FF006AD73B /* currency.plist */; };
 		DAC3EDB01B0741D200E304AC /* AAWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC3EDAF1B0741D200E304AC /* AAWindow.swift */; };
 		DAC3EDBB1B07B05600E304AC /* ConvrtSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC3EDBA1B07B05600E304AC /* ConvrtSession.swift */; };
 		DADD1B1C1B073D6A00DC9269 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD1B1B1B073D6A00DC9269 /* AppDelegate.swift */; };
@@ -30,6 +31,7 @@
 
 /* Begin PBXFileReference section */
 		DA51B94A1B3462D4006AD73B /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Frameworks/Alamofire.framework; sourceTree = "<group>"; };
+		DA51B94C1B3469FF006AD73B /* currency.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = currency.plist; sourceTree = "<group>"; };
 		DAC3EDAF1B0741D200E304AC /* AAWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AAWindow.swift; path = Frameworks/AAWindow.swift; sourceTree = "<group>"; };
 		DAC3EDBA1B07B05600E304AC /* ConvrtSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvrtSession.swift; sourceTree = "<group>"; };
 		DADD1B161B073D6A00DC9269 /* Convrt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Convrt.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -108,6 +110,7 @@
 		DADD1B191B073D6A00DC9269 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				DA51B94C1B3469FF006AD73B /* currency.plist */,
 				DADD1B1A1B073D6A00DC9269 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -215,6 +218,7 @@
 				DADD1B211B073D6A00DC9269 /* Main.storyboard in Resources */,
 				DADD1B261B073D6A00DC9269 /* LaunchScreen.xib in Resources */,
 				DADD1B231B073D6A00DC9269 /* Images.xcassets in Resources */,
+				DA51B94D1B3469FF006AD73B /* currency.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
