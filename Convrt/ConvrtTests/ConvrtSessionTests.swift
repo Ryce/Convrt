@@ -61,10 +61,37 @@ class ConvrtSessionTests: XCTestCase {
             CurrencyPair(fromCurrency: eur, toCurrency: gbp),
             CurrencyPair(fromCurrency: usd, toCurrency: eur)]
         
+        let expectation = self.expectationWithDescription("fetchRates Expectation")
+        
+        var optionalItems: [CurrencyPair]?
+        var optionalError: ConvrtError?
+        
         ConvrtSession.sharedInstance.fetchRatesForCurrencies(currencyArray, completion: { (items, error) -> () in
             
+            optionalItems = items
+            optionalError = error
+            
+            expectation.fulfill()
         })
-
+        
+        self.waitForExpectationsWithTimeout(30, handler: nil)
+        
+        if let actualItems = optionalItems {
+            if actualItems.count != 3 {
+                XCTFail()
+            }
+        } else {
+            XCTFail()
+        }
+        
+        if let actualError = optionalError {
+            if actualError != .NoError {
+                XCTFail()
+            }
+        } else {
+            XCTFail()
+        }
+        
     }
     
 }
