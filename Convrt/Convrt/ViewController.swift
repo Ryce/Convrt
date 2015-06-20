@@ -8,10 +8,14 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    @IBOutlet var collectionView: UICollectionView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.collectionView.registerClass(ConvrtCollectionViewCell.self, forCellWithReuseIdentifier: ConvrtCollectionViewCell.kCellIdentifier)
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -31,6 +35,27 @@ class ViewController: UIViewController {
         ConvrtSession.sharedInstance.fetchRatesForCurrencies(currencyArray, completion: { (items, error) -> () in
             
         })
+    }
+    
+    // MARK: UICollectionViewDataSource
+    
+    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 0
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ConvrtCollectionViewCell.kCellIdentifier, forIndexPath: indexPath)
+        return cell
+    }
+    
+    // MARK: UICollectionViewDelegate
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        // TODO:
     }
     
 }

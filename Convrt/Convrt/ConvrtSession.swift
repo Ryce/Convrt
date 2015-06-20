@@ -10,16 +10,36 @@ import UIKit
 import Alamofire
 
 enum ConvrtError : ErrorType {
-    case ConnectionError
+    case NoError, ConnectionError, ParseError
 }
 
-struct Currency: Equatable {
-    let name: String
-    let identifier: String
+struct Currency: Equatable, NilLiteralConvertible {
+    
+    init(nilLiteral: ()) {
+        title = ""
+        code = ""
+        country = ""
+    }
+    
+    init(someTitle: String, someCode: String, someCountry: String) {
+        title = someTitle
+        code = someCode
+        country = someCountry
+    }
+    
+    init(name: String, identifier: String) {
+        title = name
+        code = identifier
+        country = ""
+    }
+    
+    let title: String
+    let code: String
+    let country: String
 }
 
 func ==(lhs: Currency, rhs: Currency) -> Bool {
-    return lhs.name == rhs.name
+    return lhs.code == rhs.code
 }
 
 struct CurrencyPair: Equatable {
@@ -47,11 +67,29 @@ class ConvrtSession: NSObject {
         return Static.instance!
     }
     
+    
     let dateFormatter: NSDateFormatter = {
         let formatter = NSDateFormatter()
         return formatter
     }()
     
+    var selectedCurrencies = Array<Currency>()
+    
+    let fullCurrenyList: Array<Currency>? = {
+        
+        if let plistPath = NSBundle.mainBundle().pathForResource("currency", ofType: "plist") {
+            let plistArray = NSArray(contentsOfFile: plistPath) as! Array<AnyObject>
+            
+            return plistArray.map {
+                guard let title = $0["title"] as? String else { return nil }
+                guard let code = $0["code"] as? String else { return nil }
+                guard let country = $0["country"] as? String else { return nil }
+                return Currency(someTitle: title, someCode: code, someCountry: country)
+            }
+        }
+        return nil
+    }()
+
     private var _lastUpdated: NSDate?
     internal(set) var lastUpdated: NSDate {
         get {
@@ -74,7 +112,7 @@ class ConvrtSession: NSObject {
     let manager: Manager = Alamofire.Manager.sharedInstance
     let baseURL = "http://query.yahooapis.com/v1/public/yql?q="
     
-    func fetchRatesForCurrencies(currencies: Array<CurrencyPair>, completion: (items: Array<CurrencyPair>?, error: NSError?) -> ()) {
+    func fetchRatesForCurrencies(currencies: Array<CurrencyPair>, completion: (items: Array<CurrencyPair>?, error: ConvrtError) -> ()) {
         let urlString = baseURL + self.constructYQL(currencies)
         manager.request(Method.GET, urlString, parameters: nil, encoding: .URL)
             .responseJSON { (_, _, JSON, error) -> Void in
@@ -91,9 +129,9 @@ class ConvrtSession: NSObject {
                         newCurrencies.append(CurrencyPair(fromCurrency: fromCurrency, toCurrency: toCurrency, rate: rate.doubleValue))
                     }
                     
-                    completion(items: newCurrencies, error: nil)
+                    completion(items: newCurrencies, error: ConvrtError.NoError)
                 } else {
-                    completion(items: nil, error: NSError(domain: NSURLErrorDomain, code: 999, userInfo: nil))
+                    completion(items: nil, error: ConvrtError.ParseError)
                 }
                 
             }
@@ -105,7 +143,7 @@ class ConvrtSession: NSObject {
         let suffix = "%29&format=json&env=store://datatables.org/alltableswithkeys"
         
         for (index, pair) in currencies.enumerate() {
-            constructionString += "%22" + pair.fromCurrency.identifier + pair.toCurrency.identifier + "%22"
+            constructionString += "%22" + pair.fromCurrency.code + pair.toCurrency.code + "%22"
             if currencies.count != index + 1 {
                 constructionString += ",%20"
             }
