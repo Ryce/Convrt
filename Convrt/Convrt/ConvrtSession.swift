@@ -13,9 +13,9 @@ enum ConvrtError : ErrorType {
     case NoError, ConnectionError, ParseError
 }
 
-struct Currency: Equatable, NilLiteralConvertible {
+public struct Currency: Equatable, NilLiteralConvertible {
     
-    init(nilLiteral: ()) {
+    public init(nilLiteral: ()) {
         title = ""
         code = ""
         country = ""
@@ -38,7 +38,7 @@ struct Currency: Equatable, NilLiteralConvertible {
     let country: String
 }
 
-func ==(lhs: Currency, rhs: Currency) -> Bool {
+public func ==(lhs: Currency, rhs: Currency) -> Bool {
     return lhs.code == rhs.code
 }
 
@@ -54,9 +54,9 @@ func ==(lhs: CurrencyPair, rhs: CurrencyPair) -> Bool {
 
 let klastUpdatedDateKey = ""
 
-class ConvrtSession: NSObject {
+public class ConvrtSession: NSObject {
     
-    class var sharedInstance: ConvrtSession {
+    public class var sharedInstance: ConvrtSession {
         struct Static {
             static var onceToken: dispatch_once_t = 0
             static var instance: ConvrtSession? = nil
@@ -75,7 +75,7 @@ class ConvrtSession: NSObject {
     
     var selectedCurrencies = Array<Currency>()
     
-    let fullCurrenyList: Array<Currency> = {
+    public let fullCurrenyList: Array<Currency> = {
         let plistPath = NSBundle.mainBundle().pathForResource("currency", ofType: "plist")!
         let plistArray = NSArray(contentsOfFile: plistPath) as! Array<AnyObject>
         
@@ -84,7 +84,7 @@ class ConvrtSession: NSObject {
             guard let code = $0["code"] as? String else { return nil }
             guard let country = $0["country"] as? String else { return nil }
             return Currency(someTitle: title, someCode: code, someCountry: country)
-            }.filter {$0 == nil}
+            }.filter {$0 != nil}
     }()
 
     private var _lastUpdated: NSDate?

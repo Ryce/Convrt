@@ -10,6 +10,8 @@
 		DA51B94B1B3462D4006AD73B /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA51B94A1B3462D4006AD73B /* Alamofire.framework */; };
 		DA51B94D1B3469FF006AD73B /* currency.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA51B94C1B3469FF006AD73B /* currency.plist */; };
 		DA51B94F1B356C5B006AD73B /* ConvrtCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA51B94E1B356C5B006AD73B /* ConvrtCollectionViewCell.swift */; };
+		DA686F6A1B35D38E004D62B2 /* ConvrtSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA686F691B35D38E004D62B2 /* ConvrtSessionTests.swift */; };
+		DA686F6E1B35D807004D62B2 /* currency.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA51B94C1B3469FF006AD73B /* currency.plist */; };
 		DAC3EDB01B0741D200E304AC /* AAWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC3EDAF1B0741D200E304AC /* AAWindow.swift */; };
 		DAC3EDBB1B07B05600E304AC /* ConvrtSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC3EDBA1B07B05600E304AC /* ConvrtSession.swift */; };
 		DADD1B1C1B073D6A00DC9269 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD1B1B1B073D6A00DC9269 /* AppDelegate.swift */; };
@@ -34,6 +36,7 @@
 		DA51B94A1B3462D4006AD73B /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Frameworks/Alamofire.framework; sourceTree = "<group>"; };
 		DA51B94C1B3469FF006AD73B /* currency.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = currency.plist; sourceTree = "<group>"; };
 		DA51B94E1B356C5B006AD73B /* ConvrtCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvrtCollectionViewCell.swift; sourceTree = "<group>"; };
+		DA686F691B35D38E004D62B2 /* ConvrtSessionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvrtSessionTests.swift; sourceTree = "<group>"; };
 		DAC3EDAF1B0741D200E304AC /* AAWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AAWindow.swift; path = Frameworks/AAWindow.swift; sourceTree = "<group>"; };
 		DAC3EDBA1B07B05600E304AC /* ConvrtSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvrtSession.swift; sourceTree = "<group>"; };
 		DADD1B161B073D6A00DC9269 /* Convrt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Convrt.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -148,6 +151,7 @@
 			children = (
 				DADD1B311B073D6A00DC9269 /* ConvrtTests.swift */,
 				DADD1B2F1B073D6A00DC9269 /* Supporting Files */,
+				DA686F691B35D38E004D62B2 /* ConvrtSessionTests.swift */,
 			);
 			path = ConvrtTests;
 			sourceTree = "<group>";
@@ -188,6 +192,7 @@
 				DADD1B271B073D6A00DC9269 /* Sources */,
 				DADD1B281B073D6A00DC9269 /* Frameworks */,
 				DADD1B291B073D6A00DC9269 /* Resources */,
+				DA686F6C1B35D7C7004D62B2 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -253,12 +258,27 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA686F6E1B35D807004D62B2 /* currency.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		DA686F6C1B35D7C7004D62B2 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Convrt/Frameworks/Alamofire.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
 		DAC3EDB91B07AF0600E304AC /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -292,6 +312,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA686F6A1B35D38E004D62B2 /* ConvrtSessionTests.swift in Sources */,
 				DADD1B321B073D6A00DC9269 /* ConvrtTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
