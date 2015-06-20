@@ -13,9 +13,9 @@ enum ConvrtError : ErrorType {
     case NoError, ConnectionError, ParseError
 }
 
-public struct Currency: Equatable, NilLiteralConvertible {
+struct Currency: Equatable, NilLiteralConvertible {
     
-    public init(nilLiteral: ()) {
+    init(nilLiteral: ()) {
         title = ""
         code = ""
         country = ""
@@ -38,11 +38,23 @@ public struct Currency: Equatable, NilLiteralConvertible {
     let country: String
 }
 
-public func ==(lhs: Currency, rhs: Currency) -> Bool {
+func ==(lhs: Currency, rhs: Currency) -> Bool {
     return lhs.code == rhs.code
 }
 
 struct CurrencyPair: Equatable {
+    
+    init(fromCurrency: Currency, toCurrency: Currency) {
+        self.fromCurrency = fromCurrency
+        self.toCurrency = toCurrency
+    }
+    
+    init(fromCurrency: Currency, toCurrency: Currency, rate: Double) {
+        self.fromCurrency = fromCurrency
+        self.toCurrency = toCurrency
+        self.rate = rate;
+    }
+
     let fromCurrency: Currency
     let toCurrency: Currency
     var rate: Double?
@@ -54,9 +66,9 @@ func ==(lhs: CurrencyPair, rhs: CurrencyPair) -> Bool {
 
 let klastUpdatedDateKey = ""
 
-public class ConvrtSession: NSObject {
+class ConvrtSession: NSObject {
     
-    public class var sharedInstance: ConvrtSession {
+    class var sharedInstance: ConvrtSession {
         struct Static {
             static var onceToken: dispatch_once_t = 0
             static var instance: ConvrtSession? = nil
@@ -75,7 +87,7 @@ public class ConvrtSession: NSObject {
     
     var selectedCurrencies = Array<Currency>()
     
-    public let fullCurrenyList: Array<Currency> = {
+    let fullCurrenyList: Array<Currency> = {
         let plistPath = NSBundle.mainBundle().pathForResource("currency", ofType: "plist")!
         let plistArray = NSArray(contentsOfFile: plistPath) as! Array<AnyObject>
         
@@ -134,7 +146,7 @@ public class ConvrtSession: NSObject {
             }
     }
     
-    func constructYQL(currencies: Array<CurrencyPair>) -> String {
+    func constructYQL(currencies: [CurrencyPair]) -> String {
         var constructionString = ""
         let prefix = "select%20*%20from%20yahoo.finance.xchange%20where%20pair%20in%20%28"
         let suffix = "%29&format=json&env=store://datatables.org/alltableswithkeys"

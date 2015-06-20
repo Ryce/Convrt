@@ -8,7 +8,7 @@
 
 import UIKit
 import XCTest
-import Convrt
+@testable import Convrt
 
 class ConvrtSessionTests: XCTestCase {
     
@@ -38,7 +38,33 @@ class ConvrtSessionTests: XCTestCase {
         let currencyList = ConvrtSession.sharedInstance.fullCurrenyList
         
         XCTAssert(!currencyList.isEmpty)
+    }
+    
+    func testYQLConstructor() {
+        let usd = Currency(name: "", identifier: "USD")
+        let eur = Currency(name: "", identifier: "EUR")
+        let gbp = Currency(name: "", identifier: "GBP")
+        let currencies = [CurrencyPair(fromCurrency: usd, toCurrency: eur), CurrencyPair(fromCurrency: usd, toCurrency: gbp)]
         
+        let yqlString = ConvrtSession.sharedInstance.constructYQL(currencies)
+        
+        XCTAssertNotNil(yqlString)
+        XCTAssertGreaterThan(yqlString.characters.count, 0)
+    }
+    
+    func testConversion() {
+        let usd = Currency(name: "US Dollar", identifier: "USD")
+        let eur = Currency(name: "Euro", identifier: "EUR")
+        let gbp = Currency(name: "Pound Sterling", identifier: "GBP")
+        let hkd = Currency(name: "Hong Kong Dollar", identifier: "HKD")
+        let currencyArray = [CurrencyPair(fromCurrency: usd, toCurrency: hkd),
+            CurrencyPair(fromCurrency: eur, toCurrency: gbp),
+            CurrencyPair(fromCurrency: usd, toCurrency: eur)]
+        
+        ConvrtSession.sharedInstance.fetchRatesForCurrencies(currencyArray, completion: { (items, error) -> () in
+            
+        })
+
     }
     
 }
