@@ -33,4 +33,8 @@ class ConvrtTests: XCTestCase {
         }
     }
     
+    func testFullCurrencyList() {
+        
+    }
+    
 }

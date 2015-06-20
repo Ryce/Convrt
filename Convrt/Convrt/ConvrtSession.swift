@@ -75,19 +75,16 @@ class ConvrtSession: NSObject {
     
     var selectedCurrencies = Array<Currency>()
     
-    let fullCurrenyList: Array<Currency>? = {
+    let fullCurrenyList: Array<Currency> = {
+        let plistPath = NSBundle.mainBundle().pathForResource("currency", ofType: "plist")!
+        let plistArray = NSArray(contentsOfFile: plistPath) as! Array<AnyObject>
         
-        if let plistPath = NSBundle.mainBundle().pathForResource("currency", ofType: "plist") {
-            let plistArray = NSArray(contentsOfFile: plistPath) as! Array<AnyObject>
-            
-            return plistArray.map {
-                guard let title = $0["title"] as? String else { return nil }
-                guard let code = $0["code"] as? String else { return nil }
-                guard let country = $0["country"] as? String else { return nil }
-                return Currency(someTitle: title, someCode: code, someCountry: country)
-            }
-        }
-        return nil
+        return plistArray.map {
+            guard let title = $0["title"] as? String else { return nil }
+            guard let code = $0["code"] as? String else { return nil }
+            guard let country = $0["country"] as? String else { return nil }
+            return Currency(someTitle: title, someCode: code, someCountry: country)
+            }.filter {$0 == nil}
     }()
 
     private var _lastUpdated: NSDate?
