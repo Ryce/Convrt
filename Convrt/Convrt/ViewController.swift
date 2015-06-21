@@ -9,7 +9,10 @@
 import UIKit
 
 // TODO: switch back to UIViewController + iboutlet UICollectionViewDelegate & DataSource
-class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    @IBOutlet var collectionView: UICollectionView?
+    @IBOutlet var detailView: UIView?
     
     var selectedCurrency: Currency?
     var selectedCurrencyAmount: Double = 0.0
@@ -28,15 +31,15 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
 
     // MARK: UICollectionViewDataSource
     
-    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
     }
     
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return ConvrtSession.sharedInstance.fullCurrenyList.count
     }
     
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ConvrtCollectionViewCell.kCellIdentifier, forIndexPath: indexPath) as! ConvrtCollectionViewCell
         cell.codeLabel?.text = ConvrtSession.sharedInstance.fullCurrenyList[indexPath.row].code
         cell.countryLabel?.text = ConvrtSession.sharedInstance.fullCurrenyList[indexPath.row].title
@@ -45,10 +48,11 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     // MARK: UICollectionViewDelegate
     
-    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         self.selectedCurrency = ConvrtSession.sharedInstance.fullCurrenyList[indexPath.row]
-        let view = CurrencyEditView(frame: collectionView.bounds)
-        collectionView.addSubview(view)
+        UIView.animateWithDuration(0.5) { () -> Void in
+            self.detailView?.alpha = 1.0
+        }
         // TODO: show detail edit view
     }
     

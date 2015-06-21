@@ -30,19 +30,18 @@ class CurrencyEditView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.whiteColor()
-        self.addSubview(self.codeLabel)
-        self.addSubview(self.titleLabel)
-        self.addSubview(self.amountTextField)
         self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: Selector("dismissView")))
     }
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: Selector("dismissView")))
     }
     
     func dismissView() {
-        self.removeFromSuperview()
+        UIView.animateWithDuration(0.5) { () -> Void in
+            self.alpha = 0.0
+        }
     }
 
     /*
