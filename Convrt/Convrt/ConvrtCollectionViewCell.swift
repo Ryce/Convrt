@@ -11,4 +11,8 @@ import UIKit
 class ConvrtCollectionViewCell: UICollectionViewCell {
     static let kCellIdentifier = "com.ryce.convrt.collectionviewcellidentifier"
     
+    @IBOutlet var codeLabel: UILabel?
+    @IBOutlet var amountTextField: UITextField?
+    @IBOutlet var countryLabel: UILabel?
+    
 }
