@@ -10,23 +10,9 @@ import UIKit
 
 class CurrencyEditView: UIView {
     
-    var codeLabel: UILabel = {
-        let label = UILabel()
-        label.text = "USD"
-        return label
-    }()
-    
-    var titleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "United States Dollar"
-        return label
-    }()
-    
-    var amountTextField: UITextField = {
-        let textField = UITextField()
-        
-        return textField
-    }()
+    @IBOutlet var codeLabel: UILabel?
+    @IBOutlet var titleLabel: UILabel?
+    @IBOutlet var amountTextField: UITextField?
     
     override init(frame: CGRect) {
         super.init(frame: frame)

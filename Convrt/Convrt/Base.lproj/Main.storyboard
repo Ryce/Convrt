@@ -5,6 +5,11 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8101.14"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="KannadaSangamMN.ttc">
+            <string>KannadaSangamMN</string>
+        </mutableArray>
+    </customFonts>
     <scenes>
         <!--View Controller-->
         <scene sceneID="oOa-dV-vCj">
@@ -100,8 +105,39 @@
                                         </view>
                                         <blurEffect style="light"/>
                                     </visualEffectView>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FyK-SZ-BPW">
+                                        <rect key="frame" x="234" y="107" width="131" height="45"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="131" id="rUI-dq-Xwe"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="KannadaSangamMN" family="Kannada Sangam MN" pointSize="30"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="USD" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xjL-X7-E8e">
+                                        <rect key="frame" x="245" y="45" width="110" height="32.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="110" id="60T-bP-zTu"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="27"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="United States Dollar" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nPh-JI-BIo">
+                                        <rect key="frame" x="20" y="182.5" width="560" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="xjL-X7-E8e" firstAttribute="top" secondItem="Q0P-v5-9FV" secondAttribute="top" constant="45" id="1pn-qi-sGx"/>
+                                    <constraint firstItem="xjL-X7-E8e" firstAttribute="centerX" secondItem="Q0P-v5-9FV" secondAttribute="centerX" id="Euh-7p-l0R"/>
+                                    <constraint firstItem="nPh-JI-BIo" firstAttribute="top" secondItem="FyK-SZ-BPW" secondAttribute="bottom" constant="30" id="F8L-hn-hWB"/>
+                                    <constraint firstItem="nPh-JI-BIo" firstAttribute="leading" secondItem="Q0P-v5-9FV" secondAttribute="leading" constant="20" id="Uc3-of-S1a"/>
+                                    <constraint firstItem="FyK-SZ-BPW" firstAttribute="top" secondItem="xjL-X7-E8e" secondAttribute="bottom" constant="30" id="f0U-75-v74"/>
+                                    <constraint firstAttribute="trailing" secondItem="nPh-JI-BIo" secondAttribute="trailing" constant="20" id="fxd-k8-UL3"/>
+                                    <constraint firstItem="FyK-SZ-BPW" firstAttribute="centerX" secondItem="Q0P-v5-9FV" secondAttribute="centerX" id="gL9-tQ-mxs"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
