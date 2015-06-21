@@ -8,14 +8,15 @@
 
 import UIKit
 
-class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
-    @IBOutlet var collectionView: UICollectionView!
-
+    var selectedCurrency: Currency?
+    var selectedCurrencyAmount: Double = 0.0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.collectionView.registerClass(ConvrtCollectionViewCell.self, forCellWithReuseIdentifier: ConvrtCollectionViewCell.kCellIdentifier)
+        self.collectionView!.backgroundColor = UIColor.whiteColor()
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -26,24 +27,30 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
 
     // MARK: UICollectionViewDataSource
     
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
+    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return ConvrtSession.sharedInstance.fullCurrenyList.count
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ConvrtCollectionViewCell.kCellIdentifier, forIndexPath: indexPath)
+    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ConvrtCollectionViewCell.kCellIdentifier, forIndexPath: indexPath) as! ConvrtCollectionViewCell
+        cell.codeLabel?.text = ConvrtSession.sharedInstance.fullCurrenyList[indexPath.row].code
+        cell.countryLabel?.text = ConvrtSession.sharedInstance.fullCurrenyList[indexPath.row].title
         return cell
     }
     
     // MARK: UICollectionViewDelegate
     
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        // TODO:
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        self.selectedCurrency = ConvrtSession.sharedInstance.fullCurrenyList[indexPath.row]
+        // TODO: show detail edit view
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        return CGSizeMake(145 * self.view.bounds.size.width/320, 145 * self.view.bounds.size.width/320);
     }
     
 }
-
