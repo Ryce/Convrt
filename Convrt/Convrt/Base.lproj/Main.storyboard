@@ -105,13 +105,16 @@
                                         </view>
                                         <blurEffect style="light"/>
                                     </visualEffectView>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FyK-SZ-BPW">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FyK-SZ-BPW">
                                         <rect key="frame" x="234" y="107" width="131" height="45"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="131" id="rUI-dq-Xwe"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="KannadaSangamMN" family="Kannada Sangam MN" pointSize="30"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="Q0P-v5-9FV" id="onz-YX-oFW"/>
+                                        </connections>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="USD" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xjL-X7-E8e">
                                         <rect key="frame" x="245" y="45" width="110" height="32.5"/>
@@ -138,6 +141,11 @@
                                     <constraint firstAttribute="trailing" secondItem="nPh-JI-BIo" secondAttribute="trailing" constant="20" id="fxd-k8-UL3"/>
                                     <constraint firstItem="FyK-SZ-BPW" firstAttribute="centerX" secondItem="Q0P-v5-9FV" secondAttribute="centerX" id="gL9-tQ-mxs"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="amountTextField" destination="FyK-SZ-BPW" id="MAv-Ef-yFR"/>
+                                    <outlet property="codeLabel" destination="xjL-X7-E8e" id="W1e-Sm-PnS"/>
+                                    <outlet property="titleLabel" destination="nPh-JI-BIo" id="gaw-vt-vXh"/>
+                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
