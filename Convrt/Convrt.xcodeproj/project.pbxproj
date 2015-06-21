@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		DA277DEF1B36D1C500B2E28F /* currencies.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA277DEE1B36D1C500B2E28F /* currencies.plist */; };
+		DA277DF11B36D96400B2E28F /* CurrencyEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA277DF01B36D96400B2E28F /* CurrencyEditView.swift */; };
 		DA51B94B1B3462D4006AD73B /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA51B94A1B3462D4006AD73B /* Alamofire.framework */; };
 		DA51B94F1B356C5B006AD73B /* ConvrtCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA51B94E1B356C5B006AD73B /* ConvrtCollectionViewCell.swift */; };
 		DA686F6A1B35D38E004D62B2 /* ConvrtSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA686F691B35D38E004D62B2 /* ConvrtSessionTests.swift */; };
@@ -33,6 +34,7 @@
 
 /* Begin PBXFileReference section */
 		DA277DEE1B36D1C500B2E28F /* currencies.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = currencies.plist; sourceTree = "<group>"; };
+		DA277DF01B36D96400B2E28F /* CurrencyEditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyEditView.swift; sourceTree = "<group>"; };
 		DA51B94A1B3462D4006AD73B /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Frameworks/Alamofire.framework; sourceTree = "<group>"; };
 		DA51B94E1B356C5B006AD73B /* ConvrtCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvrtCollectionViewCell.swift; sourceTree = "<group>"; };
 		DA686F691B35D38E004D62B2 /* ConvrtSessionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvrtSessionTests.swift; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				DA51B94E1B356C5B006AD73B /* ConvrtCollectionViewCell.swift */,
+				DA277DF01B36D96400B2E28F /* CurrencyEditView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -301,6 +304,7 @@
 				DADD1B1E1B073D6A00DC9269 /* ViewController.swift in Sources */,
 				DA51B94F1B356C5B006AD73B /* ConvrtCollectionViewCell.swift in Sources */,
 				DADD1B1C1B073D6A00DC9269 /* AppDelegate.swift in Sources */,
+				DA277DF11B36D96400B2E28F /* CurrencyEditView.swift in Sources */,
 				DAC3EDBB1B07B05600E304AC /* ConvrtSession.swift in Sources */,
 				DAC3EDB01B0741D200E304AC /* AAWindow.swift in Sources */,
 			);

@@ -8,6 +8,7 @@
 
 import UIKit
 
+// TODO: switch back to UIViewController + iboutlet UICollectionViewDelegate & DataSource
 class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     var selectedCurrency: Currency?
@@ -46,6 +47,8 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         self.selectedCurrency = ConvrtSession.sharedInstance.fullCurrenyList[indexPath.row]
+        let view = CurrencyEditView(frame: collectionView.bounds)
+        collectionView.addSubview(view)
         // TODO: show detail edit view
     }
     
