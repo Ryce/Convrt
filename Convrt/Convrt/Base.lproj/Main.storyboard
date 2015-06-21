@@ -6,8 +6,13 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <mutableArray key="KannadaSangamMN.ttc">
-            <string>KannadaSangamMN</string>
+        <mutableArray key="ProximaNovaCond-Light.otf">
+            <string>ProximaNovaCond-Light</string>
+            <string>ProximaNovaCond-Light</string>
+            <string>ProximaNovaCond-Light</string>
+            <string>ProximaNovaCond-Light</string>
+            <string>ProximaNovaCond-Light</string>
+            <string>ProximaNovaCond-Light</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -40,20 +45,20 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="USD" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ulY-kh-0in">
-                                                    <rect key="frame" x="57" y="20" width="41" height="24"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                    <rect key="frame" x="62" y="20" width="31.5" height="20"/>
+                                                    <fontDescription key="fontDescription" name="ProximaNovaCond-Light" family="Proxima Nova Condensed" pointSize="20"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="United States Dollar" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NNQ-4F-7Ez">
-                                                    <rect key="frame" x="15" y="124" width="125" height="16"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <rect key="frame" x="15" y="127" width="125" height="13"/>
+                                                    <fontDescription key="fontDescription" name="ProximaNovaCond-Light" family="Proxima Nova Condensed" pointSize="13"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9c5-TU-NRy">
-                                                    <rect key="frame" x="20" y="63" width="115" height="29"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                                    <rect key="frame" x="20" y="65" width="115" height="24"/>
+                                                    <fontDescription key="fontDescription" name="ProximaNovaCond-Light" family="Proxima Nova Condensed" pointSize="24"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -106,28 +111,28 @@
                                         <blurEffect style="light"/>
                                     </visualEffectView>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FyK-SZ-BPW">
-                                        <rect key="frame" x="234" y="107" width="131" height="45"/>
+                                        <rect key="frame" x="234" y="102" width="131" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="131" id="rUI-dq-Xwe"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="KannadaSangamMN" family="Kannada Sangam MN" pointSize="30"/>
+                                        <fontDescription key="fontDescription" name="ProximaNovaCond-Light" family="Proxima Nova Condensed" pointSize="30"/>
                                         <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                         <connections>
                                             <outlet property="delegate" destination="Q0P-v5-9FV" id="onz-YX-oFW"/>
                                         </connections>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="USD" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xjL-X7-E8e">
-                                        <rect key="frame" x="245" y="45" width="110" height="32.5"/>
+                                        <rect key="frame" x="245" y="45" width="110" height="27"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="110" id="60T-bP-zTu"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="27"/>
+                                        <fontDescription key="fontDescription" name="ProximaNovaCond-Light" family="Proxima Nova Condensed" pointSize="27"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="United States Dollar" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nPh-JI-BIo">
-                                        <rect key="frame" x="20" y="182.5" width="560" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <rect key="frame" x="20" y="162" width="560" height="17"/>
+                                        <fontDescription key="fontDescription" name="ProximaNovaCond-Light" family="Proxima Nova Condensed" pointSize="17"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>

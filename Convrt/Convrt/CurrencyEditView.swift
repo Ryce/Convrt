@@ -37,17 +37,22 @@ class CurrencyEditView: UIView, UITextFieldDelegate {
         let oldString = textField.text!
         let newString = (oldString as NSString).stringByReplacingCharactersInRange(range, withString: string)
         
-        if newString.characters.count == 0 {
+        switch newString.characters.count {
+        case 0:
             return true
-        } else if newString.characters.count == 1 {
+        case 1:
             let decimalSeparator = NSLocale.currentLocale().objectForKey(NSLocaleDecimalSeparator) as! String
             
             if newString == decimalSeparator {
                 textField.text = "0."
                 return false
             }
+            break
+        case _ where newString.characters.count > 10:
+            return false
+        default:
+            break
         }
-        
         
         var regex: NSRegularExpression?
         
