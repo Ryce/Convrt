@@ -41,9 +41,9 @@ class ConvrtSessionTests: XCTestCase {
     }
     
     func testYQLConstructor() {
-        let usd = Currency(name: "", identifier: "USD")
-        let eur = Currency(name: "", identifier: "EUR")
-        let gbp = Currency(name: "", identifier: "GBP")
+        let usd = Currency("", "USD", "")
+        let eur = Currency("", "EUR", "")
+        let gbp = Currency("", "GBP", "")
         let currencies = [CurrencyPair(fromCurrency: usd, toCurrency: eur), CurrencyPair(fromCurrency: usd, toCurrency: gbp)]
         
         let yqlString = ConvrtSession.sharedInstance.constructYQL(currencies)
@@ -53,10 +53,10 @@ class ConvrtSessionTests: XCTestCase {
     }
     
     func testConversion() {
-        let usd = Currency(name: "US Dollar", identifier: "USD")
-        let eur = Currency(name: "Euro", identifier: "EUR")
-        let gbp = Currency(name: "Pound Sterling", identifier: "GBP")
-        let hkd = Currency(name: "Hong Kong Dollar", identifier: "HKD")
+        let usd = Currency("US Dollar", "USD", "")
+        let eur = Currency("Euro", "EUR", "")
+        let gbp = Currency("Pound Sterling", "GBP", "")
+        let hkd = Currency("Hong Kong Dollar", "HKD", "")
         let currencyArray = [CurrencyPair(fromCurrency: usd, toCurrency: hkd),
             CurrencyPair(fromCurrency: eur, toCurrency: gbp),
             CurrencyPair(fromCurrency: usd, toCurrency: eur)]

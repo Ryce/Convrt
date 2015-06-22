@@ -37,7 +37,7 @@ class Currency: NSObject {
     let code: String
     let country: String
     
-    var currentAmount: CurrencyAmount?
+    var currentAmount: CurrencyAmount = 0.0
 }
 
 func ==(lhs: Currency, rhs: Currency) -> Bool {
