@@ -9,22 +9,24 @@
 import UIKit
 
 // TODO: switch back to UIViewController + iboutlet UICollectionViewDelegate & DataSource
-class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, CurrencyEditDelegate {
     
     @IBOutlet var collectionView: UICollectionView?
     @IBOutlet var detailView: CurrencyEditView?
     
     var selectedCurrency: Currency?
-    var selectedCurrencyAmount: Double = 0.0
+    var selectedCurrencyAmount: CurrencyAmount = 0.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.collectionView!.backgroundColor = UIColor.whiteColor()
+        self.detailView?.delegate = self
         // Do any additional setup after loading the view, typically from a nib.
     }
-    
+
     override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
         
     }
 
@@ -54,6 +56,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         self.selectedCurrency = ConvrtSession.sharedInstance.fullCurrenyList[indexPath.row]
+        
         self.detailView?.codeLabel?.text = self.selectedCurrency?.code
         self.detailView?.titleLabel?.text = self.selectedCurrency?.title
         self.detailView?.amountTextField?.becomeFirstResponder()
@@ -61,6 +64,14 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         return CGSizeMake(145 * self.view.bounds.size.width/320, 145 * self.view.bounds.size.width/320);
+    }
+    
+    // MARK: CurrencyEditDelegate
+    
+    func didDismiss(view: CurrencyEditView, _ currency: Currency, inputAmount: CurrencyAmount) {
+        self.selectedCurrencyAmount = inputAmount
+        self.selectedCurrency = currency
+        self.collectionView?.reloadData()
     }
     
 }

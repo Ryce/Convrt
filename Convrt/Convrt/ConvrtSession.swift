@@ -9,6 +9,17 @@
 import UIKit
 import Alamofire
 
+let genericCurrencyArray = [Currency("United States Dollar", "USD", "United States of America"),
+    Currency("European Euro", "EUR", "Europe"),
+    Currency("British Pound", "GBP", "Great Britain"),
+    Currency("Japanese Yen", "JPY", "Japan"),
+    Currency("Swiss Franc", "CHF", "Switzerland"),
+    Currency("Canadian Dollar", "CAD", "Canada"),
+    Currency("Australian Dollar", "AUD", "Australia"),
+    Currency("Renminbi", "CNY", "China")]
+
+typealias CurrencyAmount = Double
+
 enum ConvrtError : ErrorType {
     case NoError, ConnectionError, ParseError
 }
@@ -21,7 +32,7 @@ struct Currency: Equatable, NilLiteralConvertible {
         country = ""
     }
     
-    init(someTitle: String, someCode: String, someCountry: String) {
+    init(_ someTitle: String, _ someCode: String, _ someCountry: String) {
         title = someTitle
         code = someCode
         country = someCountry
@@ -79,6 +90,17 @@ class ConvrtSession: NSObject {
         return Static.instance!
     }
     
+    // somehow need to persist this array of _savedCurrencyConfig when set
+    private var _savedCurrencyConfig: [Currency]?
+    var savedCurrencyConfiguration: [Currency] {
+        get {
+            if let savedCurrencyConfig = _savedCurrencyConfig {
+                return savedCurrencyConfig
+            }
+            _savedCurrencyConfig = genericCurrencyArray
+            return _savedCurrencyConfig!
+        }
+    }
     
     let dateFormatter: NSDateFormatter = {
         let formatter = NSDateFormatter()
@@ -95,7 +117,7 @@ class ConvrtSession: NSObject {
             guard let title = $0["title"] as? String else { return nil }
             guard let code = $0["code"] as? String else { return nil }
             guard let country = $0["country"] as? String else { return nil }
-            return Currency(someTitle: title, someCode: code, someCountry: country)
+            return Currency(title, code, country)
             }.filter {$0 != nil}
     }()
 
