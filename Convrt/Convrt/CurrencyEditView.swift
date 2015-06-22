@@ -8,8 +8,8 @@
 
 import UIKit
 
-protocol CurrencyEditDelegate {
-    func didDismiss(view: CurrencyEditView, _ currency: Currency, inputAmount: Double)
+protocol CurrencyEditDelegate : class {
+    func didDismiss(view: CurrencyEditView, _ currency: Currency, _ inputAmount: Double)
 }
 
 class CurrencyEditView: UIView, UITextFieldDelegate {
@@ -20,7 +20,7 @@ class CurrencyEditView: UIView, UITextFieldDelegate {
     
     var currency: Currency?
     
-    var delegate: CurrencyEditDelegate?
+    weak var delegate: CurrencyEditDelegate?
     
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
@@ -76,7 +76,7 @@ class CurrencyEditView: UIView, UITextFieldDelegate {
     func dismissView() {
         if let amountText = self.amountTextField?.text {
             let string = amountText as NSString
-            self.delegate?.didDismiss(self, self.currency!, inputAmount: string.doubleValue)
+            self.delegate?.didDismiss(self, self.currency!, string.doubleValue)
         }
         
         self.amountTextField?.resignFirstResponder()

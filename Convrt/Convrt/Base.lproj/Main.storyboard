@@ -82,9 +82,9 @@
                                         </constraints>
                                         <variation key="default">
                                             <mask key="constraints">
-                                                <exclude reference="o05-Kh-WLa"/>
-                                                <exclude reference="i2k-11-Zp9"/>
                                                 <exclude reference="Teb-5p-UF2"/>
+                                                <exclude reference="i2k-11-Zp9"/>
+                                                <exclude reference="o05-Kh-WLa"/>
                                             </mask>
                                         </variation>
                                         <connections>
@@ -116,7 +116,7 @@
                                             <constraint firstAttribute="width" constant="131" id="rUI-dq-Xwe"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="ProximaNovaCond-Light" family="Proxima Nova Condensed" pointSize="30"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                        <textInputTraits key="textInputTraits"/>
                                         <connections>
                                             <outlet property="delegate" destination="Q0P-v5-9FV" id="onz-YX-oFW"/>
                                         </connections>

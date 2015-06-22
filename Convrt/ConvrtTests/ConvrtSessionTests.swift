@@ -35,7 +35,7 @@ class ConvrtSessionTests: XCTestCase {
     }
     
     func testFullCurrencyList() {
-        let currencyList = ConvrtSession.sharedInstance.fullCurrenyList
+        let currencyList = ConvrtSession.sharedInstance.savedCurrencyConfiguration
         
         XCTAssert(!currencyList.isEmpty)
     }

@@ -24,29 +24,20 @@ enum ConvrtError : ErrorType {
     case NoError, ConnectionError, ParseError
 }
 
-struct Currency: Equatable, NilLiteralConvertible {
-    
-    init(nilLiteral: ()) {
-        title = ""
-        code = ""
-        country = ""
-    }
+class Currency: NSObject {
     
     init(_ someTitle: String, _ someCode: String, _ someCountry: String) {
-        title = someTitle
-        code = someCode
-        country = someCountry
-    }
-    
-    init(name: String, identifier: String) {
-        title = name
-        code = identifier
-        country = ""
+        self.title = someTitle
+        self.code = someCode
+        self.country = someCountry
+        super.init()
     }
     
     let title: String
     let code: String
     let country: String
+    
+    var currentAmount: CurrencyAmount?
 }
 
 func ==(lhs: Currency, rhs: Currency) -> Bool {
@@ -109,16 +100,18 @@ class ConvrtSession: NSObject {
     
     var selectedCurrencies = Array<Currency>()
     
-    let fullCurrenyList: Array<Currency> = {
+    private let fullCurrenyList: Array<Currency> = {
         let plistPath = NSBundle.mainBundle().pathForResource("currencies", ofType: "plist")!
         let plistArray = NSArray(contentsOfFile: plistPath) as! Array<AnyObject>
         
         return plistArray.map {
-            guard let title = $0["title"] as? String else { return nil }
-            guard let code = $0["code"] as? String else { return nil }
-            guard let country = $0["country"] as? String else { return nil }
-            return Currency(title, code, country)
-            }.filter {$0 != nil}
+            if let title = $0["title"] as? String, let code = $0["code"] as? String, let country = $0["country"] as? String {
+                return Currency(title, code, country)
+            } else {
+                assertionFailure("Parse Error")
+                return Currency("","","") // silence error
+            }
+        }
     }()
 
     private var _lastUpdated: NSDate?
@@ -154,8 +147,8 @@ class ConvrtSession: NSObject {
 
                     for dict in _objects {
                         let nameArray = dict["Name"]?.componentsSeparatedByString("/")
-                        let fromCurrency = Currency(name: nameArray![0], identifier: nameArray![0])
-                        let toCurrency = Currency(name: nameArray![1], identifier: nameArray![1])
+                        let fromCurrency = Currency(nameArray![0], nameArray![0], "")
+                        let toCurrency = Currency(nameArray![1], nameArray![1], "")
                         let rate = dict["Rate"]! as NSString
                         newCurrencies.append(CurrencyPair(fromCurrency: fromCurrency, toCurrency: toCurrency, rate: rate.doubleValue))
                     }

@@ -22,6 +22,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         self.collectionView!.backgroundColor = UIColor.whiteColor()
         self.detailView?.delegate = self
+        self.detailView?.amountTextField?.keyboardType = UIKeyboardType.DecimalPad
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -42,21 +43,22 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return ConvrtSession.sharedInstance.fullCurrenyList.count
+        return ConvrtSession.sharedInstance.savedCurrencyConfiguration.count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ConvrtCollectionViewCell.kCellIdentifier, forIndexPath: indexPath) as! ConvrtCollectionViewCell
-        cell.codeLabel?.text = ConvrtSession.sharedInstance.fullCurrenyList[indexPath.row].code
-        cell.countryLabel?.text = ConvrtSession.sharedInstance.fullCurrenyList[indexPath.row].title
+        cell.codeLabel?.text = ConvrtSession.sharedInstance.savedCurrencyConfiguration[indexPath.row].code
+        cell.countryLabel?.text = ConvrtSession.sharedInstance.savedCurrencyConfiguration[indexPath.row].title
         return cell
     }
     
     // MARK: UICollectionViewDelegate
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        self.selectedCurrency = ConvrtSession.sharedInstance.fullCurrenyList[indexPath.row]
+        self.selectedCurrency = ConvrtSession.sharedInstance.savedCurrencyConfiguration[indexPath.row]
         
+        self.detailView?.currency = self.selectedCurrency
         self.detailView?.codeLabel?.text = self.selectedCurrency?.code
         self.detailView?.titleLabel?.text = self.selectedCurrency?.title
         self.detailView?.amountTextField?.becomeFirstResponder()
@@ -68,7 +70,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     // MARK: CurrencyEditDelegate
     
-    func didDismiss(view: CurrencyEditView, _ currency: Currency, inputAmount: CurrencyAmount) {
+    func didDismiss(view: CurrencyEditView, _ currency: Currency, _ inputAmount: CurrencyAmount) {
         self.selectedCurrencyAmount = inputAmount
         self.selectedCurrency = currency
         self.collectionView?.reloadData()
