@@ -48,8 +48,10 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ConvrtCollectionViewCell.kCellIdentifier, forIndexPath: indexPath) as! ConvrtCollectionViewCell
-        cell.codeLabel?.text = ConvrtSession.sharedInstance.savedCurrencyConfiguration[indexPath.row].code
-        cell.countryLabel?.text = ConvrtSession.sharedInstance.savedCurrencyConfiguration[indexPath.row].title
+        let currency = ConvrtSession.sharedInstance.savedCurrencyConfiguration[indexPath.row]
+        cell.codeLabel?.text = currency.code
+        cell.countryLabel?.text = currency.title
+        cell.amountLabel?.text = NSString(format: "%.2lf", currency.currentAmount) as String
         return cell
     }
     
@@ -61,6 +63,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         self.detailView?.currency = self.selectedCurrency
         self.detailView?.codeLabel?.text = self.selectedCurrency?.code
         self.detailView?.titleLabel?.text = self.selectedCurrency?.title
+        self.detailView?.amountTextField?.text = ""
         self.detailView?.amountTextField?.becomeFirstResponder()
     }
     
@@ -71,8 +74,10 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     // MARK: CurrencyEditDelegate
     
     func didDismiss(view: CurrencyEditView, _ currency: Currency, _ inputAmount: CurrencyAmount) {
+        currency.currentAmount = inputAmount
         self.selectedCurrencyAmount = inputAmount
         self.selectedCurrency = currency
+        // TODO: asynchronously load selected currency rates and set
         self.collectionView?.reloadData()
     }
     
