@@ -20,7 +20,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.collectionView!.backgroundColor = UIColor.whiteColor()
+        self.collectionView!.backgroundColor = UIColor.clearColor()
         self.detailView?.delegate = self
         self.detailView?.amountTextField?.keyboardType = UIKeyboardType.DecimalPad
         // Do any additional setup after loading the view, typically from a nib.
@@ -68,8 +68,10 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        return CGSizeMake(145 * self.view.bounds.size.width/320, 145 * self.view.bounds.size.width/320);
+        return CGSizeMake(145 * self.view.bounds.size.width/320, 120 * self.view.bounds.size.width/320);
     }
+    
+    
     
     // MARK: CurrencyEditDelegate
     
