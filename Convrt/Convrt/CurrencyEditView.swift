@@ -14,6 +14,11 @@ class CurrencyEditView: UIView, UITextFieldDelegate {
     @IBOutlet var titleLabel: UILabel?
     @IBOutlet var amountTextField: UITextField?
     
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: Selector("dismissView")))
@@ -22,13 +27,46 @@ class CurrencyEditView: UIView, UITextFieldDelegate {
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: Selector("dismissView")))
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
+        
+    }
+    
+    func keyboardWillShow(note: NSNotification) {
+        guard let info = note.userInfo else { return } // BAIL
+        
+        guard let animationCurve = info[UIKeyboardAnimationCurveUserInfoKey],
+            let animationDuration = info[UIKeyboardAnimationDurationUserInfoKey] else {
+                UIView.animateWithDuration(0.5, animations: { () -> Void in
+                    self.alpha = 1.0
+                })
+                return // BAIL
+        }
+        
+        UIView.animateWithDuration(animationDuration.doubleValue, delay: 0.0, options:UIViewAnimationOptions(rawValue: (animationCurve as! UInt)), animations: { () -> Void in
+            self.alpha = 1.0
+            }, completion: nil)
+    }
+    
+    func keyboardWillHide(note: NSNotification) {
+        guard let info = note.userInfo else { return } // BAIL
+        
+        guard let animationCurve = info[UIKeyboardAnimationCurveUserInfoKey],
+            let animationDuration = info[UIKeyboardAnimationDurationUserInfoKey] else {
+                UIView.animateWithDuration(0.5, animations: { () -> Void in
+                    self.alpha = 0.0
+                })
+                return // BAIL
+        }
+        
+        UIView.animateWithDuration(animationDuration.doubleValue, delay: 0.0, options:UIViewAnimationOptions(rawValue: (animationCurve as! UInt)), animations: { () -> Void in
+            self.alpha = 0.0
+            }, completion: nil)
     }
     
     func dismissView() {
         self.amountTextField?.resignFirstResponder()
-        UIView.animateWithDuration(0.5) { () -> Void in
-            self.alpha = 0.0
-        }
     }
     
     // MARK: UITextFieldDelegate
@@ -67,6 +105,7 @@ class CurrencyEditView: UIView, UITextFieldDelegate {
         return numberOfMatches > 0
         
     }
+
 
     /*
     // Only override drawRect: if you perform custom drawing.

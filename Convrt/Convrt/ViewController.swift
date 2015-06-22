@@ -12,7 +12,7 @@ import UIKit
 class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     @IBOutlet var collectionView: UICollectionView?
-    @IBOutlet var detailView: UIView?
+    @IBOutlet var detailView: CurrencyEditView?
     
     var selectedCurrency: Currency?
     var selectedCurrencyAmount: Double = 0.0
@@ -22,6 +22,10 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         self.collectionView!.backgroundColor = UIColor.whiteColor()
         // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -50,10 +54,9 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         self.selectedCurrency = ConvrtSession.sharedInstance.fullCurrenyList[indexPath.row]
-        UIView.animateWithDuration(0.5) { () -> Void in
-            self.detailView?.alpha = 1.0
-        }
-        // TODO: show detail edit view
+        self.detailView?.codeLabel?.text = self.selectedCurrency?.code
+        self.detailView?.titleLabel?.text = self.selectedCurrency?.title
+        self.detailView?.amountTextField?.becomeFirstResponder()
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
