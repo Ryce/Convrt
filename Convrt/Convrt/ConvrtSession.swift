@@ -38,6 +38,17 @@ class Currency: NSObject {
     let country: String
     
     var currentAmount: CurrencyAmount = 0.0
+    
+    let numberFormatter: NSNumberFormatter = {
+        let formatter = NSNumberFormatter()
+        formatter.numberStyle = NSNumberFormatterStyle.CurrencyStyle
+        formatter.currencySymbol = ""
+        return formatter
+    }()
+    
+    func displayAmount() -> String {
+        return numberFormatter.stringFromNumber(NSNumber(double: self.currentAmount))!
+    }
 }
 
 func ==(lhs: Currency, rhs: Currency) -> Bool {

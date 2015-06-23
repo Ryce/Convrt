@@ -75,8 +75,9 @@ class CurrencyEditView: UIView, UITextFieldDelegate {
     
     func dismissView() {
         if let amountText = self.amountTextField?.text {
-            let string = amountText as NSString
-            self.delegate?.didDismiss(self, self.currency!, string.doubleValue)
+            let numberFormatter = NSNumberFormatter()
+            let number = numberFormatter.numberFromString(amountText)
+            self.delegate?.didDismiss(self, self.currency!, number!.doubleValue)
         }
         
         self.amountTextField?.resignFirstResponder()
@@ -87,15 +88,15 @@ class CurrencyEditView: UIView, UITextFieldDelegate {
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         let oldString = textField.text!
         let newString = (oldString as NSString).stringByReplacingCharactersInRange(range, withString: string)
+        let decimalSeparator = NSLocale.currentLocale().objectForKey(NSLocaleDecimalSeparator) as! String
         
         switch newString.characters.count {
         case 0:
             return true
         case 1:
-            let decimalSeparator = NSLocale.currentLocale().objectForKey(NSLocaleDecimalSeparator) as! String
             
             if newString == decimalSeparator {
-                textField.text = "0."
+                textField.text = "0" + decimalSeparator
                 return false
             }
             break
@@ -107,8 +108,10 @@ class CurrencyEditView: UIView, UITextFieldDelegate {
         
         var regex: NSRegularExpression?
         
+        let pattern = NSString(format: "^[0-9]+(\\%@[0-9]{0,2})?$", decimalSeparator) as String
+        
         do {
-            regex = try NSRegularExpression(pattern: "^[0-9]+(\\.[0-9]{0,2})?$", options: NSRegularExpressionOptions.CaseInsensitive)
+            regex = try NSRegularExpression(pattern: pattern, options: NSRegularExpressionOptions.CaseInsensitive)
         } catch {
             return false
         }

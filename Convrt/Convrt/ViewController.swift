@@ -51,7 +51,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         let currency = ConvrtSession.sharedInstance.savedCurrencyConfiguration[indexPath.row]
         cell.codeLabel?.text = currency.code
         cell.countryLabel?.text = currency.title
-        cell.amountLabel?.text = NSString(format: "%.2lf", currency.currentAmount) as String
+        cell.amountLabel?.text = currency.displayAmount()
         return cell
     }
     
