@@ -153,7 +153,7 @@ class ConvrtSession: NSObject {
     func addCurrencies(currencies: [CurrencyPair]) {
         for currencyPair in currencies {
             if self.currencyPairs.contains(currencyPair) {
-                
+                // TODO: implement this!
             }
         }
     }
