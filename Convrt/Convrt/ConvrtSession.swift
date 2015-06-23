@@ -144,6 +144,21 @@ class ConvrtSession: NSObject {
         }
     }
     
+    var currencyPairs = [CurrencyPair]()
+    
+    func findCurrencies(from: Currency) -> [CurrencyPair] {
+        return self.currencyPairs.filter { $0.fromCurrency == from }
+    }
+    
+    func addCurrencies(currencies: [CurrencyPair]) {
+        for currencyPair in currencies {
+            if self.currencyPairs.contains(currencyPair) {
+                
+            }
+        }
+    }
+
+    
     let manager: Manager = Alamofire.Manager.sharedInstance
     let baseURL = "http://query.yahooapis.com/v1/public/yql?q="
     
@@ -155,7 +170,7 @@ class ConvrtSession: NSObject {
                 let objects = JSON?["query"] as? NSDictionary
                 if let _objects = objects?.valueForKeyPath("results.rate") as? Array<Dictionary<String, String>> {
                     var newCurrencies = Array<CurrencyPair>()
-
+                    // TODO: update existing objects instead of creating new ones
                     for dict in _objects {
                         let nameArray = dict["Name"]?.componentsSeparatedByString("/")
                         let fromCurrency = Currency(nameArray![0], nameArray![0], "")

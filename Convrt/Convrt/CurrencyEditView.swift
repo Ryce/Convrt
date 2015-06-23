@@ -76,8 +76,9 @@ class CurrencyEditView: UIView, UITextFieldDelegate {
     func dismissView() {
         if let amountText = self.amountTextField?.text {
             let numberFormatter = NSNumberFormatter()
-            let number = numberFormatter.numberFromString(amountText)
-            self.delegate?.didDismiss(self, self.currency!, number!.doubleValue)
+            if let number = numberFormatter.numberFromString(amountText) {
+                self.delegate?.didDismiss(self, self.currency!, number.doubleValue)
+            }
         }
         
         self.amountTextField?.resignFirstResponder()
