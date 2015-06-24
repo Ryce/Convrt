@@ -18,6 +18,18 @@ let genericCurrencyArray = [Currency("United States Dollar", "USD", "United Stat
     Currency("Australian Dollar", "AUD", "Australia"),
     Currency("Renminbi", "CNY", "China")]
 
+func genericCurrencyPairs() -> [CurrencyPair] {
+    var currPairs = [CurrencyPair]()
+    for fromCurrency in genericCurrencyArray {
+        for toCurrency in genericCurrencyArray {
+            if fromCurrency != toCurrency {
+                currPairs.append(CurrencyPair(fromCurrency: fromCurrency, toCurrency: toCurrency))
+            }
+        }
+    }
+    return currPairs
+}
+
 typealias CurrencyAmount = Double
 
 enum ConvrtError : ErrorType {
@@ -55,7 +67,7 @@ func ==(lhs: Currency, rhs: Currency) -> Bool {
     return lhs.code == rhs.code
 }
 
-struct CurrencyPair: Equatable {
+class CurrencyPair: Equatable {
     
     init(fromCurrency: Currency, toCurrency: Currency) {
         self.fromCurrency = fromCurrency
@@ -66,6 +78,10 @@ struct CurrencyPair: Equatable {
         self.fromCurrency = fromCurrency
         self.toCurrency = toCurrency
         self.rate = rate;
+    }
+    
+    func merge(otherCurrencyPair: CurrencyPair) {
+        self.rate = otherCurrencyPair.rate
     }
 
     let fromCurrency: Currency
@@ -103,7 +119,22 @@ class ConvrtSession: NSObject {
             return _savedCurrencyConfig!
         }
     }
-    
+
+    // somehow need to persist this array of _savedCurrencyConfig when set
+    private var _savedCurrencyPairs: [CurrencyPair]?
+    var savedCurrencyPairs: [CurrencyPair] {
+        get {
+            if let savedCurrencyPairs = _savedCurrencyPairs {
+                return savedCurrencyPairs
+            }
+            _savedCurrencyPairs = genericCurrencyPairs()
+            return _savedCurrencyPairs!
+        }
+        set {
+            _savedCurrencyPairs = savedCurrencyPairs
+        }
+    }
+
     let dateFormatter: NSDateFormatter = {
         let formatter = NSDateFormatter()
         return formatter
@@ -152,8 +183,11 @@ class ConvrtSession: NSObject {
     
     func addCurrencies(currencies: [CurrencyPair]) {
         for currencyPair in currencies {
-            if self.currencyPairs.contains(currencyPair) {
-                // TODO: implement this!
+            if let index = self.currencyPairs.indexOf(currencyPair) {
+                let object = self.currencyPairs[index]
+                object.merge(currencyPair)
+            } else {
+                self.currencyPairs.append(currencyPair)
             }
         }
     }
@@ -162,7 +196,8 @@ class ConvrtSession: NSObject {
     let manager: Manager = Alamofire.Manager.sharedInstance
     let baseURL = "http://query.yahooapis.com/v1/public/yql?q="
     
-    func fetchRatesForCurrencies(currencies: Array<CurrencyPair>, completion: (items: Array<CurrencyPair>?, error: ConvrtError) -> ()) {
+    func fetchRatesForCurrencies(currencies: Array<CurrencyPair>, completion: (didSucceed: Bool, error: ConvrtError) -> ()) {
+        
         let urlString = baseURL + self.constructYQL(currencies)
         manager.request(Method.GET, urlString, parameters: nil, encoding: .URL)
             .responseJSON { (_, _, JSON, error) -> Void in
@@ -179,9 +214,12 @@ class ConvrtSession: NSObject {
                         newCurrencies.append(CurrencyPair(fromCurrency: fromCurrency, toCurrency: toCurrency, rate: rate.doubleValue))
                     }
                     
-                    completion(items: newCurrencies, error: ConvrtError.NoError)
+                    // merge new info into existing array
+                    self.savedCurrencyPairs = newCurrencies
+                    
+                    completion(didSucceed: true, error: ConvrtError.NoError)
                 } else {
-                    completion(items: nil, error: ConvrtError.ParseError)
+                    completion(didSucceed: false, error: ConvrtError.ParseError)
                 }
                 
             }

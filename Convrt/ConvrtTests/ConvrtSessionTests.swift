@@ -63,12 +63,12 @@ class ConvrtSessionTests: XCTestCase {
         
         let expectation = self.expectationWithDescription("fetchRates Expectation")
         
-        var optionalItems: [CurrencyPair]?
+        var succeed = false
         var optionalError: ConvrtError?
         
-        ConvrtSession.sharedInstance.fetchRatesForCurrencies(currencyArray, completion: { (items, error) -> () in
+        ConvrtSession.sharedInstance.fetchRatesForCurrencies(currencyArray, completion: { (didSucceed, error) -> () in
             
-            optionalItems = items
+            succeed = didSucceed
             optionalError = error
             
             expectation.fulfill()
@@ -76,11 +76,7 @@ class ConvrtSessionTests: XCTestCase {
         
         self.waitForExpectationsWithTimeout(30, handler: nil)
         
-        if let actualItems = optionalItems {
-            if actualItems.count != 3 {
-                XCTFail()
-            }
-        } else {
+        if !succeed {
             XCTFail()
         }
         

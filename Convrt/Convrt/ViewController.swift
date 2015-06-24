@@ -17,6 +17,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     var selectedCurrency: Currency?
     var selectedCurrencyAmount: CurrencyAmount = 0.0
     
+    let loadingIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -28,7 +30,10 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
+        self.showLoadingIndicator()
+        ConvrtSession.sharedInstance.fetchRatesForCurrencies(genericCurrencyPairs()) { (items, error) -> () in
+            self.hideLoadingIndicator()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -81,6 +86,19 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         self.selectedCurrency = currency
         // TODO: asynchronously load selected currency rates and set
         self.collectionView?.reloadData()
+    }
+    
+    // MARK: Loading Indicator
+    
+    func showLoadingIndicator() {
+        loadingIndicator.center = self.view.center
+        self.view.addSubview(loadingIndicator)
+        loadingIndicator.startAnimating()
+    }
+    
+    func hideLoadingIndicator() {
+        loadingIndicator.removeFromSuperview()
+        loadingIndicator.stopAnimating()
     }
     
 }
