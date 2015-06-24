@@ -77,7 +77,7 @@ func ==(lhs: CurrencyPair, rhs: CurrencyPair) -> Bool {
     return lhs.fromCurrency == rhs.fromCurrency && lhs.toCurrency == rhs.toCurrency
 }
 
-let klastUpdatedDateKey = ""
+let klastUpdatedDateKey = "com.ryce.convrt.lastupdateddate"
 
 class ConvrtSession: NSObject {
     
