@@ -17,6 +17,13 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     var selectedCurrency: Currency?
     var selectedCurrencyAmount: CurrencyAmount = 0.0
     
+    let loadingIndicatorContainer: UIView = {
+        let view = UIView(frame: CGRectZero)
+        view.backgroundColor = UIColor(white: 0.0, alpha: 0.2)
+        
+        return view
+    }()
+    
     let loadingIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
     
     override func viewDidLoad() {
@@ -99,14 +106,24 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     // MARK: Loading Indicator
     
     func showLoadingIndicator() {
-        loadingIndicator.center = self.view.center
-        self.view.addSubview(loadingIndicator)
-        loadingIndicator.startAnimating()
+        self.loadingIndicatorContainer.frame = self.view.bounds
+        self.loadingIndicator.center = self.loadingIndicatorContainer.center
+        self.view.addSubview(self.loadingIndicatorContainer)
+        self.loadingIndicatorContainer.addSubview(self.loadingIndicator)
+        self.loadingIndicator.startAnimating()
+        self.loadingIndicatorContainer.alpha = 0.0
+        UIView.animateWithDuration(0.5) { () -> Void in
+            self.loadingIndicatorContainer.alpha = 1.0
+        }
     }
     
     func hideLoadingIndicator() {
-        loadingIndicator.removeFromSuperview()
-        loadingIndicator.stopAnimating()
+        UIView.animateWithDuration(0.5, animations: { () -> Void in
+            self.loadingIndicatorContainer.alpha = 0.0
+        }) { (didFinish) -> Void in
+            self.loadingIndicatorContainer.removeFromSuperview()
+            self.loadingIndicator.stopAnimating()
+        }
     }
     
 }
