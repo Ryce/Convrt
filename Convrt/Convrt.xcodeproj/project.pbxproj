@@ -19,7 +19,6 @@
 		DADD1B1E1B073D6A00DC9269 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD1B1D1B073D6A00DC9269 /* ViewController.swift */; };
 		DADD1B211B073D6A00DC9269 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DADD1B1F1B073D6A00DC9269 /* Main.storyboard */; };
 		DADD1B231B073D6A00DC9269 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DADD1B221B073D6A00DC9269 /* Images.xcassets */; };
-		DADD1B261B073D6A00DC9269 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = DADD1B241B073D6A00DC9269 /* LaunchScreen.xib */; };
 		DADD1B321B073D6A00DC9269 /* ConvrtTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD1B311B073D6A00DC9269 /* ConvrtTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -48,7 +47,6 @@
 		DADD1B1D1B073D6A00DC9269 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		DADD1B201B073D6A00DC9269 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DADD1B221B073D6A00DC9269 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		DADD1B251B073D6A00DC9269 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		DADD1B2B1B073D6A00DC9269 /* ConvrtTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ConvrtTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DADD1B301B073D6A00DC9269 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DADD1B311B073D6A00DC9269 /* ConvrtTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvrtTests.swift; sourceTree = "<group>"; };
@@ -134,7 +132,6 @@
 				DADD1B1B1B073D6A00DC9269 /* AppDelegate.swift */,
 				DADD1B1F1B073D6A00DC9269 /* Main.storyboard */,
 				DADD1B221B073D6A00DC9269 /* Images.xcassets */,
-				DADD1B241B073D6A00DC9269 /* LaunchScreen.xib */,
 				DADD1B191B073D6A00DC9269 /* Supporting Files */,
 				DAC3EDAE1B0741BB00E304AC /* Frameworks */,
 			);
@@ -254,7 +251,6 @@
 			files = (
 				DA277DEF1B36D1C500B2E28F /* currencies.plist in Resources */,
 				DADD1B211B073D6A00DC9269 /* Main.storyboard in Resources */,
-				DADD1B261B073D6A00DC9269 /* LaunchScreen.xib in Resources */,
 				DADD1B231B073D6A00DC9269 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -340,14 +336,6 @@
 				DADD1B201B073D6A00DC9269 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		DADD1B241B073D6A00DC9269 /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DADD1B251B073D6A00DC9269 /* Base */,
-			);
-			name = LaunchScreen.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -440,6 +428,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -456,6 +445,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

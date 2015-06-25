@@ -90,6 +90,7 @@ class CurrencyEditView: UIView, UITextFieldDelegate {
         let oldString = textField.text!
         let newString = (oldString as NSString).stringByReplacingCharactersInRange(range, withString: string)
         let decimalSeparator = NSLocale.currentLocale().objectForKey(NSLocaleDecimalSeparator) as! String
+        let thousandSeparator = NSLocale.currentLocale().objectForKey(NSLocaleGroupingSeparator) as! String
         
         switch newString.characters.count {
         case 0:
@@ -103,13 +104,16 @@ class CurrencyEditView: UIView, UITextFieldDelegate {
             break
         case _ where newString.characters.count > 10:
             return false
+        case _ where newString.characters.last! == thousandSeparator.characters.last!:
+            textField.text = newString.stringByReplacingOccurrencesOfString(thousandSeparator, withString: "")
+            return false
         default:
             break
         }
         
         var regex: NSRegularExpression?
         
-        let pattern = NSString(format: "^[0-9]+(\\%@[0-9]{0,2})?$", decimalSeparator) as String
+        let pattern = NSString(format: "^[0-9]+([\\%@][0-9]+)?(\\%@[0-9]{0,2})?$", thousandSeparator, decimalSeparator) as String
         
         do {
             regex = try NSRegularExpression(pattern: pattern, options: NSRegularExpressionOptions.CaseInsensitive)

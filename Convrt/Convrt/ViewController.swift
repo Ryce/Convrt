@@ -72,7 +72,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         self.detailView?.currency = self.selectedCurrency
         self.detailView?.codeLabel?.text = self.selectedCurrency?.code
         self.detailView?.titleLabel?.text = self.selectedCurrency?.title
-        self.detailView?.amountTextField?.text = ""
+        if let amount = self.selectedCurrency?.displayAmount() where self.selectedCurrency?.currentAmount > 0.0 {
+            self.detailView?.amountTextField?.text = amount
+        } else {
+            self.detailView?.amountTextField?.text = ""
+        }
         self.detailView?.amountTextField?.becomeFirstResponder()
     }
     

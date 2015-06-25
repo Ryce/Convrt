@@ -67,7 +67,8 @@ class Currency: NSObject {
         if fromCurrencyPairs.count > 0 {
             let amountPair = fromCurrencyPairs.filter { $0.toCurrency == self }[0]
             if amountPair.rate != 0.0 {
-                return numberFormatter.stringFromNumber(fromCurrency.currentAmount * amountPair.rate)!
+                self.currentAmount = fromCurrency.currentAmount * amountPair.rate
+                return numberFormatter.stringFromNumber(self.currentAmount)!
             }
         }
         return numberFormatter.stringFromNumber(0)!
