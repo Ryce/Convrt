@@ -61,6 +61,18 @@ class Currency: NSObject {
     func displayAmount() -> String {
         return numberFormatter.stringFromNumber(NSNumber(double: self.currentAmount))!
     }
+    
+    func calculateAmount(fromCurrency: Currency) -> String {
+        let fromCurrencyPairs = ConvrtSession.sharedInstance.findCurrencies(fromCurrency)
+        if fromCurrencyPairs.count > 0 {
+            let amountPair = fromCurrencyPairs.filter { $0.toCurrency == self }[0]
+            if amountPair.rate != 0.0 {
+                return numberFormatter.stringFromNumber(fromCurrency.currentAmount * amountPair.rate)!
+            }
+        }
+        return numberFormatter.stringFromNumber(0)!
+    }
+    
 }
 
 func ==(lhs: Currency, rhs: Currency) -> Bool {
@@ -86,7 +98,7 @@ class CurrencyPair: Equatable {
 
     let fromCurrency: Currency
     let toCurrency: Currency
-    var rate: Double?
+    var rate: Double = 0.0
 }
 
 func ==(lhs: CurrencyPair, rhs: CurrencyPair) -> Bool {
@@ -118,6 +130,9 @@ class ConvrtSession: NSObject {
             _savedCurrencyConfig = genericCurrencyArray
             return _savedCurrencyConfig!
         }
+        set {
+            _savedCurrencyConfig = newValue
+        }
     }
 
     // somehow need to persist this array of _savedCurrencyConfig when set
@@ -131,7 +146,7 @@ class ConvrtSession: NSObject {
             return _savedCurrencyPairs!
         }
         set {
-            _savedCurrencyPairs = savedCurrencyPairs
+            _savedCurrencyPairs = newValue
         }
     }
 
@@ -175,19 +190,17 @@ class ConvrtSession: NSObject {
         }
     }
     
-    var currencyPairs = [CurrencyPair]()
-    
     func findCurrencies(from: Currency) -> [CurrencyPair] {
-        return self.currencyPairs.filter { $0.fromCurrency == from }
+        return self.savedCurrencyPairs.filter { $0.fromCurrency == from }
     }
     
     func addCurrencies(currencies: [CurrencyPair]) {
         for currencyPair in currencies {
-            if let index = self.currencyPairs.indexOf(currencyPair) {
-                let object = self.currencyPairs[index]
+            if let index = self.savedCurrencyPairs.indexOf(currencyPair) {
+                let object = self.savedCurrencyPairs[index]
                 object.merge(currencyPair)
             } else {
-                self.currencyPairs.append(currencyPair)
+                self.savedCurrencyPairs.append(currencyPair)
             }
         }
     }

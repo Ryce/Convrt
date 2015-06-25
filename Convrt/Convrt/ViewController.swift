@@ -56,7 +56,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         let currency = ConvrtSession.sharedInstance.savedCurrencyConfiguration[indexPath.row]
         cell.codeLabel?.text = currency.code
         cell.countryLabel?.text = currency.title
-        cell.amountLabel?.text = currency.displayAmount()
+        if let selCurr = self.selectedCurrency where selCurr != currency {
+            cell.amountLabel?.text = currency.calculateAmount(selCurr)
+        } else {
+            cell.amountLabel?.text = currency.displayAmount()
+        }
         return cell
     }
     
