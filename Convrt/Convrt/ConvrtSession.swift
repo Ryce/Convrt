@@ -51,7 +51,6 @@ class ConvrtSession: NSObject {
         return Static.instance!
     }
     
-    // somehow need to persist this array of _savedCurrencyConfig when set
     private var _savedCurrencyConfig: [Currency]?
     var savedCurrencyConfiguration: [Currency] {
         get {
@@ -66,7 +65,6 @@ class ConvrtSession: NSObject {
         }
     }
 
-    // somehow need to persist this array of _savedCurrencyConfig when set
     private var _savedCurrencyPairs: [CurrencyPair]?
     var savedCurrencyPairs: [CurrencyPair] {
         get {
