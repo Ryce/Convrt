@@ -1,15 +1,15 @@
 //
-//  ViewControllerTests.swift
-//  Convrt
+//  Convrt_UI_Tests.swift
+//  Convrt UI Tests
 //
-//  Created by Hamon Riazy on 23/06/15.
+//  Created by Hamon Riazy on 26/06/15.
 //  Copyright © 2015 ryce. All rights reserved.
 //
 
 import Foundation
 import XCTest
 
-class ViewControllerTests: XCTestCase {
+class Convrt_UI_Tests: XCTestCase {
         
     override func setUp() {
         super.setUp()
@@ -19,11 +19,7 @@ class ViewControllerTests: XCTestCase {
         // In UI tests it is usually best to stop immediately when a failure occurs.
         continueAfterFailure = false
         // UI tests must launch the application that they test. Doing this in setup will make sure it happens for each test method.
-        if #available(iOS 9.0, *) {
-            XCUIApplication().launch()
-        } else {
-            // Fallback on earlier versions
-        }
+        XCUIApplication().launch()
     }
     
     override func tearDown() {
@@ -32,7 +28,6 @@ class ViewControllerTests: XCTestCase {
     }
     
     func testExample() {
-        
         // Use recording to get started writing UI tests.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }

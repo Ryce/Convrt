@@ -12,7 +12,7 @@
 		DA51B94B1B3462D4006AD73B /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA51B94A1B3462D4006AD73B /* Alamofire.framework */; };
 		DA51B94F1B356C5B006AD73B /* ConvrtCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA51B94E1B356C5B006AD73B /* ConvrtCollectionViewCell.swift */; };
 		DA686F6A1B35D38E004D62B2 /* ConvrtSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA686F691B35D38E004D62B2 /* ConvrtSessionTests.swift */; };
-		DA7460991B398A9400D82657 /* ViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7460981B398A9400D82657 /* ViewControllerTests.swift */; };
+		DA94A1211B3DCC2E00FFA025 /* Convrt_UI_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA94A1201B3DCC2E00FFA025 /* Convrt_UI_Tests.swift */; };
 		DAB2061C1B3C466D00E1900E /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2061B1B3C466D00E1900E /* Currency.swift */; };
 		DAB2061E1B3C469400E1900E /* CurrencyPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2061D1B3C469300E1900E /* CurrencyPair.swift */; };
 		DAC3EDB01B0741D200E304AC /* AAWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC3EDAF1B0741D200E304AC /* AAWindow.swift */; };
@@ -25,6 +25,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		DA94A1231B3DCC2E00FFA025 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DADD1B0E1B073D6A00DC9269 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DADD1B151B073D6A00DC9269;
+			remoteInfo = Convrt;
+		};
 		DADD1B2C1B073D6A00DC9269 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DADD1B0E1B073D6A00DC9269 /* Project object */;
@@ -40,7 +47,9 @@
 		DA51B94A1B3462D4006AD73B /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Frameworks/Alamofire.framework; sourceTree = "<group>"; };
 		DA51B94E1B356C5B006AD73B /* ConvrtCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvrtCollectionViewCell.swift; sourceTree = "<group>"; };
 		DA686F691B35D38E004D62B2 /* ConvrtSessionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvrtSessionTests.swift; sourceTree = "<group>"; };
-		DA7460981B398A9400D82657 /* ViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerTests.swift; sourceTree = "<group>"; };
+		DA94A11E1B3DCC2E00FFA025 /* Convrt UI Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Convrt UI Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA94A1201B3DCC2E00FFA025 /* Convrt_UI_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Convrt_UI_Tests.swift; sourceTree = "<group>"; };
+		DA94A1221B3DCC2E00FFA025 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DAB2061B1B3C466D00E1900E /* Currency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		DAB2061D1B3C469300E1900E /* CurrencyPair.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyPair.swift; sourceTree = "<group>"; };
 		DAC3EDAF1B0741D200E304AC /* AAWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AAWindow.swift; path = Frameworks/AAWindow.swift; sourceTree = "<group>"; };
@@ -57,6 +66,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		DA94A11B1B3DCC2E00FFA025 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DADD1B131B073D6A00DC9269 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -102,6 +118,15 @@
 			name = Controller;
 			sourceTree = "<group>";
 		};
+		DA94A11F1B3DCC2E00FFA025 /* Convrt UI Tests */ = {
+			isa = PBXGroup;
+			children = (
+				DA94A1201B3DCC2E00FFA025 /* Convrt_UI_Tests.swift */,
+				DA94A1221B3DCC2E00FFA025 /* Info.plist */,
+			);
+			path = "Convrt UI Tests";
+			sourceTree = "<group>";
+		};
 		DAC3EDAE1B0741BB00E304AC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -116,6 +141,7 @@
 			children = (
 				DADD1B181B073D6A00DC9269 /* Convrt */,
 				DADD1B2E1B073D6A00DC9269 /* ConvrtTests */,
+				DA94A11F1B3DCC2E00FFA025 /* Convrt UI Tests */,
 				DADD1B171B073D6A00DC9269 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -125,6 +151,7 @@
 			children = (
 				DADD1B161B073D6A00DC9269 /* Convrt.app */,
 				DADD1B2B1B073D6A00DC9269 /* ConvrtTests.xctest */,
+				DA94A11E1B3DCC2E00FFA025 /* Convrt UI Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -159,7 +186,6 @@
 				DADD1B311B073D6A00DC9269 /* ConvrtTests.swift */,
 				DADD1B2F1B073D6A00DC9269 /* Supporting Files */,
 				DA686F691B35D38E004D62B2 /* ConvrtSessionTests.swift */,
-				DA7460981B398A9400D82657 /* ViewControllerTests.swift */,
 			);
 			path = ConvrtTests;
 			sourceTree = "<group>";
@@ -175,6 +201,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		DA94A11D1B3DCC2E00FFA025 /* Convrt UI Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA94A1271B3DCC2E00FFA025 /* Build configuration list for PBXNativeTarget "Convrt UI Tests" */;
+			buildPhases = (
+				DA94A11A1B3DCC2E00FFA025 /* Sources */,
+				DA94A11B1B3DCC2E00FFA025 /* Frameworks */,
+				DA94A11C1B3DCC2E00FFA025 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DA94A1241B3DCC2E00FFA025 /* PBXTargetDependency */,
+			);
+			name = "Convrt UI Tests";
+			productName = "Convrt UI Tests";
+			productReference = DA94A11E1B3DCC2E00FFA025 /* Convrt UI Tests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		DADD1B151B073D6A00DC9269 /* Convrt */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DADD1B351B073D6A00DC9269 /* Build configuration list for PBXNativeTarget "Convrt" */;
@@ -222,6 +266,10 @@
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = ryce;
 				TargetAttributes = {
+					DA94A11D1B3DCC2E00FFA025 = {
+						CreatedOnToolsVersion = 7.0;
+						TestTargetID = DADD1B151B073D6A00DC9269;
+					};
 					DADD1B151B073D6A00DC9269 = {
 						CreatedOnToolsVersion = 6.3.1;
 					};
@@ -246,11 +294,19 @@
 			targets = (
 				DADD1B151B073D6A00DC9269 /* Convrt */,
 				DADD1B2A1B073D6A00DC9269 /* ConvrtTests */,
+				DA94A11D1B3DCC2E00FFA025 /* Convrt UI Tests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		DA94A11C1B3DCC2E00FFA025 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DADD1B141B073D6A00DC9269 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -302,6 +358,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		DA94A11A1B3DCC2E00FFA025 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA94A1211B3DCC2E00FFA025 /* Convrt_UI_Tests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DADD1B121B073D6A00DC9269 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -321,7 +385,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA7460991B398A9400D82657 /* ViewControllerTests.swift in Sources */,
 				DA686F6A1B35D38E004D62B2 /* ConvrtSessionTests.swift in Sources */,
 				DADD1B321B073D6A00DC9269 /* ConvrtTests.swift in Sources */,
 			);
@@ -330,6 +393,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		DA94A1241B3DCC2E00FFA025 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DADD1B151B073D6A00DC9269 /* Convrt */;
+			targetProxy = DA94A1231B3DCC2E00FFA025 /* PBXContainerItemProxy */;
+		};
 		DADD1B2D1B073D6A00DC9269 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = DADD1B151B073D6A00DC9269 /* Convrt */;
@@ -349,6 +417,33 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		DA94A1251B3DCC2E00FFA025 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				INFOPLIST_FILE = "Convrt UI Tests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.riazy.Convrt-UI-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Convrt;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		DA94A1261B3DCC2E00FFA025 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "Convrt UI Tests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.riazy.Convrt-UI-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Convrt;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
 		DADD1B331B073D6A00DC9269 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -506,6 +601,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		DA94A1271B3DCC2E00FFA025 /* Build configuration list for PBXNativeTarget "Convrt UI Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA94A1251B3DCC2E00FFA025 /* Debug */,
+				DA94A1261B3DCC2E00FFA025 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		DADD1B111B073D6A00DC9269 /* Build configuration list for PBXProject "Convrt" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
