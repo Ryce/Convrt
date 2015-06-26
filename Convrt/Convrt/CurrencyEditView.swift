@@ -72,7 +72,9 @@ class CurrencyEditView: UIView, UITextFieldDelegate {
     }
     
     func dismissView() {
-        if let amountText = self.amountTextField?.text {
+        if let aText = self.amountTextField?.text {
+            let thousandSeparator = NSLocale.currentLocale().objectForKey(NSLocaleGroupingSeparator) as! String
+            let amountText = aText.stringByReplacingOccurrencesOfString(thousandSeparator, withString: "", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
             let numberFormatter = NSNumberFormatter()
             numberFormatter.numberStyle = NSNumberFormatterStyle.DecimalStyle
             if let number = numberFormatter.numberFromString(amountText) {
@@ -110,29 +112,15 @@ class CurrencyEditView: UIView, UITextFieldDelegate {
             break
         }
         
-        var regex: NSRegularExpression?
-        
         let pattern = NSString(format: "^[0-9]+([\\%@][0-9]+)?(\\%@[0-9]{0,2})?$", thousandSeparator, decimalSeparator) as String
         
-        regex = NSRegularExpression(pattern: pattern, options: NSRegularExpressionOptions.CaseInsensitive, error:nil)
+        if let regex = NSRegularExpression(pattern: pattern, options: NSRegularExpressionOptions.CaseInsensitive, error:nil) {
+            let numberOfMatches = regex.numberOfMatchesInString(newString, options: NSMatchingOptions.WithoutAnchoringBounds, range: NSMakeRange(0, count(newString)))
+            return numberOfMatches > 0
+        }
         
-//        if upPointer = pointer {
-//            return false
-//        }
-        
-        let numberOfMatches = regex!.numberOfMatchesInString(newString, options: NSMatchingOptions.WithoutAnchoringBounds, range: NSMakeRange(0, count(newString)))
-        
-        return numberOfMatches > 0
+        return false
         
     }
-
-
-    /*
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
-        // Drawing code
-    }
-    */
 
 }
