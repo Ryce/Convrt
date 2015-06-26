@@ -79,7 +79,7 @@ class AAWindow: UIWindow {
         //Filter touches from other UIEventTypes.
         if (event.type == UIEventType.Touches) {
             for touchevent in event.allTouches()! {
-                let touch = touchevent as UITouch
+                let touch = touchevent as! UITouch
 
                 if (touch.phase == UITouchPhase.Began && touch.locationInView(self).y - self.frame.height * 0.9 >= 0) {
                     //willOpenControlCenter is true for a short period of time when the user touches in the bottom area of the screen. If in this period of time "applicationWillResignActive" is called it's highly likely (basically certain) that the user has launched Control Center.

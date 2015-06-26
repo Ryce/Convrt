@@ -8,7 +8,7 @@
 
 import UIKit
 import XCTest
-@testable import Convrt
+import Convrt
 
 class ConvrtSessionTests: XCTestCase {
     
@@ -32,62 +32,6 @@ class ConvrtSessionTests: XCTestCase {
         self.measureBlock() {
             // Put the code you want to measure the time of here.
         }
-    }
-    
-    func testFullCurrencyList() {
-        let currencyList = ConvrtSession.sharedInstance.savedCurrencyConfiguration
-        
-        XCTAssert(!currencyList.isEmpty)
-    }
-    
-    func testYQLConstructor() {
-        let usd = Currency("", "USD", "")
-        let eur = Currency("", "EUR", "")
-        let gbp = Currency("", "GBP", "")
-        let currencies = [CurrencyPair(fromCurrency: usd, toCurrency: eur), CurrencyPair(fromCurrency: usd, toCurrency: gbp)]
-        
-        let yqlString = ConvrtSession.sharedInstance.constructYQL(currencies)
-        
-        XCTAssertNotNil(yqlString)
-        XCTAssertGreaterThan(yqlString.characters.count, 0)
-    }
-    
-    func testConversion() {
-        let usd = Currency("US Dollar", "USD", "")
-        let eur = Currency("Euro", "EUR", "")
-        let gbp = Currency("Pound Sterling", "GBP", "")
-        let hkd = Currency("Hong Kong Dollar", "HKD", "")
-        let currencyArray = [CurrencyPair(fromCurrency: usd, toCurrency: hkd),
-            CurrencyPair(fromCurrency: eur, toCurrency: gbp),
-            CurrencyPair(fromCurrency: usd, toCurrency: eur)]
-        
-        let expectation = self.expectationWithDescription("fetchRates Expectation")
-        
-        var succeed = false
-        var optionalError: ConvrtError?
-        
-        ConvrtSession.sharedInstance.fetchRatesForCurrencies(currencyArray, completion: { (didSucceed, error) -> () in
-            
-            succeed = didSucceed
-            optionalError = error
-            
-            expectation.fulfill()
-        })
-        
-        self.waitForExpectationsWithTimeout(30, handler: nil)
-        
-        if !succeed {
-            XCTFail()
-        }
-        
-        if let actualError = optionalError {
-            if actualError != .NoError {
-                XCTFail()
-            }
-        } else {
-            XCTFail()
-        }
-        
     }
     
 }

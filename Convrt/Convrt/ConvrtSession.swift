@@ -32,10 +32,6 @@ func genericCurrencyPairs() -> [CurrencyPair] {
 
 typealias CurrencyAmount = Double
 
-enum ConvrtError : ErrorType {
-    case NoError, ConnectionError, ParseError
-}
-
 let klastUpdatedDateKey = "com.ryce.convrt.lastupdateddate"
 
 class ConvrtSession: NSObject {
@@ -123,22 +119,22 @@ class ConvrtSession: NSObject {
         return self.savedCurrencyPairs.filter { $0.fromCurrency == from }
     }
     
-    func addCurrencies(currencies: [CurrencyPair]) {
-        for currencyPair in currencies {
-            if let index = self.savedCurrencyPairs.indexOf(currencyPair) {
-                let object = self.savedCurrencyPairs[index]
-                object.merge(currencyPair)
-            } else {
-                self.savedCurrencyPairs.append(currencyPair)
-            }
-        }
-    }
+//    func addCurrencies(currencies: [CurrencyPair]) {
+//        for currencyPair in currencies {
+//            if let index = self.savedCurrencyPairs.ndexOf(currencyPair) {
+//                let object = self.savedCurrencyPairs[index]
+//                object.merge(currencyPair)
+//            } else {
+//                self.savedCurrencyPairs.append(currencyPair)
+//            }
+//        }
+//    }
 
     
     let manager: Manager = Alamofire.Manager.sharedInstance
     let baseURL = "http://query.yahooapis.com/v1/public/yql?q="
     
-    func fetchRatesForCurrencies(currencies: Array<CurrencyPair>, completion: (didSucceed: Bool, error: ConvrtError) -> ()) {
+    func fetchRatesForCurrencies(currencies: Array<CurrencyPair>, completion: (didSucceed: Bool, error: NSError?) -> ()) {
         
         let urlString = baseURL + self.constructYQL(currencies)
         manager.request(Method.GET, urlString, parameters: nil, encoding: .URL)
@@ -159,9 +155,9 @@ class ConvrtSession: NSObject {
                     // merge new info into existing array
                     self.savedCurrencyPairs = newCurrencies
                     
-                    completion(didSucceed: true, error: ConvrtError.NoError)
+                    completion(didSucceed: true, error: nil)
                 } else {
-                    completion(didSucceed: false, error: ConvrtError.ParseError)
+                    completion(didSucceed: false, error: NSError(domain: "SomeDomain", code: 0, userInfo: nil))
                 }
                 
             }
@@ -172,7 +168,7 @@ class ConvrtSession: NSObject {
         let prefix = "select%20*%20from%20yahoo.finance.xchange%20where%20pair%20in%20%28"
         let suffix = "%29&format=json&env=store://datatables.org/alltableswithkeys"
         
-        for (index, pair) in currencies.enumerate() {
+        for (index, pair) in enumerate(currencies) {
             constructionString += "%22" + pair.fromCurrency.code + pair.toCurrency.code + "%22"
             if currencies.count != index + 1 {
                 constructionString += ",%20"

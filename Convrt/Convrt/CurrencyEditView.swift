@@ -43,9 +43,9 @@ class CurrencyEditView: UIView, UITextFieldDelegate {
     
     func keyboardWillShow(note: NSNotification) {
         if let info = note.userInfo {
-            if let animationCurve = info[UIKeyboardAnimationCurveUserInfoKey],
-                let animationDuration = info[UIKeyboardAnimationDurationUserInfoKey] {
-                    UIView.animateWithDuration(animationDuration.doubleValue, delay: 0.0, options:UIViewAnimationOptions(rawValue: (animationCurve as! UInt)), animations: { () -> Void in
+            if let animationCurve = info[UIKeyboardAnimationCurveUserInfoKey] as? UInt,
+                let animationDuration = info[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber {
+                    UIView.animateWithDuration(animationDuration.doubleValue, delay: 0.0, options:UIViewAnimationOptions(rawValue: animationCurve), animations: { () -> Void in
                         self.alpha = 1.0
                         }, completion: nil)
             } else {
@@ -58,9 +58,9 @@ class CurrencyEditView: UIView, UITextFieldDelegate {
     
     func keyboardWillHide(note: NSNotification) {
         if let info = note.userInfo {
-            if let animationCurve = info[UIKeyboardAnimationCurveUserInfoKey],
-                let animationDuration = info[UIKeyboardAnimationDurationUserInfoKey] {
-                    UIView.animateWithDuration(animationDuration.doubleValue, delay: 0.0, options:UIViewAnimationOptions(rawValue: (animationCurve as! UInt)), animations: { () -> Void in
+            if let animationCurve = info[UIKeyboardAnimationCurveUserInfoKey] as? UInt,
+                let animationDuration = info[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber {
+                    UIView.animateWithDuration(animationDuration.doubleValue, delay: 0.0, options:UIViewAnimationOptions(rawValue: animationCurve), animations: { () -> Void in
                         self.alpha = 0.0
                         }, completion: nil)
             } else {
@@ -91,7 +91,7 @@ class CurrencyEditView: UIView, UITextFieldDelegate {
         let decimalSeparator = NSLocale.currentLocale().objectForKey(NSLocaleDecimalSeparator) as! String
         let thousandSeparator = NSLocale.currentLocale().objectForKey(NSLocaleGroupingSeparator) as! String
         
-        switch newString.characters.count {
+        switch count(newString) {
         case 0:
             return true
         case 1:
@@ -101,9 +101,9 @@ class CurrencyEditView: UIView, UITextFieldDelegate {
                 return false
             }
             break
-        case _ where newString.characters.count > 10:
+        case _ where count(newString) > 10:
             return false
-        case _ where newString.characters.last! == thousandSeparator.characters.last!:
+        case _ where last(newString)! == last(thousandSeparator)!:
             textField.text = newString.stringByReplacingOccurrencesOfString(thousandSeparator, withString: "")
             return false
         default:
@@ -114,15 +114,13 @@ class CurrencyEditView: UIView, UITextFieldDelegate {
         
         let pattern = NSString(format: "^[0-9]+([\\%@][0-9]+)?(\\%@[0-9]{0,2})?$", thousandSeparator, decimalSeparator) as String
         
-        var pointer: NSErrorPointer?
+        regex = NSRegularExpression(pattern: pattern, options: NSRegularExpressionOptions.CaseInsensitive, error:nil)
         
-        regex = NSRegularExpression(pattern: pattern, options: NSRegularExpressionOptions.CaseInsensitive, errorPointer:pointer)
+//        if upPointer = pointer {
+//            return false
+//        }
         
-        if upPointer = pointer {
-            return false
-        }
-        
-        let numberOfMatches = regex!.numberOfMatchesInString(newString, options: NSMatchingOptions.WithoutAnchoringBounds, range: NSMakeRange(0, newString.characters.count))
+        let numberOfMatches = regex!.numberOfMatchesInString(newString, options: NSMatchingOptions.WithoutAnchoringBounds, range: NSMakeRange(0, count(newString)))
         
         return numberOfMatches > 0
         
