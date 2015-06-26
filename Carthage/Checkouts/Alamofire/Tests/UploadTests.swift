@@ -37,7 +37,7 @@ class UploadResponseTestCase: BaseTestCase {
         var error: NSError?
 
         // When
-        Alamofire.upload(.POST, URLString: URLString, data: data)
+        Alamofire.upload(.POST, URLString, data)
             .response { responseRequest, responseResponse, _, responseError in
                 request = responseRequest
                 response = responseResponse
@@ -76,7 +76,7 @@ class UploadResponseTestCase: BaseTestCase {
         var responseError: NSError?
 
         // When
-        let upload = Alamofire.upload(.POST, URLString: URLString, data: data)
+        let upload = Alamofire.upload(.POST, URLString, data)
         upload.progress { bytesWritten, totalBytesWritten, totalBytesExpectedToWrite in
             let bytes = (bytes: bytesWritten, totalBytes: totalBytesWritten, totalBytesExpected: totalBytesExpectedToWrite)
             byteValues.append(bytes)

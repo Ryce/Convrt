@@ -42,35 +42,33 @@ class CurrencyEditView: UIView, UITextFieldDelegate {
     }
     
     func keyboardWillShow(note: NSNotification) {
-        guard let info = note.userInfo else { return } // BAIL
-        
-        guard let animationCurve = info[UIKeyboardAnimationCurveUserInfoKey],
-            let animationDuration = info[UIKeyboardAnimationDurationUserInfoKey] else {
+        if let info = note.userInfo {
+            if let animationCurve = info[UIKeyboardAnimationCurveUserInfoKey],
+                let animationDuration = info[UIKeyboardAnimationDurationUserInfoKey] {
+                    UIView.animateWithDuration(animationDuration.doubleValue, delay: 0.0, options:UIViewAnimationOptions(rawValue: (animationCurve as! UInt)), animations: { () -> Void in
+                        self.alpha = 1.0
+                        }, completion: nil)
+            } else {
                 UIView.animateWithDuration(0.5, animations: { () -> Void in
                     self.alpha = 1.0
                 })
-                return // BAIL
+            }
         }
-        
-        UIView.animateWithDuration(animationDuration.doubleValue, delay: 0.0, options:UIViewAnimationOptions(rawValue: (animationCurve as! UInt)), animations: { () -> Void in
-            self.alpha = 1.0
-            }, completion: nil)
     }
     
     func keyboardWillHide(note: NSNotification) {
-        guard let info = note.userInfo else { return } // BAIL
-        
-        guard let animationCurve = info[UIKeyboardAnimationCurveUserInfoKey],
-            let animationDuration = info[UIKeyboardAnimationDurationUserInfoKey] else {
+        if let info = note.userInfo {
+            if let animationCurve = info[UIKeyboardAnimationCurveUserInfoKey],
+                let animationDuration = info[UIKeyboardAnimationDurationUserInfoKey] {
+                    UIView.animateWithDuration(animationDuration.doubleValue, delay: 0.0, options:UIViewAnimationOptions(rawValue: (animationCurve as! UInt)), animations: { () -> Void in
+                        self.alpha = 0.0
+                        }, completion: nil)
+            } else {
                 UIView.animateWithDuration(0.5, animations: { () -> Void in
                     self.alpha = 0.0
                 })
-                return // BAIL
+            }
         }
-        
-        UIView.animateWithDuration(animationDuration.doubleValue, delay: 0.0, options:UIViewAnimationOptions(rawValue: (animationCurve as! UInt)), animations: { () -> Void in
-            self.alpha = 0.0
-            }, completion: nil)
     }
     
     func dismissView() {
@@ -116,9 +114,11 @@ class CurrencyEditView: UIView, UITextFieldDelegate {
         
         let pattern = NSString(format: "^[0-9]+([\\%@][0-9]+)?(\\%@[0-9]{0,2})?$", thousandSeparator, decimalSeparator) as String
         
-        do {
-            regex = try NSRegularExpression(pattern: pattern, options: NSRegularExpressionOptions.CaseInsensitive)
-        } catch {
+        var pointer: NSErrorPointer?
+        
+        regex = NSRegularExpression(pattern: pattern, options: NSRegularExpressionOptions.CaseInsensitive, errorPointer:pointer)
+        
+        if upPointer = pointer {
             return false
         }
         

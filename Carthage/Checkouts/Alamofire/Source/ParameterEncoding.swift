@@ -68,10 +68,10 @@ public enum ParameterEncoding {
     /**
         Creates a URL request by encoding parameters and applying them onto an existing request.
 
-        - parameter URLRequest: The request to have parameters applied
-        - parameter parameters: The parameters to apply
+        :param: URLRequest The request to have parameters applied
+        :param: parameters The parameters to apply
 
-        - returns: A tuple containing the constructed request and the error that occurred during parameter encoding, if any.
+        :returns: A tuple containing the constructed request and the error that occurred during parameter encoding, if any.
     */
     public func encode(URLRequest: URLRequestConvertible, parameters: [String: AnyObject]?) -> (NSURLRequest, NSError?) {
         if parameters == nil {
@@ -79,18 +79,18 @@ public enum ParameterEncoding {
         }
 
         var mutableURLRequest: NSMutableURLRequest! = URLRequest.URLRequest.mutableCopy() as! NSMutableURLRequest
-        var encodingError: NSError? = nil
+        var error: NSError? = nil
 
         switch self {
         case .URL:
             func query(parameters: [String: AnyObject]) -> String {
                 var components: [(String, String)] = []
-                for key in Array(parameters.keys).sort(<) {
+                for key in sorted(Array(parameters.keys), <) {
                     let value: AnyObject! = parameters[key]
                     components += self.queryComponents(key, value)
                 }
 
-                return "&".join(components.map{"\($0)=\($1)"} as [String])
+                return join("&", components.map{"\($0)=\($1)"} as [String])
             }
 
             func encodesParametersInURL(method: Method) -> Bool {
@@ -116,27 +116,21 @@ public enum ParameterEncoding {
                 mutableURLRequest.HTTPBody = query(parameters!).dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
             }
         case .JSON:
-            do {
-                let options = NSJSONWritingOptions()
-                let data = try NSJSONSerialization.dataWithJSONObject(parameters!, options: options)
+            let options = NSJSONWritingOptions.allZeros
+            if let data = NSJSONSerialization.dataWithJSONObject(parameters!, options: options, error: &error) {
                 mutableURLRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
                 mutableURLRequest.HTTPBody = data
-            } catch {
-                encodingError = error as NSError
             }
         case .PropertyList(let (format, options)):
-            do {
-                let data = try NSPropertyListSerialization.dataWithPropertyList(parameters!, format: format, options: options)
+            if let data = NSPropertyListSerialization.dataWithPropertyList(parameters!, format: format, options: options, error: &error) {
                 mutableURLRequest.setValue("application/x-plist", forHTTPHeaderField: "Content-Type")
                 mutableURLRequest.HTTPBody = data
-            } catch {
-                encodingError = error as NSError
             }
         case .Custom(let closure):
             return closure(mutableURLRequest, parameters)
         }
 
-        return (mutableURLRequest, encodingError)
+        return (mutableURLRequest, error)
     }
 
     func queryComponents(key: String, _ value: AnyObject) -> [(String, String)] {
@@ -184,9 +178,9 @@ public enum ParameterEncoding {
         query strings to include a URL. Therefore, all "reserved" characters with the exception of "?" and "/"
         should be percent escaped in the query string.
 
-        - parameter string: The string to be percent escaped.
+        :param: string The string to be percent escaped.
 
-        - returns: The percent escaped string.
+        :returns: The percent escaped string.
     */
     func escape(string: String) -> String {
         let generalDelimiters = ":#[]@" // does not include "?" or "/" due to RFC 3986 - Section 3.4
