@@ -1,0 +1,11 @@
+simple currency conversion app which lets you have a quick overview of multiple currencies at the same time.
+
+This project is free and open source
+--> https://github.com/Ryce/Convrt
+
+feel free to see what actually is happening behind the scenes and support if you like.
+
+written 100% in Swift 2.0
+
+Developed by: Hamon Ben Riazy
+Design by: Alisha Mischkowski
