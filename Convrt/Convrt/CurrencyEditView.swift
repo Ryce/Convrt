@@ -18,6 +18,8 @@ class CurrencyEditView: UIView, UITextFieldDelegate {
     @IBOutlet var titleLabel: UILabel?
     @IBOutlet var amountTextField: UITextField?
     
+    @IBOutlet var keyboardHeightConstraint: NSLayoutConstraint!
+    
     var didChangeAmount = false
     
     var currency: Currency?
@@ -54,6 +56,10 @@ class CurrencyEditView: UIView, UITextFieldDelegate {
                 return // BAIL
         }
         
+        if let keyboardRect = info[UIKeyboardFrameEndUserInfoKey]?.CGRectValue {
+            self.keyboardHeightConstraint.constant = keyboardRect.height + 8.0
+        }
+        
         UIView.animateWithDuration(animationDuration.doubleValue, delay: 0.0, options:UIViewAnimationOptions(rawValue: (animationCurve as! UInt)), animations: { () -> Void in
             self.alpha = 1.0
             }, completion: nil)
@@ -75,7 +81,7 @@ class CurrencyEditView: UIView, UITextFieldDelegate {
             }, completion: nil)
     }
     
-    func dismissView() {
+    @IBAction func dismissView() {
         if self.didChangeAmount {
             self.didChangeAmount = false
             if let amountText = self.amountTextField?.text {

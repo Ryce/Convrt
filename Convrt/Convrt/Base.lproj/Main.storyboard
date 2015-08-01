@@ -150,15 +150,25 @@
                                         <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tG7-MQ-bFo">
+                                        <rect key="frame" x="273" y="562" width="54" height="30"/>
+                                        <animations/>
+                                        <state key="normal" title="Dismiss"/>
+                                        <connections>
+                                            <action selector="dismissView" destination="Q0P-v5-9FV" eventType="touchUpInside" id="sey-4h-tb1"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="xjL-X7-E8e" firstAttribute="top" secondItem="Q0P-v5-9FV" secondAttribute="top" constant="45" id="1pn-qi-sGx"/>
+                                    <constraint firstItem="tG7-MQ-bFo" firstAttribute="centerX" secondItem="Q0P-v5-9FV" secondAttribute="centerX" id="3h2-xI-fNo"/>
                                     <constraint firstItem="FyK-SZ-BPW" firstAttribute="leading" secondItem="Q0P-v5-9FV" secondAttribute="leading" constant="30" id="4CR-uU-HvH"/>
                                     <constraint firstItem="xjL-X7-E8e" firstAttribute="centerX" secondItem="Q0P-v5-9FV" secondAttribute="centerX" id="Euh-7p-l0R"/>
                                     <constraint firstItem="nPh-JI-BIo" firstAttribute="top" secondItem="FyK-SZ-BPW" secondAttribute="bottom" constant="30" id="F8L-hn-hWB"/>
                                     <constraint firstAttribute="trailing" secondItem="FyK-SZ-BPW" secondAttribute="trailing" constant="30" id="IQS-dn-ELH"/>
+                                    <constraint firstAttribute="bottom" secondItem="tG7-MQ-bFo" secondAttribute="bottom" constant="8" id="SMP-Tl-Y2w"/>
                                     <constraint firstItem="nPh-JI-BIo" firstAttribute="leading" secondItem="Q0P-v5-9FV" secondAttribute="leading" constant="20" id="Uc3-of-S1a"/>
                                     <constraint firstItem="FyK-SZ-BPW" firstAttribute="top" secondItem="xjL-X7-E8e" secondAttribute="bottom" constant="30" id="f0U-75-v74"/>
                                     <constraint firstAttribute="trailing" secondItem="nPh-JI-BIo" secondAttribute="trailing" constant="20" id="fxd-k8-UL3"/>
@@ -167,6 +177,7 @@
                                 <connections>
                                     <outlet property="amountTextField" destination="FyK-SZ-BPW" id="MAv-Ef-yFR"/>
                                     <outlet property="codeLabel" destination="xjL-X7-E8e" id="W1e-Sm-PnS"/>
+                                    <outlet property="keyboardHeightConstraint" destination="SMP-Tl-Y2w" id="yyR-df-9Gk"/>
                                     <outlet property="titleLabel" destination="nPh-JI-BIo" id="gaw-vt-vXh"/>
                                 </connections>
                             </view>
