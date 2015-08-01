@@ -18,6 +18,8 @@ class CurrencyEditView: UIView, UITextFieldDelegate {
     @IBOutlet var titleLabel: UILabel?
     @IBOutlet var amountTextField: UITextField?
     
+    var didChangeAmount = false
+    
     var currency: Currency?
     
     weak var delegate: CurrencyEditDelegate?
@@ -74,11 +76,14 @@ class CurrencyEditView: UIView, UITextFieldDelegate {
     }
     
     func dismissView() {
-        if let amountText = self.amountTextField?.text {
-            let numberFormatter = NSNumberFormatter()
-            numberFormatter.numberStyle = NSNumberFormatterStyle.DecimalStyle
-            if let number = numberFormatter.numberFromString(amountText) {
-                self.delegate?.didDismiss(self, self.currency!, number.doubleValue)
+        if self.didChangeAmount {
+            self.didChangeAmount = false
+            if let amountText = self.amountTextField?.text {
+                let numberFormatter = NSNumberFormatter()
+                numberFormatter.numberStyle = NSNumberFormatterStyle.DecimalStyle
+                if let number = numberFormatter.numberFromString(amountText) {
+                    self.delegate?.didDismiss(self, self.currency!, number.doubleValue)
+                }
             }
         }
         
@@ -88,6 +93,7 @@ class CurrencyEditView: UIView, UITextFieldDelegate {
     // MARK: UITextFieldDelegate
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        self.didChangeAmount = true
         let oldString = textField.text!
         let newString = (oldString as NSString).stringByReplacingCharactersInRange(range, withString: string)
         let decimalSeparator = NSLocale.currentLocale().objectForKey(NSLocaleDecimalSeparator) as! String
