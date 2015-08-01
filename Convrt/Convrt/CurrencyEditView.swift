@@ -133,14 +133,23 @@ class CurrencyEditView: UIView, UITextFieldDelegate {
         return numberOfMatches > 0
         
     }
-
-
-    /*
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
-        // Drawing code
+    
+    // MARK: Touches
+    
+    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        let touch = touches[touches.startIndex]
+        let location = touch.locationInView(self.superview)
+        let previousLocation = touch.previousLocationInView(self.superview)
+        let xOffset = previousLocation.y - location.y
+        
+        guard let amountText = self.amountTextField?.text else { return }
+        
+        guard let currentAmount = self.currency?.numberFormatter.numberFromString(amountText) else { return }
+        
+        let percentage = 1 + (xOffset/self.bounds.size.height)
+        let filteredAmount = Double(currentAmount.doubleValue) * Double(percentage)
+        
+        self.amountTextField?.text = self.currency?.numberFormatter.stringFromNumber(NSNumber(double: filteredAmount))
     }
-    */
 
 }

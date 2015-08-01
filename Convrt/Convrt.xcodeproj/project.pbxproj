@@ -17,6 +17,7 @@
 		DAB2061E1B3C469400E1900E /* CurrencyPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2061D1B3C469300E1900E /* CurrencyPair.swift */; };
 		DAC3EDB01B0741D200E304AC /* AAWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC3EDAF1B0741D200E304AC /* AAWindow.swift */; };
 		DAC3EDBB1B07B05600E304AC /* ConvrtSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC3EDBA1B07B05600E304AC /* ConvrtSession.swift */; };
+		DAD22B4C1B6D2FDF00EEDFCD /* CurrencySelectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD22B4B1B6D2FDF00EEDFCD /* CurrencySelectionTableViewController.swift */; };
 		DADD1B1C1B073D6A00DC9269 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD1B1B1B073D6A00DC9269 /* AppDelegate.swift */; };
 		DADD1B1E1B073D6A00DC9269 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD1B1D1B073D6A00DC9269 /* ViewController.swift */; };
 		DADD1B211B073D6A00DC9269 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DADD1B1F1B073D6A00DC9269 /* Main.storyboard */; };
@@ -54,6 +55,7 @@
 		DAB2061D1B3C469300E1900E /* CurrencyPair.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyPair.swift; sourceTree = "<group>"; };
 		DAC3EDAF1B0741D200E304AC /* AAWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AAWindow.swift; path = Frameworks/AAWindow.swift; sourceTree = "<group>"; };
 		DAC3EDBA1B07B05600E304AC /* ConvrtSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvrtSession.swift; sourceTree = "<group>"; };
+		DAD22B4B1B6D2FDF00EEDFCD /* CurrencySelectionTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencySelectionTableViewController.swift; sourceTree = "<group>"; };
 		DADD1B161B073D6A00DC9269 /* Convrt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Convrt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DADD1B1A1B073D6A00DC9269 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DADD1B1B1B073D6A00DC9269 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				DADD1B1D1B073D6A00DC9269 /* ViewController.swift */,
+				DAD22B4B1B6D2FDF00EEDFCD /* CurrencySelectionTableViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -376,6 +379,7 @@
 				DAB2061C1B3C466D00E1900E /* Currency.swift in Sources */,
 				DA277DF11B36D96400B2E28F /* CurrencyEditView.swift in Sources */,
 				DAC3EDBB1B07B05600E304AC /* ConvrtSession.swift in Sources */,
+				DAD22B4C1B6D2FDF00EEDFCD /* CurrencySelectionTableViewController.swift in Sources */,
 				DAB2061E1B3C469400E1900E /* CurrencyPair.swift in Sources */,
 				DAC3EDB01B0741D200E304AC /* AAWindow.swift in Sources */,
 			);
@@ -538,6 +542,7 @@
 					"$(PROJECT_DIR)/Convrt/Frameworks",
 				);
 				INFOPLIST_FILE = Convrt/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ryce.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -556,6 +561,7 @@
 					"$(PROJECT_DIR)/Convrt/Frameworks",
 				);
 				INFOPLIST_FILE = Convrt/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ryce.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
