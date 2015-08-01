@@ -144,12 +144,16 @@ class CurrencyEditView: UIView, UITextFieldDelegate {
         
         guard let amountText = self.amountTextField?.text else { return }
         
-        guard let currentAmount = self.currency?.numberFormatter.numberFromString(amountText) else { return }
+        guard let currentAmount = self.currency?.numberFormatter.numberFromString(amountText) else {
+            self.amountTextField?.text = "100"
+            return // BAIL
+        }
         
         let percentage = 1 + (xOffset/self.bounds.size.height)
         let filteredAmount = Double(currentAmount.doubleValue) * Double(percentage)
         
         self.amountTextField?.text = self.currency?.numberFormatter.stringFromNumber(NSNumber(double: filteredAmount))
+        self.didChangeAmount = true
     }
 
 }
