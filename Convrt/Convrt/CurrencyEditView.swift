@@ -81,9 +81,8 @@ class CurrencyEditView: UIView, UITextFieldDelegate {
             if let amountText = self.amountTextField?.text {
                 let numberFormatter = NSNumberFormatter()
                 numberFormatter.numberStyle = NSNumberFormatterStyle.DecimalStyle
-                if let number = numberFormatter.numberFromString(amountText) {
-                    self.delegate?.didDismiss(self, self.currency!, number.doubleValue)
-                }
+                let number = numberFormatter.numberFromString(amountText) ?? 0.0
+                self.delegate?.didDismiss(self, self.currency!, number.doubleValue)
             }
         }
         
@@ -132,6 +131,11 @@ class CurrencyEditView: UIView, UITextFieldDelegate {
         
         return numberOfMatches > 0
         
+    }
+    
+    func textFieldShouldClear(textField: UITextField) -> Bool {
+        self.didChangeAmount = true
+        return true
     }
     
     // MARK: Touches
