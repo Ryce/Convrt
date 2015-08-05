@@ -8,7 +8,24 @@
 
 import Foundation
 
-class Currency: NSObject {
+let kTitleKey = "title"
+let kCodeKey = "code"
+let kCountryKey = "country"
+
+class Currency: NSObject, NSCoding {
+    
+    required init?(coder aDecoder: NSCoder) {
+        self.title = aDecoder.decodeObjectForKey(kTitleKey) as! String
+        self.code = aDecoder.decodeObjectForKey(kCodeKey) as! String
+        self.country = aDecoder.decodeObjectForKey(kCountryKey) as! String
+        super.init()
+    }
+    
+    func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeObject(self.title, forKey: kTitleKey)
+        aCoder.encodeObject(self.code, forKey: kCodeKey)
+        aCoder.encodeObject(self.country, forKey: kCountryKey)
+    }
     
     init(_ someTitle: String, _ someCode: String, _ someCountry: String) {
         self.title = someTitle

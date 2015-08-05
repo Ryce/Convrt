@@ -37,6 +37,7 @@ enum ConvrtError : ErrorType {
 }
 
 let klastUpdatedDateKey = "com.ryce.convrt.lastupdateddate"
+let kSavedCurrenciesKey = "com.ryce.convrt.savedcurrencies"
 
 class ConvrtSession: NSObject {
     
@@ -71,11 +72,19 @@ class ConvrtSession: NSObject {
             if let savedCurrencyPairs = _savedCurrencyPairs {
                 return savedCurrencyPairs
             }
+            if let persistedCurrencyData = NSUserDefaults.standardUserDefaults().objectForKey(kSavedCurrenciesKey) as? NSData {
+                if let persistedCurrencyPairs = NSKeyedUnarchiver.unarchiveObjectWithData(persistedCurrencyData) as? [CurrencyPair] {
+                    _savedCurrencyPairs = persistedCurrencyPairs
+                    return _savedCurrencyPairs!
+                }
+            }
             _savedCurrencyPairs = genericCurrencyPairs()
             return _savedCurrencyPairs!
         }
         set {
             _savedCurrencyPairs = newValue
+            NSUserDefaults.standardUserDefaults().setObject(NSKeyedArchiver.archivedDataWithRootObject(newValue), forKey: kSavedCurrenciesKey)
+            NSUserDefaults.standardUserDefaults().synchronize()
         }
     }
 

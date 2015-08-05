@@ -8,17 +8,36 @@
 
 import Foundation
 
-class CurrencyPair: Equatable {
+let kFromCurrencyKey = "fromCurrency"
+let kToCurrencyKey = "toCurrency"
+let kRateKey = "rate"
+
+class CurrencyPair: NSObject, NSCoding {
+    
+    required init?(coder aDecoder: NSCoder) {
+        self.fromCurrency = aDecoder.decodeObjectForKey(kFromCurrencyKey) as! Currency
+        self.toCurrency = aDecoder.decodeObjectForKey(kToCurrencyKey) as! Currency
+        self.rate = aDecoder.decodeDoubleForKey(kRateKey)
+        super.init()
+    }
+    
+    func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeObject(self.fromCurrency, forKey: kFromCurrencyKey)
+        aCoder.encodeObject(self.toCurrency, forKey: kToCurrencyKey)
+        aCoder.encodeDouble(self.rate, forKey: kRateKey)
+    }
     
     init(fromCurrency: Currency, toCurrency: Currency) {
         self.fromCurrency = fromCurrency
         self.toCurrency = toCurrency
+        super.init()
     }
     
     init(fromCurrency: Currency, toCurrency: Currency, rate: Double) {
         self.fromCurrency = fromCurrency
         self.toCurrency = toCurrency
         self.rate = rate;
+        super.init()
     }
     
     func merge(otherCurrencyPair: CurrencyPair) {
