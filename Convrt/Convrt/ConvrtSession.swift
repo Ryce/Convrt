@@ -151,9 +151,13 @@ class ConvrtSession: NSObject {
         
         let urlString = baseURL + self.constructYQL(currencies)
         manager.request(Method.GET, urlString, parameters: nil, encoding: .URL)
-            .responseJSON { (_, _, JSON, error) -> Void in
-                
-                let objects = JSON?["query"] as? NSDictionary
+            .responseJSON { (_, _, result) -> Void in
+                if result.isFailure {
+                    completion(didSucceed: false, error: ConvrtError.ConnectionError)
+                    return // BAIL
+                }
+                let JSON = result.value as! [String:AnyObject]
+                let objects = JSON["query"] as? NSDictionary
                 if let _objects = objects?.valueForKeyPath("results.rate") as? Array<Dictionary<String, String>> {
                     var newCurrencies = Array<CurrencyPair>()
                     // TODO: update existing objects instead of creating new ones
