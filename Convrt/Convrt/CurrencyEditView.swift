@@ -162,7 +162,7 @@ class CurrencyEditView: UIView, UITextFieldDelegate {
         let percentage = 1 + (xOffset/self.bounds.size.height)
         let filteredAmount = Double(currentAmount.doubleValue) * Double(percentage)
         
-        self.amountTextField?.text = self.currency?.numberFormatter.stringFromNumber(NSNumber(double: filteredAmount))
+        self.amountTextField?.text = self.currency?.numberFormatter.stringFromNumber(NSNumber(double: floor(filteredAmount)))
         self.didChangeAmount = true
     }
 
