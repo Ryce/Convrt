@@ -8,9 +8,13 @@
 
 import UIKit
 
-class CurrencySelectionViewController: UIViewController {
+let currencySelectionCellIdentifier = "com.identifier"
+
+class CurrencySelectionViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet var tableView: UITableView!
+    
+    var tableViewItems: Array<String>?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +27,19 @@ class CurrencySelectionViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    // MARK: UITableViewDelegate & DataSource
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if let count = tableViewItems?.count {
+            return count
+        }
+        return 0
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let tableViewCell = tableView.dequeueReusableCellWithIdentifier(currencySelectionCellIdentifier, forIndexPath: indexPath)
+        return tableViewCell
+    }
     
 
 }
