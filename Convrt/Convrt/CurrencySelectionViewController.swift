@@ -14,11 +14,11 @@ class CurrencySelectionViewController: UIViewController, UITableViewDelegate, UI
     
     @IBOutlet var tableView: UITableView!
     
-    var tableViewItems: Array<String>?
-
+    var tableViewItems = ConvrtSession.sharedInstance.fullCurrenyList
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Done", style: .Plain, target: self, action: Selector("dismiss"))
         // Do any additional setup after loading the view.
     }
 
@@ -27,17 +27,19 @@ class CurrencySelectionViewController: UIViewController, UITableViewDelegate, UI
         // Dispose of any resources that can be recreated.
     }
     
+    func dismiss() {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     // MARK: UITableViewDelegate & DataSource
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let count = tableViewItems?.count {
-            return count
-        }
-        return 0
+        return tableViewItems.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let tableViewCell = tableView.dequeueReusableCellWithIdentifier(currencySelectionCellIdentifier, forIndexPath: indexPath)
+        tableViewCell.textLabel?.text = tableViewItems[indexPath.row].title
         return tableViewCell
     }
     

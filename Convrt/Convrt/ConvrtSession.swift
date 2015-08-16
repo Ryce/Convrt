@@ -95,7 +95,7 @@ class ConvrtSession: NSObject {
     
     var selectedCurrencies = Array<Currency>()
     
-    private let fullCurrenyList: Array<Currency> = {
+    let fullCurrenyList: Array<Currency> = {
         let plistPath = NSBundle.mainBundle().pathForResource("currencies", ofType: "plist")!
         let plistArray = NSArray(contentsOfFile: plistPath) as! Array<AnyObject>
         

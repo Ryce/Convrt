@@ -32,6 +32,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         self.collectionView!.backgroundColor = UIColor.clearColor()
         self.detailView?.delegate = self
         self.detailView?.amountTextField?.keyboardType = UIKeyboardType.DecimalPad
+        
+        self.collectionView!.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: Selector()))
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -46,6 +48,13 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK: Actions
+    
+    func showCurrencySelection() {
+        let vc = UINavigationController(rootViewController: CurrencySelectionViewController())
+        self.presentViewController(vc, animated: true, completion: nil)
     }
 
     // MARK: UICollectionViewDataSource
@@ -90,6 +99,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         return CGSizeMake(145 * self.view.bounds.size.width/320, 120 * self.view.bounds.size.width/320);
     }
+    
     
     
     
