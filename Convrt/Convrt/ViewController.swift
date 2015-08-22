@@ -8,7 +8,6 @@
 
 import UIKit
 
-// TODO: switch back to UIViewController + iboutlet UICollectionViewDelegate & DataSource
 class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, CurrencyEditDelegate {
     
     @IBOutlet var collectionView: UICollectionView?
@@ -33,7 +32,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         self.detailView?.delegate = self
         self.detailView?.amountTextField?.keyboardType = UIKeyboardType.DecimalPad
         
-        self.collectionView!.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: Selector()))
+        self.collectionView!.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: Selector("showCurrencySelection")))
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -53,7 +52,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     // MARK: Actions
     
     func showCurrencySelection() {
-        let vc = UINavigationController(rootViewController: CurrencySelectionViewController())
+        let vc = UINavigationController(rootViewController: UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("CurrencySelectionViewController") as! CurrencySelectionViewController)
         self.presentViewController(vc, animated: true, completion: nil)
     }
 
