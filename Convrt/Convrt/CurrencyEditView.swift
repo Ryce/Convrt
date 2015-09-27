@@ -171,7 +171,15 @@ class CurrencyEditView: UIView, UITextFieldDelegate {
 
         guard let currentAmount = self.currency?.numberFormatter.numberFromString(amountText) else { return }
         
-        self.amountTextField?.text = self.currency?.numberFormatter.stringFromNumber(NSNumber(double: floor(currentAmount.doubleValue)))
+        let roundedAmountLength = ceil(log10(currentAmount.doubleValue))
+        
+        var newAmount = floor(currentAmount.doubleValue)
+        
+        if roundedAmountLength > 3 {
+            newAmount -= newAmount % (pow(10, (roundedAmountLength - 3)))
+        }
+        
+        self.amountTextField?.text = self.currency?.numberFormatter.stringFromNumber(NSNumber(double: newAmount))
         self.didChangeAmount = true
     }
 
