@@ -23,7 +23,7 @@ func genericCurrencyPairs() -> [CurrencyPair] {
     for fromCurrency in genericCurrencyArray {
         for toCurrency in genericCurrencyArray {
             if fromCurrency != toCurrency {
-                currPairs.append(CurrencyPair(fromCurrency: fromCurrency, toCurrency: toCurrency))
+                currPairs.append(CurrencyPair(fromCurrency, toCurrency))
             }
         }
     }

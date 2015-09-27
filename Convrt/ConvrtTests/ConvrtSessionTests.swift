@@ -44,7 +44,7 @@ class ConvrtSessionTests: XCTestCase {
         let usd = Currency("", "USD", "")
         let eur = Currency("", "EUR", "")
         let gbp = Currency("", "GBP", "")
-        let currencies = [CurrencyPair(fromCurrency: usd, toCurrency: eur), CurrencyPair(fromCurrency: usd, toCurrency: gbp)]
+        let currencies = [CurrencyPair(usd, eur), CurrencyPair(usd, gbp)]
         
         let yqlString = ConvrtSession.sharedInstance.constructYQL(currencies)
         
@@ -57,9 +57,9 @@ class ConvrtSessionTests: XCTestCase {
         let eur = Currency("Euro", "EUR", "")
         let gbp = Currency("Pound Sterling", "GBP", "")
         let hkd = Currency("Hong Kong Dollar", "HKD", "")
-        let currencyArray = [CurrencyPair(fromCurrency: usd, toCurrency: hkd),
-            CurrencyPair(fromCurrency: eur, toCurrency: gbp),
-            CurrencyPair(fromCurrency: usd, toCurrency: eur)]
+        let currencyArray = [CurrencyPair(usd, hkd),
+            CurrencyPair(eur, gbp),
+            CurrencyPair(usd, eur)]
         
         let expectation = self.expectationWithDescription("fetchRates Expectation")
         

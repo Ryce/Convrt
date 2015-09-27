@@ -27,7 +27,7 @@ class CurrencyPair: NSObject, NSCoding {
         aCoder.encodeDouble(self.rate, forKey: kRateKey)
     }
     
-    init(fromCurrency: Currency, toCurrency: Currency) {
+    init(_ fromCurrency: Currency, _ toCurrency: Currency) {
         self.fromCurrency = fromCurrency
         self.toCurrency = toCurrency
         super.init()
