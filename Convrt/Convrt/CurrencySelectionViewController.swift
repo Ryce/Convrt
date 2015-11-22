@@ -8,7 +8,7 @@
 
 import UIKit
 
-let currencySelectionCellIdentifier = "com.identifier"
+let currencySelectionCellIdentifier = "com.ryce.convrt.currencySelectionCell"
 
 class CurrencySelectionViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -18,6 +18,7 @@ class CurrencySelectionViewController: UIViewController, UITableViewDelegate, UI
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tableView.registerClass(UITableViewCell.classForCoder(), forCellReuseIdentifier: currencySelectionCellIdentifier)
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Done", style: .Plain, target: self, action: Selector("dismiss"))
         // Do any additional setup after loading the view.
     }
