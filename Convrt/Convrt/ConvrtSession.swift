@@ -66,7 +66,7 @@ class ConvrtSession: NSObject {
                     return _savedCurrencyPairs!
                 }
             }
-            _savedCurrencyPairs = self.generateCurrencyPairs(genericCurrencyArray)
+            _savedCurrencyPairs = self.generateCurrencyPairs(self.savedCurrencyConfiguration)
             return _savedCurrencyPairs!
         }
         set {

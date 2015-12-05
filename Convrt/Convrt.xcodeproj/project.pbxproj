@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DA11E7B31C13086D0056FB5E /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA11E7A51C1307E60056FB5E /* Alamofire.framework */; };
 		DA277DEF1B36D1C500B2E28F /* currencies.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA277DEE1B36D1C500B2E28F /* currencies.plist */; };
 		DA277DF11B36D96400B2E28F /* CurrencyEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA277DF01B36D96400B2E28F /* CurrencyEditView.swift */; };
+		DA475B0A1C1342FA00FD9B7A /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DA11E7A51C1307E60056FB5E /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DA51B94F1B356C5B006AD73B /* ConvrtCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA51B94E1B356C5B006AD73B /* ConvrtCollectionViewCell.swift */; };
 		DA686F6A1B35D38E004D62B2 /* ConvrtSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA686F691B35D38E004D62B2 /* ConvrtSessionTests.swift */; };
 		DA94A1211B3DCC2E00FFA025 /* Convrt_UI_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA94A1201B3DCC2E00FFA025 /* Convrt_UI_Tests.swift */; };
@@ -75,6 +75,13 @@
 			remoteGlobalIDString = E4202FE01B667AA100C997FB;
 			remoteInfo = "Alamofire watchOS";
 		};
+		DA475B0B1C1342FA00FD9B7A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA11E79A1C1307E60056FB5E /* Alamofire.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F8111E3219A95C8B0040E7D1;
+			remoteInfo = "Alamofire iOS";
+		};
 		DA94A1231B3DCC2E00FFA025 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DADD1B0E1B073D6A00DC9269 /* Project object */;
@@ -90,6 +97,20 @@
 			remoteInfo = Convrt;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DA475B0D1C1342FA00FD9B7A /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				DA475B0A1C1342FA00FD9B7A /* Alamofire.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		DA11E79A1C1307E60056FB5E /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = SOURCE_ROOT; };
@@ -128,7 +149,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA11E7B31C13086D0056FB5E /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,10 +312,12 @@
 				DADD1B121B073D6A00DC9269 /* Sources */,
 				DADD1B131B073D6A00DC9269 /* Frameworks */,
 				DADD1B141B073D6A00DC9269 /* Resources */,
+				DA475B0D1C1342FA00FD9B7A /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				DA475B0C1C1342FA00FD9B7A /* PBXTargetDependency */,
 			);
 			name = Convrt;
 			productName = Convrt;
@@ -486,6 +508,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		DA475B0C1C1342FA00FD9B7A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Alamofire iOS";
+			targetProxy = DA475B0B1C1342FA00FD9B7A /* PBXContainerItemProxy */;
+		};
 		DA94A1241B3DCC2E00FFA025 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = DADD1B151B073D6A00DC9269 /* Convrt */;
@@ -626,6 +653,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -646,6 +674,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

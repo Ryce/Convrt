@@ -39,8 +39,9 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         ConvrtSession.sharedInstance.updateSavedCurrencyPairs()
-        // TODO: show that rates are being fetched
+        self.showLoadingIndicator()
         ConvrtSession.sharedInstance.fetchRatesForCurrencies(ConvrtSession.sharedInstance.savedCurrencyPairs) { (items, error) -> () in
+            self.hideLoadingIndicator()
             if error != .NoError {
                 let alert = UIAlertController(title: "Whoops", message: "There was a problem fetching the rates", preferredStyle: .Alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
@@ -116,6 +117,29 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         self.selectedCurrency = currency
         // TODO: asynchronously load selected currency rates and set
         self.collectionView?.reloadData()
+    }
+    
+    // MARK: Loading Indicator
+    
+    func showLoadingIndicator() {
+        self.loadingIndicatorContainer.frame = self.view.bounds
+        self.loadingIndicator.center = self.loadingIndicatorContainer.center
+        self.view.addSubview(self.loadingIndicatorContainer)
+        self.loadingIndicatorContainer.addSubview(self.loadingIndicator)
+        self.loadingIndicator.startAnimating()
+        self.loadingIndicatorContainer.alpha = 0.0
+        UIView.animateWithDuration(0.5) { () -> Void in
+            self.loadingIndicatorContainer.alpha = 1.0
+        }
+    }
+    
+    func hideLoadingIndicator() {
+        UIView.animateWithDuration(0.5, animations: { () -> Void in
+            self.loadingIndicatorContainer.alpha = 0.0
+            }) { (didFinish) -> Void in
+                self.loadingIndicatorContainer.removeFromSuperview()
+                self.loadingIndicator.stopAnimating()
+        }
     }
     
 }
