@@ -62,6 +62,14 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         let vc = UINavigationController(rootViewController: UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("CurrencySelectionViewController") as! CurrencySelectionViewController)
         self.presentViewController(vc, animated: true, completion: nil)
     }
+    
+    func updateView(amount: CurrencyAmount, currency: Currency) {
+        currency.currentAmount = amount
+        self.selectedCurrencyAmount = amount
+        self.selectedCurrency = currency
+        // TODO: asynchronously load selected currency rates and set
+        self.collectionView?.reloadData()
+    }
 
     // MARK: UICollectionViewDataSource
     

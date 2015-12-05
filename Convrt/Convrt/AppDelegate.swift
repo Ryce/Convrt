@@ -40,6 +40,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
+    
+    @available(iOS 9.0, *)
+    func application(application: UIApplication, performActionForShortcutItem shortcutItem: UIApplicationShortcutItem, completionHandler: (Bool) -> Void) {
+        print("shortcut call")
+        if shortcutItem.type == "com.ryce.convrt.openhundredeur" {
+            guard let viewController = self.window?.rootViewController as? ViewController,
+                let shortcutCurrency = shortcutItem.userInfo?["currency"] as? String,
+                let currency = ConvrtSession.sharedInstance.savedCurrencyConfiguration.filter({ $0.code == shortcutCurrency }).first,
+                let shortcutAmount = shortcutItem.userInfo?["amount"] as? String,
+                let currentAmount = Double(shortcutAmount) else {
+                completionHandler(false)
+                return
+            }
+            
+            viewController.updateView(currentAmount, currency: currency)
+            
+        }
+        completionHandler(true)
+    }
 
 
 }
