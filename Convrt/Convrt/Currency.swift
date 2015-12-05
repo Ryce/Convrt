@@ -63,6 +63,11 @@ class Currency: NSObject, NSCoding {
         return numberFormatter.stringFromNumber(0)!
     }
     
+    override func isEqual(object: AnyObject?) -> Bool {
+        guard let currency = object as? Currency else { return false }
+        return self.code == currency.code
+    }
+    
 }
 
 func ==(lhs: Currency, rhs: Currency) -> Bool {

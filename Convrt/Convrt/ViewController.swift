@@ -38,12 +38,15 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        ConvrtSession.sharedInstance.updateSavedCurrencyPairs()
+        // TODO: show that rates are being fetched
         ConvrtSession.sharedInstance.fetchRatesForCurrencies(ConvrtSession.sharedInstance.savedCurrencyPairs) { (items, error) -> () in
             if error != .NoError {
                 let alert = UIAlertController(title: "Whoops", message: "There was a problem fetching the rates", preferredStyle: .Alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
                 self.presentViewController(alert, animated: true, completion: nil)
             }
+            self.collectionView?.reloadData()
         }
     }
 

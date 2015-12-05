@@ -40,9 +40,26 @@ class CurrencySelectionViewController: UIViewController, UITableViewDelegate, UI
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let tableViewCell = tableView.dequeueReusableCellWithIdentifier(currencySelectionCellIdentifier, forIndexPath: indexPath)
-        tableViewCell.textLabel?.text = tableViewItems[indexPath.row].title
+        let currentCurrency = tableViewItems[indexPath.row]
+        tableViewCell.textLabel?.text = currentCurrency.title
+        if ConvrtSession.sharedInstance.savedCurrencyConfiguration.contains(currentCurrency) {
+            tableViewCell.accessoryType = .Checkmark
+        } else {
+            tableViewCell.accessoryType = .None
+        }
         return tableViewCell
     }
     
-
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        let currentCurrency = tableViewItems[indexPath.row]
+        if ConvrtSession.sharedInstance.savedCurrencyConfiguration.contains(currentCurrency) {
+            guard let index = ConvrtSession.sharedInstance.savedCurrencyConfiguration.indexOf(currentCurrency) else { return }
+            ConvrtSession.sharedInstance.savedCurrencyConfiguration.removeAtIndex(index)
+        } else {
+            ConvrtSession.sharedInstance.savedCurrencyConfiguration.append(currentCurrency)
+        }
+        tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+    }
+    
 }

@@ -18,18 +18,6 @@ let genericCurrencyArray = [Currency("United States Dollar", "USD", "United Stat
     Currency("Australian Dollar", "AUD", "Australia"),
     Currency("Renminbi", "CNY", "China")]
 
-func genericCurrencyPairs() -> [CurrencyPair] {
-    var currPairs = [CurrencyPair]()
-    for fromCurrency in genericCurrencyArray {
-        for toCurrency in genericCurrencyArray {
-            if fromCurrency != toCurrency {
-                currPairs.append(CurrencyPair(fromCurrency, toCurrency))
-            }
-        }
-    }
-    return currPairs
-}
-
 typealias CurrencyAmount = Double
 
 enum ConvrtError : ErrorType {
@@ -78,7 +66,7 @@ class ConvrtSession: NSObject {
                     return _savedCurrencyPairs!
                 }
             }
-            _savedCurrencyPairs = genericCurrencyPairs()
+            _savedCurrencyPairs = self.generateCurrencyPairs(genericCurrencyArray)
             return _savedCurrencyPairs!
         }
         set {
@@ -142,6 +130,22 @@ class ConvrtSession: NSObject {
             }
         }
     }
+    
+    func generateCurrencyPairs(currencies: [Currency]) -> [CurrencyPair] {
+        var currPairs = [CurrencyPair]()
+        for fromCurrency in currencies {
+            for toCurrency in currencies {
+                if fromCurrency != toCurrency {
+                    currPairs.append(CurrencyPair(fromCurrency, toCurrency))
+                }
+            }
+        }
+        return currPairs
+    }
+    
+    func updateSavedCurrencyPairs() {
+        self.savedCurrencyPairs = self.generateCurrencyPairs(self.savedCurrencyConfiguration)
+    }
 
     
     let manager: Manager = Alamofire.Manager.sharedInstance
@@ -150,34 +154,32 @@ class ConvrtSession: NSObject {
     func fetchRatesForCurrencies(currencies: Array<CurrencyPair>, completion: (didSucceed: Bool, error: ConvrtError) -> ()) {
         
         let urlString = baseURL + self.constructYQL(currencies)
-        manager.request(Method.GET, urlString, parameters: nil, encoding: .URL)
-            .responseJSON { (_, _, result) -> Void in
-                if result.isFailure {
-                    completion(didSucceed: false, error: ConvrtError.ConnectionError)
-                    return // BAIL
-                }
-                let JSON = result.value as! [String:AnyObject]
-                let objects = JSON["query"] as? NSDictionary
-                if let _objects = objects?.valueForKeyPath("results.rate") as? Array<Dictionary<String, String>> {
-                    var newCurrencies = Array<CurrencyPair>()
-                    // TODO: update existing objects instead of creating new ones
-                    for dict in _objects {
-                        let nameArray = dict["Name"]?.componentsSeparatedByString("/")
-                        let fromCurrency = Currency(nameArray![0], nameArray![0], "")
-                        let toCurrency = Currency(nameArray![1], nameArray![1], "")
-                        let rate = dict["Rate"]! as NSString
-                        newCurrencies.append(CurrencyPair(fromCurrency: fromCurrency, toCurrency: toCurrency, rate: rate.doubleValue))
-                    }
-                    
-                    // merge new info into existing array
-                    self.savedCurrencyPairs = newCurrencies
-                    
-                    completion(didSucceed: true, error: ConvrtError.NoError)
-                } else {
-                    completion(didSucceed: false, error: ConvrtError.ParseError)
+        manager.request(Method.GET, urlString, parameters: nil, encoding: .URL).responseJSON(completionHandler: { (response) -> Void in
+            if response.result.isFailure {
+                completion(didSucceed: false, error: ConvrtError.ConnectionError)
+                return // BAIL
+            }
+            let JSON = response.result.value as! [String:AnyObject]
+            let objects = JSON["query"] as? NSDictionary
+            if let _objects = objects?.valueForKeyPath("results.rate") as? Array<Dictionary<String, String>> {
+                var newCurrencies = Array<CurrencyPair>()
+                // TODO: update existing objects instead of creating new ones
+                for dict in _objects {
+                    let nameArray = dict["Name"]?.componentsSeparatedByString("/")
+                    let fromCurrency = Currency(nameArray![0], nameArray![0], "")
+                    let toCurrency = Currency(nameArray![1], nameArray![1], "")
+                    let rate = dict["Rate"]! as NSString
+                    newCurrencies.append(CurrencyPair(fromCurrency: fromCurrency, toCurrency: toCurrency, rate: rate.doubleValue))
                 }
                 
+                // merge new info into existing array
+                self.savedCurrencyPairs = newCurrencies
+                
+                completion(didSucceed: true, error: ConvrtError.NoError)
+            } else {
+                completion(didSucceed: false, error: ConvrtError.ParseError)
             }
+        })
     }
     
     func constructYQL(currencies: [CurrencyPair]) -> String {

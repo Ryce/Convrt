@@ -44,6 +44,11 @@ class CurrencyPair: NSObject, NSCoding {
         self.rate = otherCurrencyPair.rate
     }
     
+    override func isEqual(object: AnyObject?) -> Bool {
+        guard let currencyPair = object as? CurrencyPair else { return false }
+        return self.fromCurrency == currencyPair.fromCurrency && self.toCurrency == currencyPair.toCurrency
+    }
+    
     let fromCurrency: Currency
     let toCurrency: Currency
     var rate: Double = 0.0
