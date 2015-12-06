@@ -104,13 +104,19 @@
                                     <outlet property="delegate" destination="iy2-26-6Nv" id="dMf-t6-nWZ"/>
                                 </connections>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7FX-ba-OPw">
+                                <rect key="frame" x="520" y="520" width="50" height="50"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="9BN-vk-7lX"/>
+                                    <constraint firstAttribute="width" constant="50" id="OtP-F8-Mzd"/>
+                                </constraints>
+                            </button>
                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q0P-v5-9FV" customClass="CurrencyEditView" customModule="Convrt" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
                                     <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZDR-u4-fwA">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" id="i9m-gB-f9r">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <animations/>
                                         </view>
@@ -189,10 +195,12 @@
                             <constraint firstAttribute="trailing" secondItem="Q0P-v5-9FV" secondAttribute="trailing" id="9p9-I7-zgK"/>
                             <constraint firstItem="Q0P-v5-9FV" firstAttribute="top" secondItem="EAu-s2-YQq" secondAttribute="top" id="Dhb-R0-cS2"/>
                             <constraint firstAttribute="trailing" secondItem="iVk-9Q-tMd" secondAttribute="trailing" id="QbA-4x-wDd"/>
+                            <constraint firstItem="OaC-pw-9Iq" firstAttribute="top" secondItem="7FX-ba-OPw" secondAttribute="bottom" constant="30" id="UWD-yy-A1c"/>
                             <constraint firstItem="iVk-9Q-tMd" firstAttribute="leading" secondItem="EAu-s2-YQq" secondAttribute="leading" id="bBQ-R9-o2q"/>
                             <constraint firstItem="OaC-pw-9Iq" firstAttribute="top" secondItem="iVk-9Q-tMd" secondAttribute="bottom" id="dD7-dc-645"/>
                             <constraint firstItem="Q0P-v5-9FV" firstAttribute="leading" secondItem="EAu-s2-YQq" secondAttribute="leading" id="qc0-Og-7al"/>
                             <constraint firstItem="iVk-9Q-tMd" firstAttribute="top" secondItem="EAu-s2-YQq" secondAttribute="top" id="vqS-6f-hxd"/>
+                            <constraint firstAttribute="trailing" secondItem="7FX-ba-OPw" secondAttribute="trailing" constant="30" id="wyx-Eq-rBB"/>
                         </constraints>
                     </view>
                     <connections>
