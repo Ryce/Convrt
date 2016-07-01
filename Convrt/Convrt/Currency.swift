@@ -15,16 +15,16 @@ let kCountryKey = "country"
 class Currency: NSObject, NSCoding {
     
     required init?(coder aDecoder: NSCoder) {
-        self.title = aDecoder.decodeObjectForKey(kTitleKey) as! String
-        self.code = aDecoder.decodeObjectForKey(kCodeKey) as! String
-        self.country = aDecoder.decodeObjectForKey(kCountryKey) as! String
+        self.title = aDecoder.decodeObject(forKey: kTitleKey) as! String
+        self.code = aDecoder.decodeObject(forKey: kCodeKey) as! String
+        self.country = aDecoder.decodeObject(forKey: kCountryKey) as! String
         super.init()
     }
     
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(self.title, forKey: kTitleKey)
-        aCoder.encodeObject(self.code, forKey: kCodeKey)
-        aCoder.encodeObject(self.country, forKey: kCountryKey)
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(self.title, forKey: kTitleKey)
+        aCoder.encode(self.code, forKey: kCodeKey)
+        aCoder.encode(self.country, forKey: kCountryKey)
     }
     
     init(_ someTitle: String, _ someCode: String, _ someCountry: String) {
@@ -40,30 +40,30 @@ class Currency: NSObject, NSCoding {
     
     var currentAmount: CurrencyAmount = 0.0
     
-    let numberFormatter: NSNumberFormatter = {
-        let formatter = NSNumberFormatter()
-        formatter.numberStyle = NSNumberFormatterStyle.CurrencyStyle
+    let numberFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = NumberFormatter.Style.currency
         formatter.currencySymbol = ""
         return formatter
         }()
     
     func displayAmount() -> String {
-        return numberFormatter.stringFromNumber(NSNumber(double: self.currentAmount))!
+        return numberFormatter.string(from: NSNumber(value: self.currentAmount))!
     }
     
-    func calculateAmount(fromCurrency: Currency) -> String {
+    func calculateAmount(_ fromCurrency: Currency) -> String {
         let fromCurrencyPairs = ConvrtSession.sharedInstance.findCurrencies(fromCurrency)
         if fromCurrencyPairs.count > 0 {
             let amountPair = fromCurrencyPairs.filter { $0.toCurrency == self }[0]
             if amountPair.rate != 0.0 {
                 self.currentAmount = fromCurrency.currentAmount * amountPair.rate
-                return numberFormatter.stringFromNumber(self.currentAmount)!
+                return numberFormatter.string(from: self.currentAmount)!
             }
         }
-        return numberFormatter.stringFromNumber(0)!
+        return numberFormatter.string(from: 0)!
     }
     
-    override func isEqual(object: AnyObject?) -> Bool {
+    override func isEqual(_ object: AnyObject?) -> Bool {
         guard let currency = object as? Currency else { return false }
         return self.code == currency.code
     }

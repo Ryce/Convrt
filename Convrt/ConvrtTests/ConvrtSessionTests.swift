@@ -29,7 +29,7 @@ class ConvrtSessionTests: XCTestCase {
     
     func testPerformanceExample() {
         // This is an example of a performance test case.
-        self.measureBlock() {
+        self.measure() {
             // Put the code you want to measure the time of here.
         }
     }
@@ -61,7 +61,7 @@ class ConvrtSessionTests: XCTestCase {
             CurrencyPair(eur, gbp),
             CurrencyPair(usd, eur)]
         
-        let expectation = self.expectationWithDescription("fetchRates Expectation")
+        let expectation = self.expectation(withDescription: "fetchRates Expectation")
         
         var succeed = false
         var optionalError: ConvrtError?
@@ -74,7 +74,7 @@ class ConvrtSessionTests: XCTestCase {
             expectation.fulfill()
         })
         
-        self.waitForExpectationsWithTimeout(30, handler: nil)
+        self.waitForExpectations(withTimeout: 30, handler: nil)
         
         if !succeed {
             XCTFail()

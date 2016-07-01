@@ -15,16 +15,16 @@ let kRateKey = "rate"
 class CurrencyPair: NSObject, NSCoding {
     
     required init?(coder aDecoder: NSCoder) {
-        self.fromCurrency = aDecoder.decodeObjectForKey(kFromCurrencyKey) as! Currency
-        self.toCurrency = aDecoder.decodeObjectForKey(kToCurrencyKey) as! Currency
-        self.rate = aDecoder.decodeDoubleForKey(kRateKey)
+        self.fromCurrency = aDecoder.decodeObject(forKey: kFromCurrencyKey) as! Currency
+        self.toCurrency = aDecoder.decodeObject(forKey: kToCurrencyKey) as! Currency
+        self.rate = aDecoder.decodeDouble(forKey: kRateKey)
         super.init()
     }
     
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(self.fromCurrency, forKey: kFromCurrencyKey)
-        aCoder.encodeObject(self.toCurrency, forKey: kToCurrencyKey)
-        aCoder.encodeDouble(self.rate, forKey: kRateKey)
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(self.fromCurrency, forKey: kFromCurrencyKey)
+        aCoder.encode(self.toCurrency, forKey: kToCurrencyKey)
+        aCoder.encode(self.rate, forKey: kRateKey)
     }
     
     init(_ fromCurrency: Currency, _ toCurrency: Currency) {
@@ -40,11 +40,11 @@ class CurrencyPair: NSObject, NSCoding {
         super.init()
     }
     
-    func merge(otherCurrencyPair: CurrencyPair) {
+    func merge(_ otherCurrencyPair: CurrencyPair) {
         self.rate = otherCurrencyPair.rate
     }
     
-    override func isEqual(object: AnyObject?) -> Bool {
+    override func isEqual(_ object: AnyObject?) -> Bool {
         guard let currencyPair = object as? CurrencyPair else { return false }
         return self.fromCurrency == currencyPair.fromCurrency && self.toCurrency == currencyPair.toCurrency
     }

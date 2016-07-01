@@ -17,35 +17,35 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     var selectedCurrencyAmount: CurrencyAmount = 0.0
     
     let loadingIndicatorContainer: UIView = {
-        let view = UIView(frame: CGRectZero)
+        let view = UIView(frame: CGRect.zero)
         view.backgroundColor = UIColor(white: 0.0, alpha: 0.2)
         
         return view
     }()
     
-    let loadingIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+    let loadingIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.collectionView!.backgroundColor = UIColor.clearColor()
+        self.collectionView!.backgroundColor = UIColor.clear()
         self.detailView?.delegate = self
-        self.detailView?.amountTextField?.keyboardType = UIKeyboardType.DecimalPad
+        self.detailView?.amountTextField?.keyboardType = UIKeyboardType.decimalPad
         
         self.collectionView!.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: Selector("showCurrencySelection")))
         // Do any additional setup after loading the view, typically from a nib.
     }
 
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         ConvrtSession.sharedInstance.updateSavedCurrencyPairs()
         self.showLoadingIndicator()
         ConvrtSession.sharedInstance.fetchRatesForCurrencies(ConvrtSession.sharedInstance.savedCurrencyPairs) { (items, error) -> () in
             self.hideLoadingIndicator()
-            if error != .NoError {
-                let alert = UIAlertController(title: "Whoops", message: "There was a problem fetching the rates", preferredStyle: .Alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
-                self.presentViewController(alert, animated: true, completion: nil)
+            if error != .noError {
+                let alert = UIAlertController(title: "Whoops", message: "There was a problem fetching the rates", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                self.present(alert, animated: true, completion: nil)
             }
             self.collectionView?.reloadData()
         }
@@ -59,11 +59,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     // MARK: Actions
     
     func showCurrencySelection() {
-        let vc = UINavigationController(rootViewController: UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("CurrencySelectionViewController") as! CurrencySelectionViewController)
-        self.presentViewController(vc, animated: true, completion: nil)
+        let vc = UINavigationController(rootViewController: UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CurrencySelectionViewController") as! CurrencySelectionViewController)
+        self.present(vc, animated: true, completion: nil)
     }
     
-    func updateView(amount: CurrencyAmount, currency: Currency) {
+    func updateView(_ amount: CurrencyAmount, currency: Currency) {
         currency.currentAmount = amount
         self.selectedCurrencyAmount = amount
         self.selectedCurrency = currency
@@ -73,17 +73,17 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
 
     // MARK: UICollectionViewDataSource
     
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return ConvrtSession.sharedInstance.savedCurrencyConfiguration.count
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ConvrtCollectionViewCell.kCellIdentifier, forIndexPath: indexPath) as! ConvrtCollectionViewCell
-        let currency = ConvrtSession.sharedInstance.savedCurrencyConfiguration[indexPath.row]
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ConvrtCollectionViewCell.kCellIdentifier, for: indexPath) as! ConvrtCollectionViewCell
+        let currency = ConvrtSession.sharedInstance.savedCurrencyConfiguration[(indexPath as NSIndexPath).row]
         cell.codeLabel?.text = currency.code
         cell.countryLabel?.text = currency.title
         if let selCurr = self.selectedCurrency where selCurr != currency {
@@ -96,8 +96,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     // MARK: UICollectionViewDelegate
     
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        self.selectedCurrency = ConvrtSession.sharedInstance.savedCurrencyConfiguration[indexPath.row]
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.selectedCurrency = ConvrtSession.sharedInstance.savedCurrencyConfiguration[(indexPath as NSIndexPath).row]
         
         self.detailView?.currency = self.selectedCurrency
         self.detailView?.codeLabel?.text = self.selectedCurrency?.code
@@ -110,8 +110,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         self.detailView?.amountTextField?.becomeFirstResponder()
     }
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        return CGSizeMake(145 * self.view.bounds.size.width/320, 120 * self.view.bounds.size.width/320);
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 145 * self.view.bounds.size.width/320, height: 120 * self.view.bounds.size.width/320);
     }
     
     
@@ -119,7 +119,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     // MARK: CurrencyEditDelegate
     
-    func didDismiss(view: CurrencyEditView, _ currency: Currency, _ inputAmount: CurrencyAmount) {
+    func didDismiss(_ view: CurrencyEditView, _ currency: Currency, _ inputAmount: CurrencyAmount) {
         currency.currentAmount = inputAmount
         self.selectedCurrencyAmount = inputAmount
         self.selectedCurrency = currency
@@ -136,13 +136,13 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         self.loadingIndicatorContainer.addSubview(self.loadingIndicator)
         self.loadingIndicator.startAnimating()
         self.loadingIndicatorContainer.alpha = 0.0
-        UIView.animateWithDuration(0.5) { () -> Void in
+        UIView.animate(withDuration: 0.5) { () -> Void in
             self.loadingIndicatorContainer.alpha = 1.0
         }
     }
     
     func hideLoadingIndicator() {
-        UIView.animateWithDuration(0.5, animations: { () -> Void in
+        UIView.animate(withDuration: 0.5, animations: { () -> Void in
             self.loadingIndicatorContainer.alpha = 0.0
             }) { (didFinish) -> Void in
                 self.loadingIndicatorContainer.removeFromSuperview()

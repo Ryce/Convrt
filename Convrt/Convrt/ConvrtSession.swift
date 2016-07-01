@@ -20,8 +20,8 @@ let genericCurrencyArray = [Currency("United States Dollar", "USD", "United Stat
 
 typealias CurrencyAmount = Double
 
-enum ConvrtError : ErrorType {
-    case NoError, ConnectionError, ParseError
+enum ConvrtError : ErrorProtocol {
+    case noError, connectionError, parseError
 }
 
 let klastUpdatedDateKey = "com.ryce.convrt.lastupdateddate"
@@ -29,14 +29,16 @@ let kSavedCurrenciesKey = "com.ryce.convrt.savedcurrencies"
 
 class ConvrtSession: NSObject {
     
+    private static var __once: () = {
+            Static.instance = ConvrtSession()
+        }()
+    
     class var sharedInstance: ConvrtSession {
         struct Static {
-            static var onceToken: dispatch_once_t = 0
+            static var onceToken: Int = 0
             static var instance: ConvrtSession? = nil
         }
-        dispatch_once(&Static.onceToken) {
-            Static.instance = ConvrtSession()
-        }
+        _ = ConvrtSession.__once
         return Static.instance!
     }
     
@@ -60,8 +62,8 @@ class ConvrtSession: NSObject {
             if let savedCurrencyPairs = _savedCurrencyPairs {
                 return savedCurrencyPairs
             }
-            if let persistedCurrencyData = NSUserDefaults.standardUserDefaults().objectForKey(kSavedCurrenciesKey) as? NSData {
-                if let persistedCurrencyPairs = NSKeyedUnarchiver.unarchiveObjectWithData(persistedCurrencyData) as? [CurrencyPair] {
+            if let persistedCurrencyData = UserDefaults.standard().object(forKey: kSavedCurrenciesKey) as? Data {
+                if let persistedCurrencyPairs = NSKeyedUnarchiver.unarchiveObject(with: persistedCurrencyData) as? [CurrencyPair] {
                     _savedCurrencyPairs = persistedCurrencyPairs
                     return _savedCurrencyPairs!
                 }
@@ -71,20 +73,20 @@ class ConvrtSession: NSObject {
         }
         set {
             _savedCurrencyPairs = newValue
-            NSUserDefaults.standardUserDefaults().setObject(NSKeyedArchiver.archivedDataWithRootObject(newValue), forKey: kSavedCurrenciesKey)
-            NSUserDefaults.standardUserDefaults().synchronize()
+            UserDefaults.standard().set(NSKeyedArchiver.archivedData(withRootObject: newValue), forKey: kSavedCurrenciesKey)
+            UserDefaults.standard().synchronize()
         }
     }
 
-    let dateFormatter: NSDateFormatter = {
-        let formatter = NSDateFormatter()
+    let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
         return formatter
     }()
     
     var selectedCurrencies = Array<Currency>()
     
     let fullCurrenyList: Array<Currency> = {
-        let plistPath = NSBundle.mainBundle().pathForResource("currencies", ofType: "plist")!
+        let plistPath = Bundle.main().pathForResource("currencies", ofType: "plist")!
         let plistArray = NSArray(contentsOfFile: plistPath) as! Array<AnyObject>
         
         return plistArray.map {
@@ -97,32 +99,32 @@ class ConvrtSession: NSObject {
         }
     }()
 
-    private var _lastUpdated: NSDate?
-    internal(set) var lastUpdated: NSDate {
+    private var _lastUpdated: Date?
+    internal(set) var lastUpdated: Date {
         get {
             if let lup = self._lastUpdated {
                 return lup
             }
-            if let date = NSUserDefaults.standardUserDefaults().valueForKey(klastUpdatedDateKey) as? NSDate {
+            if let date = UserDefaults.standard().value(forKey: klastUpdatedDateKey) as? Date {
                 self._lastUpdated = date
                 return self._lastUpdated!
             }
-            return NSDate(timeIntervalSinceNow: 0)
+            return Date(timeIntervalSinceNow: 0)
         }
         set {
             self._lastUpdated = newValue
-            NSUserDefaults.standardUserDefaults().setValue(_lastUpdated, forKey: klastUpdatedDateKey)
-            NSUserDefaults.standardUserDefaults().synchronize()
+            UserDefaults.standard().setValue(_lastUpdated, forKey: klastUpdatedDateKey)
+            UserDefaults.standard().synchronize()
         }
     }
     
-    func findCurrencies(from: Currency) -> [CurrencyPair] {
+    func findCurrencies(_ from: Currency) -> [CurrencyPair] {
         return self.savedCurrencyPairs.filter { $0.fromCurrency == from }
     }
     
-    func addCurrencies(currencies: [CurrencyPair]) {
+    func addCurrencies(_ currencies: [CurrencyPair]) {
         for currencyPair in currencies {
-            if let index = self.savedCurrencyPairs.indexOf(currencyPair) {
+            if let index = self.savedCurrencyPairs.index(of: currencyPair) {
                 let object = self.savedCurrencyPairs[index]
                 object.merge(currencyPair)
             } else {
@@ -131,7 +133,7 @@ class ConvrtSession: NSObject {
         }
     }
     
-    func generateCurrencyPairs(currencies: [Currency]) -> [CurrencyPair] {
+    func generateCurrencyPairs(_ currencies: [Currency]) -> [CurrencyPair] {
         var currPairs = [CurrencyPair]()
         for fromCurrency in currencies {
             for toCurrency in currencies {
@@ -151,7 +153,7 @@ class ConvrtSession: NSObject {
     let manager: Manager = Alamofire.Manager.sharedInstance
     let baseURL = "http://query.yahooapis.com/v1/public/yql?q="
     
-    func fetchRatesForCurrencies(currencies: Array<CurrencyPair>, completion: (didSucceed: Bool, error: ConvrtError) -> ()) {
+    func fetchRatesForCurrencies(_ currencies: Array<CurrencyPair>, completion: (didSucceed: Bool, error: ConvrtError) -> ()) {
         
         let urlString = baseURL + self.constructYQL(currencies)
         manager.request(Method.GET, urlString, parameters: nil, encoding: .URL).responseJSON(completionHandler: { (response) -> Void in
@@ -182,12 +184,12 @@ class ConvrtSession: NSObject {
         })
     }
     
-    func constructYQL(currencies: [CurrencyPair]) -> String {
+    func constructYQL(_ currencies: [CurrencyPair]) -> String {
         var constructionString = ""
         let prefix = "select%20*%20from%20yahoo.finance.xchange%20where%20pair%20in%20%28"
         let suffix = "%29&format=json&env=store://datatables.org/alltableswithkeys"
         
-        for (index, pair) in currencies.enumerate() {
+        for (index, pair) in currencies.enumerated() {
             constructionString += "%22" + pair.fromCurrency.code + pair.toCurrency.code + "%22"
             if currencies.count != index + 1 {
                 constructionString += ",%20"

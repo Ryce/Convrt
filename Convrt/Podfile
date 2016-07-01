@@ -1,0 +1,21 @@
+platform :ios, '8.0'
+
+target 'Convrt' do
+  use_frameworks!
+
+  # Pods for Convrt
+  pod 'Realm', '~> 1.0'
+  pod 'Alamofire', :git => 'https://github.com/Alamofire/Alamofire.git', :branch => 'swift3'
+
+  target 'Convrt UI Tests' do
+    inherit! :search_paths
+    
+    # Pods for testing
+  end
+
+  target 'ConvrtTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end

@@ -1,0 +1,6 @@
+framework module Pods_Convrt {
+  umbrella header "Pods-Convrt-umbrella.h"
+
+  export *
+  module * { export * }
+}
