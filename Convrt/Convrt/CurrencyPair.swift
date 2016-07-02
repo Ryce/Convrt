@@ -8,14 +8,34 @@
 
 import Foundation
 import CoreData
+import SugarRecord
 
-extension CurrencyPair {
+class CurrencyPair: NSManagedObject {
     
-    func merge(_ otherCurrencyPair: CurrencyPair) {
+    @NSManaged var fromCurrency: Currency
+    @NSManaged var toCurrency: Currency
+    
+    @NSManaged var rate: Double
+    
+    static func create(withDatabase db: CoreDataDefaultStorage, callBack: (result: CurrencyPair?) -> ()) {
+        do {
+            try db.operation({ (context, save) -> Void in
+                let newTask: CurrencyPair = try! context.new()
+                save()
+                callBack(result: newTask)
+            })
+        }
+        catch {
+            callBack(result: nil)
+            // There was an error in the operation
+        }
+    }
+    
+    func merge(otherCurrencyPair: CurrencyPair) {
         self.rate = otherCurrencyPair.rate
     }
     
-    override func isEqual(_ object: AnyObject?) -> Bool {
+    override func isEqual(object: AnyObject?) -> Bool {
         guard let currencyPair = object as? CurrencyPair else { return false }
         return self.fromCurrency == currencyPair.fromCurrency && self.toCurrency == currencyPair.toCurrency
     }

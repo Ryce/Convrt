@@ -39,16 +39,16 @@ public struct Timeline {
     public let serializationCompletedTime: CFAbsoluteTime
 
     /// The time interval in seconds from the time the request started to the initial response from the server.
-    public let latency: TimeInterval
+    public let latency: NSTimeInterval
 
     /// The time interval in seconds from the time the request started to the time the request completed.
-    public let requestDuration: TimeInterval
+    public let requestDuration: NSTimeInterval
 
     /// The time interval in seconds from the time the request completed to the time response serialization completed.
-    public let serializationDuration: TimeInterval
+    public let serializationDuration: NSTimeInterval
 
     /// The time interval in seconds from the time the request started to the time response serialization completed.
-    public let totalDuration: TimeInterval
+    public let totalDuration: NSTimeInterval
 
     /**
         Creates a new `Timeline` instance with the specified request times.
@@ -100,7 +100,7 @@ extension Timeline: CustomStringConvertible {
             "\"Total Duration\": " + totalDuration + " secs"
         ]
 
-        return "Timeline: { " + timings.joined(separator: ", ") + " }"
+        return "Timeline: { " + timings.joinWithSeparator(", ") + " }"
     }
 }
 
@@ -133,6 +133,6 @@ extension Timeline: CustomDebugStringConvertible {
             "\"Total Duration\": " + totalDuration + " secs"
         ]
 
-        return "Timeline: { " + timings.joined(separator: ", ") + " }"
+        return "Timeline: { " + timings.joinWithSeparator(", ") + " }"
     }
 }

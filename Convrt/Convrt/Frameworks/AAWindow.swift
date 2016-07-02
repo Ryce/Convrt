@@ -9,96 +9,96 @@
 import UIKit
 
 class AAWindow: UIWindow {
-
+    
     private var activeCornerRadius : CGFloat = 0
     private var inactiveCornerRadius : CGFloat = 0
     private var cornerRadiusAnimationDuration : Double = 0.15
     
     private var willOpenControlCenter : Bool = false
     private var controlCenterOpened : Bool = false
-    var timer : Timer = Timer()
+    var timer : NSTimer = NSTimer()
     
     //This notification will fire when the user opens Control Center.
-    private var applicationWillResignActiveWithControlCenterNotification = Notification(name: "applicationWillResignActiveWithControlCenter" as Notification.Name, object: nil)
+    private var applicationWillResignActiveWithControlCenterNotification = NSNotification(name: "applicationWillResignActiveWithControlCenter", object: nil)
     //This notification will fire when the application becomes inactive for whatever reason, except when the user launches Control Center.
-    private var applicationWillResignActiveWithoutControlCenterNotification = Notification(name: "applicationWillResignActiveWithoutControlCenter" as Notification.Name, object: nil)
-
+    private var applicationWillResignActiveWithoutControlCenterNotification = NSNotification(name: "applicationWillResignActiveWithoutControlCenter", object: nil)
+    
     init(frame: CGRect, cornerRadius: Float) {
         super.init(frame: frame)
         
         //clipsToBounds is necessary for the cornerRadius to work.
         self.clipsToBounds = true
         self.layer.cornerRadius = inactiveCornerRadius
-        self.backgroundColor = UIColor.black()
+        self.backgroundColor = UIColor.blackColor()
         
         activeCornerRadius = CGFloat(cornerRadius)
         
-        NotificationCenter.default().addObserver(self, selector: #selector(UIApplicationDelegate.applicationDidBecomeActive(_:)), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
-        NotificationCenter.default().addObserver(self, selector: #selector(UIApplicationDelegate.applicationWillResignActive(_:)), name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UIApplicationDelegate.applicationDidBecomeActive(_:)), name: UIApplicationDidBecomeActiveNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UIApplicationDelegate.applicationWillResignActive(_:)), name: UIApplicationWillResignActiveNotification, object: nil)
     }
     
     //This will fire once the application becomes active (i.e. on startup or on return from Multitasking Switcher)
-    @objc private func applicationDidBecomeActive (_ notification : Notification) {
+    @objc private func applicationDidBecomeActive (notification : NSNotification) {
         
         if (controlCenterOpened) {
             controlCenterOpened = false
         } else {
             self.layer.cornerRadius = activeCornerRadius
             //Animates back to the active cornerRadius.
-            self.layer.add(animateCornerRadius(inactiveCornerRadius, toValue: activeCornerRadius, withDuration: cornerRadiusAnimationDuration, forKey: "cornerRadius"), forKey: "cornerRadius")
+            self.layer.addAnimation(animateCornerRadius(inactiveCornerRadius, toValue: activeCornerRadius, withDuration: cornerRadiusAnimationDuration, forKey: "cornerRadius"), forKey: "cornerRadius")
         }
     }
     
     //This will fire once the application becomes inactive (i.e. user opens Multitasking Switcher, Control Center, Notification Center…)
-    @objc private func applicationWillResignActive (_ notification : Notification) {
+    @objc private func applicationWillResignActive (notification : NSNotification) {
         
         //willOpenControlCenter is true for a short period of time when the user touches in the bottom area of the screen. If in this period of time "applicationWillResignActive" is called it's highly likely (basically certain) that the user has launched Control Center.
         if (willOpenControlCenter) {
-
-            NotificationCenter.default().post(applicationWillResignActiveWithControlCenterNotification)
             
-            if (timer.isValid) {
+            NSNotificationCenter.defaultCenter().postNotification(applicationWillResignActiveWithControlCenterNotification)
+            
+            if (timer.valid) {
                 timer.invalidate()
             }
             
             willOpenControlCenter = false
             controlCenterOpened = true
         } else {
-            NotificationCenter.default().post(applicationWillResignActiveWithoutControlCenterNotification)
+            NSNotificationCenter.defaultCenter().postNotification(applicationWillResignActiveWithoutControlCenterNotification)
             
             self.layer.cornerRadius = inactiveCornerRadius
-            self.layer.add(animateCornerRadius(activeCornerRadius, toValue: inactiveCornerRadius, withDuration: cornerRadiusAnimationDuration, forKey: "cornerRadius"), forKey: "cornerRadius")
+            self.layer.addAnimation(animateCornerRadius(activeCornerRadius, toValue: inactiveCornerRadius, withDuration: cornerRadiusAnimationDuration, forKey: "cornerRadius"), forKey: "cornerRadius")
         }
     }
     
     private var touchLocation : CGPoint = CGPoint()
     
-    override func sendEvent(_ event: UIEvent) {
+    override func sendEvent(event: UIEvent) {
         super.sendEvent(event)
         
         //Filter touches from other UIEventTypes.
-        if (event.type == UIEventType.touches) {
+        if (event.type == UIEventType.Touches) {
             for touchevent in event.allTouches()! {
                 let touch = touchevent as UITouch
-
-                if (touch.phase == UITouchPhase.began && touch.location(in: self).y - self.frame.height * 0.9 >= 0) {
+                
+                if (touch.phase == UITouchPhase.Began && touch.locationInView(self).y - self.frame.height * 0.9 >= 0) {
                     //willOpenControlCenter is true for a short period of time when the user touches in the bottom area of the screen. If in this period of time "applicationWillResignActive" is called it's highly likely (basically certain) that the user has launched Control Center.
                     willOpenControlCenter = true
                     
-                    if (timer.isValid) {
+                    if (timer.valid) {
                         timer.invalidate()
                     }
                     
                     //If the Statusbar is hidden (which means the app is in full-screen mode) the timerInterval has to be longer since it will take the user a maximum amount of ~3 seconds to open Control Center since he has to use the little handle coming up from the bottom.
                     let timerInterval : Double = {
-                        if (UIApplication.shared().isStatusBarHidden) {
+                        if (UIApplication.sharedApplication().statusBarHidden) {
                             return 2.75
                         } else {
                             return 0.5
                         }
                     }()
                     
-                    timer = Timer.scheduledTimer(timeInterval: timerInterval, target: self, selector: #selector(AAWindow.handleTimer), userInfo: nil, repeats: false)
+                    timer = NSTimer.scheduledTimerWithTimeInterval(timerInterval, target: self, selector: #selector(AAWindow.handleTimer), userInfo: nil, repeats: false)
                 }
             }
         }
@@ -109,7 +109,7 @@ class AAWindow: UIWindow {
     }
     
     //CornerRadius Animation setup.
-    private func animateCornerRadius(_ fromValue : CGFloat, toValue: CGFloat, withDuration : Double, forKey : String) -> CABasicAnimation {
+    private func animateCornerRadius(fromValue : CGFloat, toValue: CGFloat, withDuration : Double, forKey : String) -> CABasicAnimation {
         
         let animation : CABasicAnimation = CABasicAnimation(keyPath: forKey)
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)

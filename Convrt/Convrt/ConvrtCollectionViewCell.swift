@@ -18,9 +18,9 @@ class ConvrtCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.contentView.layer.cornerRadius = 5.0
-        self.contentView.backgroundColor = UIColor.white()
-        self.contentView.layer.shadowOffset = CGSize(width: 0.0, height: 10.0)
-        self.contentView.layer.shadowColor = UIColor.black().cgColor
+        self.contentView.backgroundColor = UIColor.whiteColor()
+        self.contentView.layer.shadowOffset = CGSizeMake(0.0, 10.0)
+        self.contentView.layer.shadowColor = UIColor.blackColor().CGColor
     }
     
 }

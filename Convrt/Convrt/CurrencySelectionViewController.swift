@@ -18,8 +18,8 @@ class CurrencySelectionViewController: UIViewController, UITableViewDelegate, UI
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.register(UITableViewCell.classForCoder(), forCellReuseIdentifier: currencySelectionCellIdentifier)
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(CurrencySelectionViewController.dismiss as (CurrencySelectionViewController) -> () -> ()))
+        self.tableView.registerClass(UITableViewCell.classForCoder(), forCellReuseIdentifier: currencySelectionCellIdentifier)
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Done", style: .Plain, target: self, action: #selector(CurrencySelectionViewController.dismiss))
         // Do any additional setup after loading the view.
     }
 
@@ -29,37 +29,37 @@ class CurrencySelectionViewController: UIViewController, UITableViewDelegate, UI
     }
     
     func dismiss() {
-        self.dismiss(animated: true, completion: nil)
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     // MARK: UITableViewDelegate & DataSource
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return convrtSession.fullCurrenyList.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let tableViewCell = tableView.dequeueReusableCell(withIdentifier: currencySelectionCellIdentifier, for: indexPath)
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let tableViewCell = tableView.dequeueReusableCellWithIdentifier(currencySelectionCellIdentifier, forIndexPath: indexPath)
         let currentCurrency = convrtSession.fullCurrenyList[(indexPath as NSIndexPath).row]
         tableViewCell.textLabel?.text = currentCurrency.title
         if convrtSession.selectedCurrencies.contains(currentCurrency) {
-            tableViewCell.accessoryType = .checkmark
+            tableViewCell.accessoryType = .Checkmark
         } else {
-            tableViewCell.accessoryType = .none
+            tableViewCell.accessoryType = .None
         }
         return tableViewCell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
         let currentCurrency = convrtSession.fullCurrenyList[(indexPath as NSIndexPath).row]
         if convrtSession.selectedCurrencies.contains(currentCurrency) {
-            guard let index = convrtSession.selectedCurrencies.index(of: currentCurrency) else { return }
-            convrtSession.selectedCurrencies.remove(at: index)
+            guard let index = convrtSession.selectedCurrencies.indexOf(currentCurrency) else { return }
+            convrtSession.selectedCurrencies.removeAtIndex(index)
         } else {
             convrtSession.selectedCurrencies.append(currentCurrency)
         }
-        tableView.reloadRows(at: [indexPath], with: .fade)
+        tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
     }
     
 }

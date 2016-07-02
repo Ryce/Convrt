@@ -29,21 +29,21 @@ import Foundation
 @available(iOS 9.0, OSX 10.11, tvOS 9.0, *)
 extension Manager {
     private enum Streamable {
-        case stream(String, Int)
-        case netService(Foundation.NetService)
+        case Stream(String, Int)
+        case NetService(NSNetService)
     }
 
-    private func stream(_ streamable: Streamable) -> Request {
-        var streamTask: URLSessionStreamTask!
+    private func stream(streamable: Streamable) -> Request {
+        var streamTask: NSURLSessionStreamTask!
 
         switch streamable {
-        case .stream(let hostName, let port):
-            queue.sync {
-                streamTask = self.session.streamTask(withHostName: hostName, port: port)
+        case .Stream(let hostName, let port):
+            dispatch_sync(queue) {
+                streamTask = self.session.streamTaskWithHostName(hostName, port: port)
             }
-        case .netService(let netService):
-            queue.sync {
-                streamTask = self.session.streamTask(with: netService)
+        case .NetService(let netService):
+            dispatch_sync(queue) {
+                streamTask = self.session.streamTaskWithNetService(netService)
             }
         }
 
@@ -66,8 +66,8 @@ extension Manager {
 
         :returns: The created stream request.
     */
-    public func stream(hostName: String, port: Int) -> Request {
-        return stream(.stream(hostName, port))
+    public func stream(hostName hostName: String, port: Int) -> Request {
+        return stream(.Stream(hostName, port))
     }
 
     /**
@@ -77,22 +77,22 @@ extension Manager {
 
         - returns: The created stream request.
     */
-    public func stream(netService: NetService) -> Request {
-        return stream(.netService(netService))
+    public func stream(netService netService: NSNetService) -> Request {
+        return stream(.NetService(netService))
     }
 }
 
 // MARK: -
 
 @available(iOS 9.0, OSX 10.11, tvOS 9.0, *)
-extension Manager.SessionDelegate: URLSessionStreamDelegate {
+extension Manager.SessionDelegate: NSURLSessionStreamDelegate {
 
     // MARK: Override Closures
 
     /// Overrides default behavior for NSURLSessionStreamDelegate method `URLSession:readClosedForStreamTask:`.
-    public var streamTaskReadClosed: ((Foundation.URLSession, URLSessionStreamTask) -> Void)? {
+    public var streamTaskReadClosed: ((NSURLSession, NSURLSessionStreamTask) -> Void)? {
         get {
-            return _streamTaskReadClosed as? (Foundation.URLSession, URLSessionStreamTask) -> Void
+            return _streamTaskReadClosed as? (NSURLSession, NSURLSessionStreamTask) -> Void
         }
         set {
             _streamTaskReadClosed = newValue
@@ -100,9 +100,9 @@ extension Manager.SessionDelegate: URLSessionStreamDelegate {
     }
 
     /// Overrides default behavior for NSURLSessionStreamDelegate method `URLSession:writeClosedForStreamTask:`.
-    public var streamTaskWriteClosed: ((Foundation.URLSession, URLSessionStreamTask) -> Void)? {
+    public var streamTaskWriteClosed: ((NSURLSession, NSURLSessionStreamTask) -> Void)? {
         get {
-            return _streamTaskWriteClosed as? (Foundation.URLSession, URLSessionStreamTask) -> Void
+            return _streamTaskWriteClosed as? (NSURLSession, NSURLSessionStreamTask) -> Void
         }
         set {
             _streamTaskWriteClosed = newValue
@@ -110,9 +110,9 @@ extension Manager.SessionDelegate: URLSessionStreamDelegate {
     }
 
     /// Overrides default behavior for NSURLSessionStreamDelegate method `URLSession:betterRouteDiscoveredForStreamTask:`.
-    public var streamTaskBetterRouteDiscovered: ((Foundation.URLSession, URLSessionStreamTask) -> Void)? {
+    public var streamTaskBetterRouteDiscovered: ((NSURLSession, NSURLSessionStreamTask) -> Void)? {
         get {
-            return _streamTaskBetterRouteDiscovered as? (Foundation.URLSession, URLSessionStreamTask) -> Void
+            return _streamTaskBetterRouteDiscovered as? (NSURLSession, NSURLSessionStreamTask) -> Void
         }
         set {
             _streamTaskBetterRouteDiscovered = newValue
@@ -120,9 +120,9 @@ extension Manager.SessionDelegate: URLSessionStreamDelegate {
     }
 
     /// Overrides default behavior for NSURLSessionStreamDelegate method `URLSession:streamTask:didBecomeInputStream:outputStream:`.
-    public var streamTaskDidBecomeInputStream: ((Foundation.URLSession, URLSessionStreamTask, InputStream, NSOutputStream) -> Void)? {
+    public var streamTaskDidBecomeInputStream: ((NSURLSession, NSURLSessionStreamTask, NSInputStream, NSOutputStream) -> Void)? {
         get {
-            return _streamTaskDidBecomeInputStream as? (Foundation.URLSession, URLSessionStreamTask, InputStream, NSOutputStream) -> Void
+            return _streamTaskDidBecomeInputStream as? (NSURLSession, NSURLSessionStreamTask, NSInputStream, NSOutputStream) -> Void
         }
         set {
             _streamTaskDidBecomeInputStream = newValue
@@ -137,7 +137,7 @@ extension Manager.SessionDelegate: URLSessionStreamDelegate {
         - parameter session:    The session.
         - parameter streamTask: The stream task.
     */
-    public func urlSession(_ session: URLSession, readClosedFor streamTask: URLSessionStreamTask) {
+    public func URLSession(session: NSURLSession, readClosedForStreamTask streamTask: NSURLSessionStreamTask) {
         streamTaskReadClosed?(session, streamTask)
     }
 
@@ -147,7 +147,7 @@ extension Manager.SessionDelegate: URLSessionStreamDelegate {
         - parameter session:    The session.
         - parameter streamTask: The stream task.
     */
-    public func urlSession(_ session: URLSession, writeClosedFor streamTask: URLSessionStreamTask) {
+    public func URLSession(session: NSURLSession, writeClosedForStreamTask streamTask: NSURLSessionStreamTask) {
         streamTaskWriteClosed?(session, streamTask)
     }
 
@@ -157,7 +157,7 @@ extension Manager.SessionDelegate: URLSessionStreamDelegate {
         - parameter session:    The session.
         - parameter streamTask: The stream task.
     */
-    public func urlSession(_ session: URLSession, betterRouteDiscoveredFor streamTask: URLSessionStreamTask) {
+    public func URLSession(session: NSURLSession, betterRouteDiscoveredForStreamTask streamTask: NSURLSessionStreamTask) {
         streamTaskBetterRouteDiscovered?(session, streamTask)
     }
 
@@ -169,10 +169,10 @@ extension Manager.SessionDelegate: URLSessionStreamDelegate {
         - parameter inputStream:  The new input stream.
         - parameter outputStream: The new output stream.
     */
-    public func urlSession(
-        _ session: URLSession,
-        streamTask: URLSessionStreamTask,
-        didBecome inputStream: InputStream,
+    public func URLSession(
+        session: NSURLSession,
+        streamTask: NSURLSessionStreamTask,
+        didBecomeInputStream inputStream: NSInputStream,
         outputStream: NSOutputStream)
     {
         streamTaskDidBecomeInputStream?(session, streamTask, inputStream, outputStream)

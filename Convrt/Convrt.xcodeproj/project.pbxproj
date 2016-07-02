@@ -12,8 +12,6 @@
 		AD47195C9602D181B34AECBF /* Pods_Convrt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39C865552B18A77439FD1A07 /* Pods_Convrt.framework */; };
 		DA277DEF1B36D1C500B2E28F /* currencies.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA277DEE1B36D1C500B2E28F /* currencies.plist */; };
 		DA277DF11B36D96400B2E28F /* CurrencyEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA277DF01B36D96400B2E28F /* CurrencyEditView.swift */; };
-		DA34933B1D279F63007053B4 /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3493391D279F63007053B4 /* CoreDataHelper.swift */; };
-		DA34933C1D279F63007053B4 /* CoreDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA34933A1D279F63007053B4 /* CoreDataStore.swift */; };
 		DA34933E1D27A1F1007053B4 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA34933D1D27A1F1007053B4 /* CoreData.framework */; };
 		DA51B94F1B356C5B006AD73B /* ConvrtCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA51B94E1B356C5B006AD73B /* ConvrtCollectionViewCell.swift */; };
 		DA686F6A1B35D38E004D62B2 /* ConvrtSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA686F691B35D38E004D62B2 /* ConvrtSessionTests.swift */; };
@@ -71,8 +69,6 @@
 		D30C00D639ADE81D1A498B2B /* Pods-Convrt.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Convrt.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Convrt/Pods-Convrt.debug.xcconfig"; sourceTree = "<group>"; };
 		DA277DEE1B36D1C500B2E28F /* currencies.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = currencies.plist; sourceTree = "<group>"; };
 		DA277DF01B36D96400B2E28F /* CurrencyEditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyEditView.swift; sourceTree = "<group>"; };
-		DA3493391D279F63007053B4 /* CoreDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
-		DA34933A1D279F63007053B4 /* CoreDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStore.swift; sourceTree = "<group>"; };
 		DA34933D1D27A1F1007053B4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		DA51B94E1B356C5B006AD73B /* ConvrtCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvrtCollectionViewCell.swift; sourceTree = "<group>"; };
 		DA686F691B35D38E004D62B2 /* ConvrtSessionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvrtSessionTests.swift; sourceTree = "<group>"; };
@@ -221,8 +217,6 @@
 		DADD1B181B073D6A00DC9269 /* Convrt */ = {
 			isa = PBXGroup;
 			children = (
-				DA3493391D279F63007053B4 /* CoreDataHelper.swift */,
-				DA34933A1D279F63007053B4 /* CoreDataStore.swift */,
 				DA51B9521B356C71006AD73B /* Controller */,
 				DA51B9511B356C6C006AD73B /* View */,
 				DA51B9501B356C67006AD73B /* Model */,
@@ -544,10 +538,8 @@
 				DAF3539F1B6EA5DF005C0868 /* CurrencySelectionViewController.swift in Sources */,
 				DADD1B1C1B073D6A00DC9269 /* AppDelegate.swift in Sources */,
 				DAB2061C1B3C466D00E1900E /* Currency.swift in Sources */,
-				DA34933C1D279F63007053B4 /* CoreDataStore.swift in Sources */,
 				DA277DF11B36D96400B2E28F /* CurrencyEditView.swift in Sources */,
 				DAC3EDBB1B07B05600E304AC /* ConvrtSession.swift in Sources */,
-				DA34933B1D279F63007053B4 /* CoreDataHelper.swift in Sources */,
 				DAB2061E1B3C469400E1900E /* CurrencyPair.swift in Sources */,
 				DAC3EDB01B0741D200E304AC /* AAWindow.swift in Sources */,
 			);
