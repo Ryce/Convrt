@@ -4,7 +4,7 @@ target 'Convrt' do
   use_frameworks!
 
   # Pods for Convrt
-  pod 'Realm', '~> 1.0'
+  # pod "SugarRecord/CoreData+iCloud"
   pod 'Alamofire', :git => 'https://github.com/Alamofire/Alamofire.git', :branch => 'swift3'
 
   target 'Convrt UI Tests' do

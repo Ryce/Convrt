@@ -7,36 +7,14 @@
 //
 
 import Foundation
+import CoreData
 
-let kFromCurrencyKey = "fromCurrency"
-let kToCurrencyKey = "toCurrency"
-let kRateKey = "rate"
-
-class CurrencyPair: NSObject, NSCoding {
+class CurrencyPair: NSManagedObject, Equatable {
     
-    required init?(coder aDecoder: NSCoder) {
-        self.fromCurrency = aDecoder.decodeObject(forKey: kFromCurrencyKey) as! Currency
-        self.toCurrency = aDecoder.decodeObject(forKey: kToCurrencyKey) as! Currency
-        self.rate = aDecoder.decodeDouble(forKey: kRateKey)
-        super.init()
-    }
-    
-    func encode(with aCoder: NSCoder) {
-        aCoder.encode(self.fromCurrency, forKey: kFromCurrencyKey)
-        aCoder.encode(self.toCurrency, forKey: kToCurrencyKey)
-        aCoder.encode(self.rate, forKey: kRateKey)
-    }
-    
-    init(_ fromCurrency: Currency, _ toCurrency: Currency) {
+    init(from fromCurrency: Currency, to toCurrency: Currency, rate: Double = 0.0) {
         self.fromCurrency = fromCurrency
         self.toCurrency = toCurrency
-        super.init()
-    }
-    
-    init(fromCurrency: Currency, toCurrency: Currency, rate: Double) {
-        self.fromCurrency = fromCurrency
-        self.toCurrency = toCurrency
-        self.rate = rate;
+        self.rate = rate
         super.init()
     }
     
@@ -49,9 +27,9 @@ class CurrencyPair: NSObject, NSCoding {
         return self.fromCurrency == currencyPair.fromCurrency && self.toCurrency == currencyPair.toCurrency
     }
     
-    let fromCurrency: Currency
-    let toCurrency: Currency
-    var rate: Double = 0.0
+    dynamic var fromCurrency: Currency
+    dynamic var toCurrency: Currency
+    dynamic var rate: Double = 0.0
 }
 
 func ==(lhs: CurrencyPair, rhs: CurrencyPair) -> Bool {

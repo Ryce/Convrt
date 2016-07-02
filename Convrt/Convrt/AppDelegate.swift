@@ -47,7 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if shortcutItem.type == "com.ryce.convrt.openhundredeur" {
             guard let viewController = self.window?.rootViewController as? ViewController,
                 let shortcutCurrency = shortcutItem.userInfo?["currency"] as? String,
-                let currency = ConvrtSession.sharedInstance.savedCurrencyConfiguration.filter({ $0.code == shortcutCurrency }).first,
+                let currency = viewController.convrtSession.savedCurrencyConfiguration.filter({ $0.code == shortcutCurrency }).first,
                 let shortcutAmount = shortcutItem.userInfo?["amount"] as? String,
                 let currentAmount = Double(shortcutAmount) else {
                 completionHandler(false)

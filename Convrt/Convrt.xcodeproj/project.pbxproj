@@ -14,6 +14,7 @@
 		DA277DF11B36D96400B2E28F /* CurrencyEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA277DF01B36D96400B2E28F /* CurrencyEditView.swift */; };
 		DA51B94F1B356C5B006AD73B /* ConvrtCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA51B94E1B356C5B006AD73B /* ConvrtCollectionViewCell.swift */; };
 		DA686F6A1B35D38E004D62B2 /* ConvrtSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA686F691B35D38E004D62B2 /* ConvrtSessionTests.swift */; };
+		DA8B02A01D271856007C9110 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DA8B029E1D271856007C9110 /* DataModel.xcdatamodeld */; };
 		DA94A1211B3DCC2E00FFA025 /* Convrt_UI_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA94A1201B3DCC2E00FFA025 /* Convrt_UI_Tests.swift */; };
 		DAB2061C1B3C466D00E1900E /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2061B1B3C466D00E1900E /* Currency.swift */; };
 		DAB2061E1B3C469400E1900E /* CurrencyPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2061D1B3C469300E1900E /* CurrencyPair.swift */; };
@@ -69,6 +70,7 @@
 		DA277DF01B36D96400B2E28F /* CurrencyEditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyEditView.swift; sourceTree = "<group>"; };
 		DA51B94E1B356C5B006AD73B /* ConvrtCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvrtCollectionViewCell.swift; sourceTree = "<group>"; };
 		DA686F691B35D38E004D62B2 /* ConvrtSessionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvrtSessionTests.swift; sourceTree = "<group>"; };
+		DA8B029F1D271856007C9110 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		DA94A11E1B3DCC2E00FFA025 /* Convrt UI Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Convrt UI Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA94A1201B3DCC2E00FFA025 /* Convrt_UI_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Convrt_UI_Tests.swift; sourceTree = "<group>"; };
 		DA94A1221B3DCC2E00FFA025 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -219,6 +221,7 @@
 				DADD1B221B073D6A00DC9269 /* Images.xcassets */,
 				DADD1B191B073D6A00DC9269 /* Supporting Files */,
 				DAC3EDAE1B0741BB00E304AC /* Frameworks */,
+				DA8B029E1D271856007C9110 /* DataModel.xcdatamodeld */,
 			);
 			path = Convrt;
 			sourceTree = "<group>";
@@ -322,7 +325,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = ryce;
 				TargetAttributes = {
 					DA94A11D1B3DCC2E00FFA025 = {
@@ -526,6 +529,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DADD1B1E1B073D6A00DC9269 /* ViewController.swift in Sources */,
+				DA8B02A01D271856007C9110 /* DataModel.xcdatamodeld in Sources */,
 				DA51B94F1B356C5B006AD73B /* ConvrtCollectionViewCell.swift in Sources */,
 				DAF3539F1B6EA5DF005C0868 /* CurrencySelectionViewController.swift in Sources */,
 				DADD1B1C1B073D6A00DC9269 /* AppDelegate.swift in Sources */,
@@ -598,6 +602,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.riazy.Convrt-UI-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = Convrt;
 				USES_XCTRUNNER = YES;
@@ -641,7 +646,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -680,7 +685,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -691,10 +696,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D30C00D639ADE81D1A498B2B /* Pods-Convrt.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -714,10 +719,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 155CDA9A0DC0050773A1BB95 /* Pods-Convrt.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -729,6 +734,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ryce.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
@@ -768,6 +774,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ryce.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Convrt.app/Convrt";
 			};
@@ -813,6 +820,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		DA8B029E1D271856007C9110 /* DataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				DA8B029F1D271856007C9110 /* DataModel.xcdatamodel */,
+			);
+			currentVersion = DA8B029F1D271856007C9110 /* DataModel.xcdatamodel */;
+			path = DataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = DADD1B0E1B073D6A00DC9269 /* Project object */;
 }

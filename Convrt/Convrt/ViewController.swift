@@ -13,6 +13,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     @IBOutlet var collectionView: UICollectionView?
     @IBOutlet var detailView: CurrencyEditView?
     
+    let convrtSession = ConvrtSession()
+    
     var selectedCurrency: Currency?
     var selectedCurrencyAmount: CurrencyAmount = 0.0
     
@@ -32,15 +34,15 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         self.detailView?.delegate = self
         self.detailView?.amountTextField?.keyboardType = UIKeyboardType.decimalPad
         
-        self.collectionView!.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: Selector("showCurrencySelection")))
+        self.collectionView!.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(ViewController.showCurrencySelection)))
         // Do any additional setup after loading the view, typically from a nib.
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        ConvrtSession.sharedInstance.updateSavedCurrencyPairs()
+        convrtSession.updateSavedCurrencyPairs()
         self.showLoadingIndicator()
-        ConvrtSession.sharedInstance.fetchRatesForCurrencies(ConvrtSession.sharedInstance.savedCurrencyPairs) { (items, error) -> () in
+        convrtSession.fetchRatesForCurrencies(convrtSession.savedCurrencyPairs) { (items, error) -> () in
             self.hideLoadingIndicator()
             if error != .noError {
                 let alert = UIAlertController(title: "Whoops", message: "There was a problem fetching the rates", preferredStyle: .alert)
@@ -78,12 +80,12 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return ConvrtSession.sharedInstance.savedCurrencyConfiguration.count
+        return convrtSession.savedCurrencyConfiguration.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ConvrtCollectionViewCell.kCellIdentifier, for: indexPath) as! ConvrtCollectionViewCell
-        let currency = ConvrtSession.sharedInstance.savedCurrencyConfiguration[(indexPath as NSIndexPath).row]
+        let currency = convrtSession.savedCurrencyConfiguration[(indexPath as NSIndexPath).row]
         cell.codeLabel?.text = currency.code
         cell.countryLabel?.text = currency.title
         if let selCurr = self.selectedCurrency where selCurr != currency {
@@ -97,7 +99,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     // MARK: UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.selectedCurrency = ConvrtSession.sharedInstance.savedCurrencyConfiguration[(indexPath as NSIndexPath).row]
+        self.selectedCurrency = convrtSession.savedCurrencyConfiguration[(indexPath as NSIndexPath).row]
         
         self.detailView?.currency = self.selectedCurrency
         self.detailView?.codeLabel?.text = self.selectedCurrency?.code

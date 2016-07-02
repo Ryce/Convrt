@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import CoreData
 
 let genericCurrencyArray = [Currency("United States Dollar", "USD", "United States of America"),
     Currency("European Euro", "EUR", "Europe"),
@@ -24,68 +25,16 @@ enum ConvrtError : ErrorProtocol {
     case noError, connectionError, parseError
 }
 
-let klastUpdatedDateKey = "com.ryce.convrt.lastupdateddate"
-let kSavedCurrenciesKey = "com.ryce.convrt.savedcurrencies"
-
-class ConvrtSession: NSObject {
+class ConvrtSession {
     
-    private static var __once: () = {
-            Static.instance = ConvrtSession()
-        }()
-    
-    class var sharedInstance: ConvrtSession {
-        struct Static {
-            static var onceToken: Int = 0
-            static var instance: ConvrtSession? = nil
-        }
-        _ = ConvrtSession.__once
-        return Static.instance!
-    }
-    
-    private var _savedCurrencyConfig: [Currency]?
-    var savedCurrencyConfiguration: [Currency] {
-        get {
-            if let savedCurrencyConfig = _savedCurrencyConfig {
-                return savedCurrencyConfig
-            }
-            _savedCurrencyConfig = genericCurrencyArray
-            return _savedCurrencyConfig!
-        }
-        set {
-            _savedCurrencyConfig = newValue
-        }
-    }
-
-    private var _savedCurrencyPairs: [CurrencyPair]?
-    var savedCurrencyPairs: [CurrencyPair] {
-        get {
-            if let savedCurrencyPairs = _savedCurrencyPairs {
-                return savedCurrencyPairs
-            }
-            if let persistedCurrencyData = UserDefaults.standard().object(forKey: kSavedCurrenciesKey) as? Data {
-                if let persistedCurrencyPairs = NSKeyedUnarchiver.unarchiveObject(with: persistedCurrencyData) as? [CurrencyPair] {
-                    _savedCurrencyPairs = persistedCurrencyPairs
-                    return _savedCurrencyPairs!
-                }
-            }
-            _savedCurrencyPairs = self.generateCurrencyPairs(self.savedCurrencyConfiguration)
-            return _savedCurrencyPairs!
-        }
-        set {
-            _savedCurrencyPairs = newValue
-            UserDefaults.standard().set(NSKeyedArchiver.archivedData(withRootObject: newValue), forKey: kSavedCurrenciesKey)
-            UserDefaults.standard().synchronize()
-        }
-    }
-
     let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         return formatter
     }()
     
-    var selectedCurrencies = Array<Currency>()
+    var selectedCurrencies = [Currency]()
     
-    let fullCurrenyList: Array<Currency> = {
+    let fullCurrenyList: [Currency] = {
         let plistPath = Bundle.main().pathForResource("currencies", ofType: "plist")!
         let plistArray = NSArray(contentsOfFile: plistPath) as! Array<AnyObject>
         
@@ -148,6 +97,17 @@ class ConvrtSession: NSObject {
     func updateSavedCurrencyPairs() {
         self.savedCurrencyPairs = self.generateCurrencyPairs(self.savedCurrencyConfiguration)
     }
+    
+    func amount(from fromCurrency: Currency, to toCurrency: Currency) -> String {
+        let fromCurrencyPairs = self.findCurrencies(fromCurrency)
+        if fromCurrencyPairs.count > 0 {
+            let amountPair = fromCurrencyPairs.filter { $0.toCurrency == toCurrency }[0]
+            if amountPair.rate != 0.0 {
+                return String(fromCurrency.currentAmount * amountPair.rate)
+            }
+        }
+        return numberFormatter.string(from: 0)!
+    }
 
     
     let manager: Manager = Alamofire.Manager.sharedInstance
@@ -156,18 +116,18 @@ class ConvrtSession: NSObject {
     func fetchRatesForCurrencies(_ currencies: Array<CurrencyPair>, completion: (didSucceed: Bool, error: ConvrtError) -> ()) {
         
         let urlString = baseURL + self.constructYQL(currencies)
-        manager.request(Method.GET, urlString, parameters: nil, encoding: .URL).responseJSON(completionHandler: { (response) -> Void in
+        manager.request(Method.GET, urlString, parameters: nil, encoding: .url).responseJSON(completionHandler: { (response) -> Void in
             if response.result.isFailure {
-                completion(didSucceed: false, error: ConvrtError.ConnectionError)
+                completion(didSucceed: false, error: ConvrtError.connectionError)
                 return // BAIL
             }
             let JSON = response.result.value as! [String:AnyObject]
             let objects = JSON["query"] as? NSDictionary
-            if let _objects = objects?.valueForKeyPath("results.rate") as? Array<Dictionary<String, String>> {
+            if let _objects = objects?.value(forKeyPath: "results.rate") as? [[String:String]] {
                 var newCurrencies = Array<CurrencyPair>()
                 // TODO: update existing objects instead of creating new ones
                 for dict in _objects {
-                    let nameArray = dict["Name"]?.componentsSeparatedByString("/")
+                    let nameArray = dict["Name"]?.components(separatedBy: "/")
                     let fromCurrency = Currency(nameArray![0], nameArray![0], "")
                     let toCurrency = Currency(nameArray![1], nameArray![1], "")
                     let rate = dict["Rate"]! as NSString
@@ -177,9 +137,9 @@ class ConvrtSession: NSObject {
                 // merge new info into existing array
                 self.savedCurrencyPairs = newCurrencies
                 
-                completion(didSucceed: true, error: ConvrtError.NoError)
+                completion(didSucceed: true, error: ConvrtError.noError)
             } else {
-                completion(didSucceed: false, error: ConvrtError.ParseError)
+                completion(didSucceed: false, error: ConvrtError.parseError)
             }
         })
     }

@@ -33,15 +33,15 @@ class CurrencyEditView: UIView, UITextFieldDelegate {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: Selector("dismissView")))
+        self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(CurrencyEditView.dismissView)))
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: Selector("dismissView")))
+        self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(CurrencyEditView.dismissView)))
         
-        NotificationCenter.default().addObserver(self, selector: Selector("keyboardWillShow:"), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default().addObserver(self, selector: Selector("keyboardWillHide:"), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default().addObserver(self, selector: #selector(CurrencyEditView.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default().addObserver(self, selector: #selector(CurrencyEditView.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
     }
     

@@ -19,9 +19,9 @@ class AAWindow: UIWindow {
     var timer : Timer = Timer()
     
     //This notification will fire when the user opens Control Center.
-    private var applicationWillResignActiveWithControlCenterNotification = Notification(name: "applicationWillResignActiveWithControlCenter" as Name, object: nil)
+    private var applicationWillResignActiveWithControlCenterNotification = Notification(name: "applicationWillResignActiveWithControlCenter" as Notification.Name, object: nil)
     //This notification will fire when the application becomes inactive for whatever reason, except when the user launches Control Center.
-    private var applicationWillResignActiveWithoutControlCenterNotification = Notification(name: "applicationWillResignActiveWithoutControlCenter" as Name, object: nil)
+    private var applicationWillResignActiveWithoutControlCenterNotification = Notification(name: "applicationWillResignActiveWithoutControlCenter" as Notification.Name, object: nil)
 
     init(frame: CGRect, cornerRadius: Float) {
         super.init(frame: frame)
@@ -33,8 +33,8 @@ class AAWindow: UIWindow {
         
         activeCornerRadius = CGFloat(cornerRadius)
         
-        NotificationCenter.default().addObserver(self, selector: "applicationDidBecomeActive:", name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
-        NotificationCenter.default().addObserver(self, selector: "applicationWillResignActive:", name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
+        NotificationCenter.default().addObserver(self, selector: #selector(UIApplicationDelegate.applicationDidBecomeActive(_:)), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+        NotificationCenter.default().addObserver(self, selector: #selector(UIApplicationDelegate.applicationWillResignActive(_:)), name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
     }
     
     //This will fire once the application becomes active (i.e. on startup or on return from Multitasking Switcher)
@@ -73,7 +73,7 @@ class AAWindow: UIWindow {
     
     private var touchLocation : CGPoint = CGPoint()
     
-    override func send(_ event: UIEvent) {
+    override func sendEvent(_ event: UIEvent) {
         super.sendEvent(event)
         
         //Filter touches from other UIEventTypes.
@@ -98,7 +98,7 @@ class AAWindow: UIWindow {
                         }
                     }()
                     
-                    timer = Timer.scheduledTimer(timeInterval: timerInterval, target: self, selector: Selector("handleTimer"), userInfo: nil, repeats: false)
+                    timer = Timer.scheduledTimer(timeInterval: timerInterval, target: self, selector: #selector(AAWindow.handleTimer), userInfo: nil, repeats: false)
                 }
             }
         }
