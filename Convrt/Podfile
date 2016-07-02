@@ -5,7 +5,8 @@ target 'Convrt' do
 
   # Pods for Convrt
   # pod "SugarRecord/CoreData+iCloud"
-  pod 'Alamofire', :git => 'https://github.com/Alamofire/Alamofire.git', :branch => 'swift3'
+  pod 'Alamofire'
+  pod "SugarRecord/CoreData"
 
   target 'Convrt UI Tests' do
     inherit! :search_paths

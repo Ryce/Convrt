@@ -1,22 +1,18 @@
 PODS:
   - Alamofire (3.4.1)
+  - Result (2.1.2)
+  - SugarRecord/CoreData (2.2.9):
+    - Result (~> 2.0)
 
 DEPENDENCIES:
-  - Alamofire (from `https://github.com/Alamofire/Alamofire.git`, branch `swift3`)
-
-EXTERNAL SOURCES:
-  Alamofire:
-    :branch: swift3
-    :git: https://github.com/Alamofire/Alamofire.git
-
-CHECKOUT OPTIONS:
-  Alamofire:
-    :commit: e891699312a5215ad0da9f8322c5da949f90db35
-    :git: https://github.com/Alamofire/Alamofire.git
+  - Alamofire
+  - SugarRecord/CoreData
 
 SPEC CHECKSUMS:
   Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
+  Result: 6e722d4a66b1408680dbfcdf51c0b1c4b706316a
+  SugarRecord: 2463fbe768633a2524ba505dfed5315167331c0a
 
-PODFILE CHECKSUM: e72224d07385fdc17ca2ceb20ef8a7823237829b
+PODFILE CHECKSUM: d8d905a602d5c38344d6a7087776435af94b8089
 
 COCOAPODS: 1.0.1
