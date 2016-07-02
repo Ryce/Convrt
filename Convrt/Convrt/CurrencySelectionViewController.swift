@@ -42,7 +42,7 @@ class CurrencySelectionViewController: UIViewController, UITableViewDelegate, UI
         let tableViewCell = tableView.dequeueReusableCell(withIdentifier: currencySelectionCellIdentifier, for: indexPath)
         let currentCurrency = convrtSession.fullCurrenyList[(indexPath as NSIndexPath).row]
         tableViewCell.textLabel?.text = currentCurrency.title
-        if convrtSession.savedCurrencyConfiguration.contains(currentCurrency) {
+        if convrtSession.selectedCurrencies.contains(currentCurrency) {
             tableViewCell.accessoryType = .checkmark
         } else {
             tableViewCell.accessoryType = .none
@@ -53,11 +53,11 @@ class CurrencySelectionViewController: UIViewController, UITableViewDelegate, UI
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let currentCurrency = convrtSession.fullCurrenyList[(indexPath as NSIndexPath).row]
-        if convrtSession.savedCurrencyConfiguration.contains(currentCurrency) {
-            guard let index = convrtSession.savedCurrencyConfiguration.index(of: currentCurrency) else { return }
-            convrtSession.savedCurrencyConfiguration.remove(at: index)
+        if convrtSession.selectedCurrencies.contains(currentCurrency) {
+            guard let index = convrtSession.selectedCurrencies.index(of: currentCurrency) else { return }
+            convrtSession.selectedCurrencies.remove(at: index)
         } else {
-            convrtSession.savedCurrencyConfiguration.append(currentCurrency)
+            convrtSession.selectedCurrencies.append(currentCurrency)
         }
         tableView.reloadRows(at: [indexPath], with: .fade)
     }

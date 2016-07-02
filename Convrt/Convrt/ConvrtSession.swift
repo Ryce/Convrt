@@ -10,14 +10,20 @@ import UIKit
 import Alamofire
 import CoreData
 
-let genericCurrencyArray = [Currency("United States Dollar", "USD", "United States of America"),
-    Currency("European Euro", "EUR", "Europe"),
-    Currency("British Pound", "GBP", "Great Britain"),
-    Currency("Japanese Yen", "JPY", "Japan"),
-    Currency("Swiss Franc", "CHF", "Switzerland"),
-    Currency("Canadian Dollar", "CAD", "Canada"),
-    Currency("Australian Dollar", "AUD", "Australia"),
-    Currency("Renminbi", "CNY", "China")]
+let genericCurrencyArray: [Currency] = {
+    let currencies = [("United States Dollar", "USD", "United States of America"),
+                                ("European Euro", "EUR", "Europe"),
+                                ("British Pound", "GBP", "Great Britain"),
+                                ("Japanese Yen", "JPY", "Japan"),
+                                ("Swiss Franc", "CHF", "Switzerland"),
+                                ("Canadian Dollar", "CAD", "Canada"),
+                                ("Australian Dollar", "AUD", "Australia"),
+                                ("Renminbi", "CNY", "China")]
+    
+    return [Currency]()
+    
+}()
+
 
 typealias CurrencyAmount = Double
 
@@ -40,46 +46,53 @@ class ConvrtSession {
         
         return plistArray.map {
             if let title = $0["title"] as? String, let code = $0["code"] as? String, let country = $0["country"] as? String {
-                return Currency(title, code, country)
+                let currency = Currency()
+                currency.title = title
+                currency.code = code
+                currency.country = country
+                return currency
             } else {
                 assertionFailure("Parse Error")
-                return Currency("","","") // silence error
+                return Currency() // silence error
             }
         }
     }()
-
-    private var _lastUpdated: Date?
-    internal(set) var lastUpdated: Date {
-        get {
-            if let lup = self._lastUpdated {
-                return lup
+    
+    func savedCurrencyPairs() -> [CurrencyPair]? {
+        guard let appDelegate = UIApplication.shared().delegate as? AppDelegate else { return nil }
+        
+        do {
+            if #available(iOS 10.0, *) {
+                if let result = try appDelegate.cdh.managedObjectContext.fetch(CurrencyPair.fetchRequest()) as? [CurrencyPair] {
+                    return result
+                }
+                return nil
+            } else {
+                return nil
+                // Fallback on earlier versions
             }
-            if let date = UserDefaults.standard().value(forKey: klastUpdatedDateKey) as? Date {
-                self._lastUpdated = date
-                return self._lastUpdated!
-            }
-            return Date(timeIntervalSinceNow: 0)
+            
+        } catch {
+            return nil
         }
-        set {
-            self._lastUpdated = newValue
-            UserDefaults.standard().setValue(_lastUpdated, forKey: klastUpdatedDateKey)
-            UserDefaults.standard().synchronize()
-        }
+        
     }
     
-    func findCurrencies(_ from: Currency) -> [CurrencyPair] {
-        return self.savedCurrencyPairs.filter { $0.fromCurrency == from }
+    func findCurrencies(_ from: Currency) -> [CurrencyPair]? {
+        return self.savedCurrencyPairs()?.filter { $0.fromCurrency == from }
     }
     
     func addCurrencies(_ currencies: [CurrencyPair]) {
+        guard var savedCurrencyPairs = self.savedCurrencyPairs() else { return } // BAIL
         for currencyPair in currencies {
-            if let index = self.savedCurrencyPairs.index(of: currencyPair) {
-                let object = self.savedCurrencyPairs[index]
+            if let index = savedCurrencyPairs.index(of: currencyPair) {
+                let object = savedCurrencyPairs[index]
                 object.merge(currencyPair)
             } else {
-                self.savedCurrencyPairs.append(currencyPair)
+                savedCurrencyPairs.append(currencyPair)
             }
         }
+        // TODO: need to update savedCurrencyPairs into persistentStore
     }
     
     func generateCurrencyPairs(_ currencies: [Currency]) -> [CurrencyPair] {
@@ -87,7 +100,10 @@ class ConvrtSession {
         for fromCurrency in currencies {
             for toCurrency in currencies {
                 if fromCurrency != toCurrency {
-                    currPairs.append(CurrencyPair(fromCurrency, toCurrency))
+                    let currPair = CurrencyPair()
+                    currPair.fromCurrency = fromCurrency
+                    currPair.toCurrency = toCurrency
+                    currPairs.append(currPair)
                 }
             }
         }
@@ -95,18 +111,19 @@ class ConvrtSession {
     }
     
     func updateSavedCurrencyPairs() {
-        self.savedCurrencyPairs = self.generateCurrencyPairs(self.savedCurrencyConfiguration)
+        // TODO: update savedCurrencyPairs
+//        self.savedCurrencyPairs = self.generateCurrencyPairs(self.savedCurrencyConfiguration)
     }
     
     func amount(from fromCurrency: Currency, to toCurrency: Currency) -> String {
         let fromCurrencyPairs = self.findCurrencies(fromCurrency)
-        if fromCurrencyPairs.count > 0 {
-            let amountPair = fromCurrencyPairs.filter { $0.toCurrency == toCurrency }[0]
-            if amountPair.rate != 0.0 {
+        if fromCurrencyPairs?.count > 0 {
+            let amountPair = fromCurrencyPairs?.filter { $0.toCurrency == toCurrency }[0]
+            if let amountPair = amountPair where amountPair.rate != 0.0 {
                 return String(fromCurrency.currentAmount * amountPair.rate)
             }
         }
-        return numberFormatter.string(from: 0)!
+        return fromCurrency.numberFormatter().string(from: 0)!
     }
 
     
@@ -128,14 +145,25 @@ class ConvrtSession {
                 // TODO: update existing objects instead of creating new ones
                 for dict in _objects {
                     let nameArray = dict["Name"]?.components(separatedBy: "/")
-                    let fromCurrency = Currency(nameArray![0], nameArray![0], "")
-                    let toCurrency = Currency(nameArray![1], nameArray![1], "")
+                    let appDelegate = UIApplication.shared().delegate as! AppDelegate
+                    let fromCurrency = NSEntityDescription.insertNewObject(forEntityName: "Currency", into: appDelegate.cdh.managedObjectContext) as! Currency
+                    fromCurrency.title = nameArray![0]
+                    fromCurrency.code = nameArray![0]
+                    let toCurrency = NSEntityDescription.insertNewObject(forEntityName: "Currency", into: appDelegate.cdh.managedObjectContext) as! Currency
+                    toCurrency.title = nameArray![1]
+                    toCurrency.code = nameArray![1]
                     let rate = dict["Rate"]! as NSString
-                    newCurrencies.append(CurrencyPair(fromCurrency: fromCurrency, toCurrency: toCurrency, rate: rate.doubleValue))
+                    let currencyPair = NSEntityDescription.insertNewObject(forEntityName: "CurrencyPair", into: appDelegate.cdh.managedObjectContext) as! CurrencyPair
+                    currencyPair.fromCurrency = fromCurrency
+                    currencyPair.toCurrency = toCurrency
+                    currencyPair.rate = rate.doubleValue
+                    newCurrencies.append(currencyPair)
                 }
                 
+                
+                
                 // merge new info into existing array
-                self.savedCurrencyPairs = newCurrencies
+                // update main view when save is complete
                 
                 completion(didSucceed: true, error: ConvrtError.noError)
             } else {
@@ -150,7 +178,9 @@ class ConvrtSession {
         let suffix = "%29&format=json&env=store://datatables.org/alltableswithkeys"
         
         for (index, pair) in currencies.enumerated() {
-            constructionString += "%22" + pair.fromCurrency.code + pair.toCurrency.code + "%22"
+            let fromCurrency = pair.fromCurrency as! Currency
+            let toCurrency = pair.toCurrency as! Currency
+            constructionString += "%22" + fromCurrency.code! + toCurrency.code! + "%22"
             if currencies.count != index + 1 {
                 constructionString += ",%20"
             }

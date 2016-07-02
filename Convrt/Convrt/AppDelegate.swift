@@ -41,13 +41,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
+    // MARK: Core Data Helper
+    
+    lazy var cdstore: CoreDataStore = {
+        let cdstore = CoreDataStore()
+        return cdstore
+    }()
+    
+    lazy var cdh: CoreDataHelper = {
+        let cdh = CoreDataHelper()
+        return cdh
+    }()
+    
+    // MARK: 3D Touch
+    
     @available(iOS 9.0, *)
     func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: (Bool) -> Void) {
         print("shortcut call")
         if shortcutItem.type == "com.ryce.convrt.openhundredeur" {
             guard let viewController = self.window?.rootViewController as? ViewController,
                 let shortcutCurrency = shortcutItem.userInfo?["currency"] as? String,
-                let currency = viewController.convrtSession.savedCurrencyConfiguration.filter({ $0.code == shortcutCurrency }).first,
+                let currency = viewController.convrtSession.selectedCurrencies.filter({ $0.code == shortcutCurrency }).first,
                 let shortcutAmount = shortcutItem.userInfo?["amount"] as? String,
                 let currentAmount = Double(shortcutAmount) else {
                 completionHandler(false)

@@ -9,30 +9,19 @@
 import Foundation
 import CoreData
 
-class Currency: NSManagedObject, Equatable {
+let currencyNumberFormatter: NumberFormatter = {
+    let formatter = NumberFormatter()
+    formatter.numberStyle = NumberFormatter.Style.currency
+    formatter.currencySymbol = ""
+    return formatter
+}()
+
+extension Currency {
     
-    init(_ someTitle: String, _ someCode: String, _ someCountry: String) {
-        self.title = someTitle
-        self.code = someCode
-        self.country = someCountry
-        super.init()
-    }
-    
-    dynamic var title: String
-    dynamic var code: String
-    dynamic var country: String
-    
-    dynamic var currentAmount: CurrencyAmount = 0.0
-    
-    let numberFormatter: NumberFormatter = {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = NumberFormatter.Style.currency
-        formatter.currencySymbol = ""
-        return formatter
-        }()
+    func numberFormatter() -> NumberFormatter { return currencyNumberFormatter }
     
     func displayAmount() -> String {
-        return numberFormatter.string(from: NSNumber(value: self.currentAmount))!
+        return self.numberFormatter().string(from: NSNumber(value: self.currentAmount))!
     }
     
 }

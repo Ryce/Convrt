@@ -9,14 +9,7 @@
 import Foundation
 import CoreData
 
-class CurrencyPair: NSManagedObject, Equatable {
-    
-    init(from fromCurrency: Currency, to toCurrency: Currency, rate: Double = 0.0) {
-        self.fromCurrency = fromCurrency
-        self.toCurrency = toCurrency
-        self.rate = rate
-        super.init()
-    }
+extension CurrencyPair {
     
     func merge(_ otherCurrencyPair: CurrencyPair) {
         self.rate = otherCurrencyPair.rate
@@ -27,9 +20,6 @@ class CurrencyPair: NSManagedObject, Equatable {
         return self.fromCurrency == currencyPair.fromCurrency && self.toCurrency == currencyPair.toCurrency
     }
     
-    dynamic var fromCurrency: Currency
-    dynamic var toCurrency: Currency
-    dynamic var rate: Double = 0.0
 }
 
 func ==(lhs: CurrencyPair, rhs: CurrencyPair) -> Bool {

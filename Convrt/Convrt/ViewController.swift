@@ -41,8 +41,9 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         convrtSession.updateSavedCurrencyPairs()
+        guard let savedCurrencyPairs = convrtSession.savedCurrencyPairs() else { return }
         self.showLoadingIndicator()
-        convrtSession.fetchRatesForCurrencies(convrtSession.savedCurrencyPairs) { (items, error) -> () in
+        convrtSession.fetchRatesForCurrencies(savedCurrencyPairs) { (items, error) -> () in
             self.hideLoadingIndicator()
             if error != .noError {
                 let alert = UIAlertController(title: "Whoops", message: "There was a problem fetching the rates", preferredStyle: .alert)
@@ -80,16 +81,16 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return convrtSession.savedCurrencyConfiguration.count
+        return convrtSession.selectedCurrencies.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ConvrtCollectionViewCell.kCellIdentifier, for: indexPath) as! ConvrtCollectionViewCell
-        let currency = convrtSession.savedCurrencyConfiguration[(indexPath as NSIndexPath).row]
+        let currency = convrtSession.selectedCurrencies[(indexPath as NSIndexPath).row]
         cell.codeLabel?.text = currency.code
         cell.countryLabel?.text = currency.title
         if let selCurr = self.selectedCurrency where selCurr != currency {
-            cell.amountLabel?.text = currency.calculateAmount(selCurr)
+            cell.amountLabel?.text = "" // TODO: convrt.calculateAmount(selCurr)
         } else {
             cell.amountLabel?.text = currency.displayAmount()
         }
@@ -99,7 +100,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     // MARK: UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.selectedCurrency = convrtSession.savedCurrencyConfiguration[(indexPath as NSIndexPath).row]
+        self.selectedCurrency = convrtSession.selectedCurrencies[(indexPath as NSIndexPath).row]
         
         self.detailView?.currency = self.selectedCurrency
         self.detailView?.codeLabel?.text = self.selectedCurrency?.code
@@ -115,9 +116,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 145 * self.view.bounds.size.width/320, height: 120 * self.view.bounds.size.width/320);
     }
-    
-    
-    
     
     // MARK: CurrencyEditDelegate
     
