@@ -35,12 +35,12 @@ class CurrencySelectionViewController: UIViewController, UITableViewDelegate, UI
     // MARK: UITableViewDelegate & DataSource
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return convrtSession.fullCurrenyList.count
+        return convrtSession.fullCurrenyList().count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let tableViewCell = tableView.dequeueReusableCellWithIdentifier(currencySelectionCellIdentifier, forIndexPath: indexPath)
-        let currentCurrency = convrtSession.fullCurrenyList[(indexPath as NSIndexPath).row]
+        let currentCurrency = convrtSession.fullCurrenyList()[(indexPath as NSIndexPath).row]
         tableViewCell.textLabel?.text = currentCurrency.title
         if convrtSession.selectedCurrencies.contains(currentCurrency) {
             tableViewCell.accessoryType = .Checkmark
@@ -52,7 +52,7 @@ class CurrencySelectionViewController: UIViewController, UITableViewDelegate, UI
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        let currentCurrency = convrtSession.fullCurrenyList[(indexPath as NSIndexPath).row]
+        let currentCurrency = convrtSession.fullCurrenyList()[(indexPath as NSIndexPath).row]
         if convrtSession.selectedCurrencies.contains(currentCurrency) {
             guard let index = convrtSession.selectedCurrencies.indexOf(currentCurrency) else { return }
             convrtSession.selectedCurrencies.removeAtIndex(index)

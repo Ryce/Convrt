@@ -89,7 +89,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         cell.codeLabel?.text = currency.code
         cell.countryLabel?.text = currency.title
         if let selCurr = self.selectedCurrency where selCurr != currency {
-            cell.amountLabel?.text = currency.calculateAmount(selCurr)
+            cell.amountLabel?.text = self.calculateAmount(from: selCurr, to: currency)
         } else {
             cell.amountLabel?.text = currency.displayAmount()
         }
@@ -150,6 +150,20 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             self.loadingIndicatorContainer.removeFromSuperview()
             self.loadingIndicator.stopAnimating()
         }
+    }
+    
+    // MARK: Helpers
+    
+    func calculateAmount(from fromCurrency: Currency, to toCurrency: Currency) -> String {
+        let fromCurrencyPairs = convrtSession.findCurrencies(fromCurrency)
+        if fromCurrencyPairs.count > 0 {
+            let amountPair = fromCurrencyPairs.filter { $0.toCurrency == self }[0]
+            if amountPair.rate != 0.0 {
+                toCurrency.currentAmount = fromCurrency.currentAmount * amountPair.rate
+                return toCurrency.numberFormatter().stringFromNumber(toCurrency.currentAmount)!
+            }
+        }
+        return toCurrency.numberFormatter().stringFromNumber(0)!
     }
     
 }

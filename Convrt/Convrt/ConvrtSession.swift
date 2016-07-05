@@ -8,16 +8,20 @@
 
 import UIKit
 import Alamofire
+import CoreData
 import SugarRecord
 
-let genericCurrencyArray = [Currency("United States Dollar", "USD", "United States of America"),
-                            Currency("European Euro", "EUR", "Europe"),
-                            Currency("British Pound", "GBP", "Great Britain"),
-                            Currency("Japanese Yen", "JPY", "Japan"),
-                            Currency("Swiss Franc", "CHF", "Switzerland"),
-                            Currency("Canadian Dollar", "CAD", "Canada"),
-                            Currency("Australian Dollar", "AUD", "Australia"),
-                            Currency("Renminbi", "CNY", "China")]
+var genericCurrencyArray: [Currency]? = {
+    return nil
+//    [Currency("United States Dollar", "USD", "United States of America"),
+//     Currency("European Euro", "EUR", "Europe"),
+//     Currency("British Pound", "GBP", "Great Britain"),
+//     Currency("Japanese Yen", "JPY", "Japan"),
+//     Currency("Swiss Franc", "CHF", "Switzerland"),
+//     Currency("Canadian Dollar", "CAD", "Canada"),
+//     Currency("Australian Dollar", "AUD", "Australia"),
+//     Currency("Renminbi", "CNY", "China")]
+}()
 
 typealias CurrencyAmount = Double
 
@@ -79,21 +83,34 @@ class ConvrtSession: NSObject {
         return formatter
     }()
     
-    var selectedCurrencies = Array<Currency>()
+    var selectedCurrencies = [Currency]()
     
-    let fullCurrenyList: Array<Currency> = {
+    private var innerFullCurrencyList: [Currency]? = nil
+    
+    func fullCurrenyList() -> [Currency] {
+        if let _fullCurrencyList = innerFullCurrencyList {
+            return _fullCurrencyList
+        }
         let plistPath = NSBundle.mainBundle().pathForResource("currencies", ofType: "plist")!
-        let plistArray = NSArray(contentsOfFile: plistPath) as! Array<AnyObject>
+        let plistArray = NSArray(contentsOfFile: plistPath) as! [AnyObject]
         
         return plistArray.map {
             if let title = $0["title"] as? String, let code = $0["code"] as? String, let country = $0["country"] as? String {
-                return Currency(title, code, country)
+                return try! db.operation({ (context, save) -> Currency in
+                    let newCurr: Currency = try! context.new()
+                    newCurr.title = title
+                    newCurr.code = code
+                    newCurr.country = country
+                    try! context.insert(newCurr)
+                    save()
+                    return newCurr
+                })
             } else {
                 assertionFailure("Parse Error")
-                return Currency("","","") // silence error
+                return Currency() // silence error
             }
         }
-    }()
+    }
     
     private var _lastUpdated: NSDate?
     internal(set) var lastUpdated: NSDate {
@@ -134,7 +151,14 @@ class ConvrtSession: NSObject {
         for fromCurrency in currencies {
             for toCurrency in currencies {
                 if fromCurrency != toCurrency {
-                    currPairs.append(CurrencyPair(fromCurrency, toCurrency))
+                    currPairs.append(try! db.operation({ (context, save) -> CurrencyPair in
+                        let currencyPair: CurrencyPair = try! context.new()
+                        currencyPair.fromCurrency = fromCurrency
+                        currencyPair.toCurrency = toCurrency
+                        try! context.insert(currencyPair)
+                        save()
+                        return currencyPair
+                    }))
                 }
             }
         }
@@ -149,7 +173,7 @@ class ConvrtSession: NSObject {
     let manager: Manager = Alamofire.Manager.sharedInstance
     let baseURL = "http://query.yahooapis.com/v1/public/yql?q="
     
-    func fetchRatesForCurrencies(currencies: Array<CurrencyPair>, completion: (didSucceed: Bool, error: ConvrtError) -> ()) {
+    func fetchRatesForCurrencies(currencies: [CurrencyPair], completion: (didSucceed: Bool, error: ConvrtError) -> ()) {
         
         let urlString = baseURL + self.constructYQL(currencies)
         manager.request(Method.GET, urlString, parameters: nil, encoding: .URL).responseJSON(completionHandler: { (response) -> Void in
@@ -159,15 +183,39 @@ class ConvrtSession: NSObject {
             }
             let JSON = response.result.value as! [String:AnyObject]
             let objects = JSON["query"] as? NSDictionary
-            if let _objects = objects?.valueForKeyPath("results.rate") as? Array<Dictionary<String, String>> {
-                var newCurrencies = Array<CurrencyPair>()
+            if let _objects = objects?.valueForKeyPath("results.rate") as? [[String : String]] {
+                var newCurrencies = [CurrencyPair]()
                 // TODO: update existing objects instead of creating new ones
                 for dict in _objects {
                     let nameArray = dict["Name"]?.componentsSeparatedByString("/")
-                    let fromCurrency = Currency(nameArray![0], nameArray![0], "")
-                    let toCurrency = Currency(nameArray![1], nameArray![1], "")
+                    let fromCurrency = try! self.db.operation({ (context, save) -> Currency in
+                        let newCurr: Currency = try! context.new()
+                        newCurr.title = nameArray![0]
+                        newCurr.code = nameArray![0]
+                        try! context.insert(newCurr)
+                        save()
+                        return newCurr
+                    })
+
+                    let toCurrency = try! self.db.operation({ (context, save) -> Currency in
+                        let newCurr: Currency = try! context.new()
+                        newCurr.title = nameArray![1]
+                        newCurr.code = nameArray![1]
+                        try! context.insert(newCurr)
+                        save()
+                        return newCurr
+                    })
+                    
                     let rate = dict["Rate"]! as NSString
-                    newCurrencies.append(CurrencyPair(fromCurrency: fromCurrency, toCurrency: toCurrency, rate: rate.doubleValue))
+                    newCurrencies.append(try! self.db.operation({ (context, save) -> CurrencyPair in
+                        let currencyPair: CurrencyPair = try! context.new()
+                        currencyPair.fromCurrency = fromCurrency
+                        currencyPair.toCurrency = toCurrency
+                        currencyPair.rate = rate.doubleValue
+                        try! context.insert(currencyPair)
+                        save()
+                        return currencyPair
+                    }))
                 }
                 
                 // merge new info into existing array
