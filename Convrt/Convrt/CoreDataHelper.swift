@@ -20,11 +20,11 @@ class CoreDataHelper: NSObject{
         
         super.init()
         
-        NotificationCenter.default().addObserver(self, selector: #selector(CoreDataHelper.contextDidSaveContext(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(CoreDataHelper.contextDidSaveContext(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: nil)
     }
     
     deinit{
-        NotificationCenter.default().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
     
     // #pragma mark - Core Data stack

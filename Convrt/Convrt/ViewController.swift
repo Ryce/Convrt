@@ -89,7 +89,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         let currency = convrtSession.selectedCurrencies[(indexPath as NSIndexPath).row]
         cell.codeLabel?.text = currency.code
         cell.countryLabel?.text = currency.title
-        if let selCurr = self.selectedCurrency where selCurr != currency {
+        if let selCurr = self.selectedCurrency, selCurr != currency {
             cell.amountLabel?.text = "" // TODO: convrt.calculateAmount(selCurr)
         } else {
             cell.amountLabel?.text = currency.displayAmount()
@@ -105,7 +105,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         self.detailView?.currency = self.selectedCurrency
         self.detailView?.codeLabel?.text = self.selectedCurrency?.code
         self.detailView?.titleLabel?.text = self.selectedCurrency?.title
-        if let amount = self.selectedCurrency?.displayAmount() where self.selectedCurrency?.currentAmount > 0.0 {
+        if let amount = self.selectedCurrency?.displayAmount(), self.selectedCurrency?.currentAmount > 0.0 {
             self.detailView?.amountTextField?.text = amount
         } else {
             self.detailView?.amountTextField?.text = ""

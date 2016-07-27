@@ -27,8 +27,8 @@ class CurrencyEditView: UIView, UITextFieldDelegate {
     weak var delegate: CurrencyEditDelegate?
     
     deinit {
-        NotificationCenter.default().removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default().removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     override init(frame: CGRect) {
@@ -40,8 +40,8 @@ class CurrencyEditView: UIView, UITextFieldDelegate {
         super.init(coder: aDecoder)
         self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(CurrencyEditView.dismissView)))
         
-        NotificationCenter.default().addObserver(self, selector: #selector(CurrencyEditView.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default().addObserver(self, selector: #selector(CurrencyEditView.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(CurrencyEditView.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(CurrencyEditView.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
     }
     
@@ -101,8 +101,8 @@ class CurrencyEditView: UIView, UITextFieldDelegate {
         self.didChangeAmount = true
         let oldString = textField.text!
         let newString = (oldString as NSString).replacingCharacters(in: range, with: string)
-        let decimalSeparator = Locale.current().object(forKey: Locale.Key.decimalSeparator) as! String
-        let thousandSeparator = Locale.current().object(forKey: Locale.Key.groupingSeparator) as! String
+        let decimalSeparator = Locale.current.object(forKey: Locale.Key.decimalSeparator) as! String
+        let thousandSeparator = Locale.current.object(forKey: Locale.Key.groupingSeparator) as! String
         
         switch newString.characters.count {
         case 0:

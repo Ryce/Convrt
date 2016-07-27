@@ -127,7 +127,7 @@ public enum ServerTrustPolicy {
 
         - returns: All certificates within the given bundle.
     */
-    public static func certificatesInBundle(_ bundle: Bundle = Bundle.main()) -> [SecCertificate] {
+    public static func certificatesInBundle(_ bundle: Bundle = Bundle.main) -> [SecCertificate] {
         var certificates: [SecCertificate] = []
 
         let paths = Set([".cer", ".CER", ".crt", ".CRT", ".der", ".DER"].map { fileExtension in
@@ -135,9 +135,8 @@ public enum ServerTrustPolicy {
         }.flatten())
 
         for path in paths {
-            if let
-                certificateData = try? Data(contentsOf: URL(fileURLWithPath: path)),
-                certificate = SecCertificateCreateWithData(nil, certificateData)
+            if let certificateData = try? Data(contentsOf: URL(fileURLWithPath: path)),
+               let certificate = SecCertificateCreateWithData(nil, certificateData)
             {
                 certificates.append(certificate)
             }
@@ -153,7 +152,7 @@ public enum ServerTrustPolicy {
 
         - returns: All public keys within the given bundle.
     */
-    public static func publicKeysInBundle(_ bundle: Bundle = Bundle.main()) -> [SecKey] {
+    public static func publicKeysInBundle(_ bundle: Bundle = Bundle.main) -> [SecKey] {
         var publicKeys: [SecKey] = []
 
         for certificate in certificatesInBundle(bundle) {
@@ -181,13 +180,13 @@ public enum ServerTrustPolicy {
         switch self {
         case let .performDefaultEvaluation(validateHost):
             let policy = SecPolicyCreateSSL(true, validateHost ? host as CFString : nil)
-            SecTrustSetPolicies(serverTrust, [policy!] )
+            SecTrustSetPolicies(serverTrust, [policy])
 
             serverTrustIsValid = trustIsValid(serverTrust)
         case let .pinCertificates(pinnedCertificates, validateCertificateChain, validateHost):
             if validateCertificateChain {
                 let policy = SecPolicyCreateSSL(true, validateHost ? host as CFString : nil)
-                SecTrustSetPolicies(serverTrust, [policy!])
+                SecTrustSetPolicies(serverTrust, [policy])
 
                 SecTrustSetAnchorCertificates(serverTrust, pinnedCertificates)
                 SecTrustSetAnchorCertificatesOnly(serverTrust, true)
@@ -211,7 +210,7 @@ public enum ServerTrustPolicy {
 
             if validateCertificateChain {
                 let policy = SecPolicyCreateSSL(true, validateHost ? host as CFString : nil)
-                SecTrustSetPolicies(serverTrust, [policy!])
+                SecTrustSetPolicies(serverTrust, [policy])
 
                 certificateChainEvaluationPassed = trustIsValid(serverTrust)
             }
@@ -277,9 +276,8 @@ public enum ServerTrustPolicy {
         var publicKeys: [SecKey] = []
 
         for index in 0..<SecTrustGetCertificateCount(trust) {
-            if let
-                certificate = SecTrustGetCertificateAtIndex(trust, index),
-                publicKey = publicKeyForCertificate(certificate)
+            if let certificate = SecTrustGetCertificateAtIndex(trust, index),
+               let publicKey = publicKeyForCertificate(certificate)
             {
                 publicKeys.append(publicKey)
             }
@@ -295,7 +293,7 @@ public enum ServerTrustPolicy {
         var trust: SecTrust?
         let trustCreationStatus = SecTrustCreateWithCertificates(certificate, policy, &trust)
 
-        if let trust = trust where trustCreationStatus == errSecSuccess {
+        if let trust = trust, trustCreationStatus == errSecSuccess {
             publicKey = SecTrustCopyPublicKey(trust)
         }
 

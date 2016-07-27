@@ -41,7 +41,7 @@ class ConvrtSession {
     var selectedCurrencies = [Currency]()
     
     let fullCurrenyList: [Currency] = {
-        let plistPath = Bundle.main().pathForResource("currencies", ofType: "plist")!
+        let plistPath = Bundle.main.pathForResource("currencies", ofType: "plist")!
         let plistArray = NSArray(contentsOfFile: plistPath) as! Array<AnyObject>
         
         return plistArray.map {
@@ -119,7 +119,7 @@ class ConvrtSession {
         let fromCurrencyPairs = self.findCurrencies(fromCurrency)
         if fromCurrencyPairs?.count > 0 {
             let amountPair = fromCurrencyPairs?.filter { $0.toCurrency == toCurrency }[0]
-            if let amountPair = amountPair where amountPair.rate != 0.0 {
+            if let amountPair = amountPair, amountPair.rate != 0.0 {
                 return String(fromCurrency.currentAmount * amountPair.rate)
             }
         }

@@ -76,9 +76,9 @@ public class CoreDataDefaultStorage: Storage {
     }
 
     public func removeStore() throws {
-        try FileManager.default().removeItem(at: store.path() as URL)
-        _ = try? FileManager.default().removeItem(atPath: "\(store.path().absoluteString)-shm")
-        _ = try? FileManager.default().removeItem(atPath: "\(store.path().absoluteString)-wal")
+        try FileManager.default.removeItem(at: store.path() as URL)
+        _ = try? FileManager.default.removeItem(atPath: "\(store.path().absoluteString)-shm")
+        _ = try? FileManager.default.removeItem(atPath: "\(store.path().absoluteString)-wal")
 
     }
     
@@ -140,8 +140,8 @@ internal func cdInitializeStore(_ store: CoreData.Store, storeCoordinator: NSPer
 }
 
 internal func cdCreateStoreParentPathIfNeeded(_ store: CoreData.Store) throws {
-    if let databaseParentPath = try! store.path().deletingLastPathComponent()  {
-        try FileManager.default().createDirectory(at: databaseParentPath, withIntermediateDirectories: true, attributes: nil)
+    if let databaseParentPath = try? store.path().deletingLastPathComponent() {
+        try FileManager.default.createDirectory(at: databaseParentPath, withIntermediateDirectories: true, attributes: nil)
     }
 }
 
@@ -181,7 +181,7 @@ internal func cdCleanStoreFilesAfterFailedMigration(store: CoreData.Store) throw
     let rawUrl: String = store.path().absoluteString!
     let shmSidecar: URL = URL(string: rawUrl + "-shm")!
     let walSidecar: URL = URL(string: rawUrl + "-wal")!
-    try FileManager.default().removeItem(at: store.path() as URL)
-    try FileManager.default().removeItem(at: shmSidecar)
-    try FileManager.default().removeItem(at: walSidecar)
+    try FileManager.default.removeItem(at: store.path() as URL)
+    try FileManager.default.removeItem(at: shmSidecar)
+    try FileManager.default.removeItem(at: walSidecar)
 }

@@ -79,7 +79,7 @@ public class CoreDataiCloudStorage: Storage {
     }
     
     public func removeStore() throws {
-        try FileManager.default().removeItem(at: store.path() as URL)
+        try FileManager.default.removeItem(at: store.path() as URL)
     }
     
     
@@ -116,7 +116,7 @@ public class CoreDataiCloudStorage: Storage {
     
     private func observeiCloudChangesInCoordinator() {
         NotificationCenter
-            .default()
+            .default
             .addObserver(forName: NSNotification.Name.NSPersistentStoreDidImportUbiquitousContentChanges, object: self.persistentStoreCoordinator, queue: nil) { [weak self] (notification) -> Void in
                 self?.rootSavingContext.perform {
                     self?.rootSavingContext.mergeChanges(fromContextDidSave: notification)
@@ -127,7 +127,7 @@ public class CoreDataiCloudStorage: Storage {
 }
 
 internal func cdiCloudInitializeStore(storeCoordinator: NSPersistentStoreCoordinator, iCloud: ICloudConfig) throws -> (CoreData.Store, NSPersistentStore?) {
-    let storeURL = try! FileManager.default()
+    let storeURL = try! FileManager.default
         .urlForUbiquityContainerIdentifier(iCloud.ubiquitousContainerIdentifier)!
         .appendingPathComponent(iCloud.ubiquitousContentURL)
     var options = CoreData.Options.migration.dict()

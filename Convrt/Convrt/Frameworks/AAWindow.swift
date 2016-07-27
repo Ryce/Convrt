@@ -33,8 +33,8 @@ class AAWindow: UIWindow {
         
         activeCornerRadius = CGFloat(cornerRadius)
         
-        NotificationCenter.default().addObserver(self, selector: #selector(UIApplicationDelegate.applicationDidBecomeActive(_:)), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
-        NotificationCenter.default().addObserver(self, selector: #selector(UIApplicationDelegate.applicationWillResignActive(_:)), name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(UIApplicationDelegate.applicationDidBecomeActive(_:)), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(UIApplicationDelegate.applicationWillResignActive(_:)), name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
     }
     
     //This will fire once the application becomes active (i.e. on startup or on return from Multitasking Switcher)
@@ -55,7 +55,7 @@ class AAWindow: UIWindow {
         //willOpenControlCenter is true for a short period of time when the user touches in the bottom area of the screen. If in this period of time "applicationWillResignActive" is called it's highly likely (basically certain) that the user has launched Control Center.
         if (willOpenControlCenter) {
 
-            NotificationCenter.default().post(applicationWillResignActiveWithControlCenterNotification)
+            NotificationCenter.default.post(applicationWillResignActiveWithControlCenterNotification)
             
             if (timer.isValid) {
                 timer.invalidate()
@@ -64,7 +64,7 @@ class AAWindow: UIWindow {
             willOpenControlCenter = false
             controlCenterOpened = true
         } else {
-            NotificationCenter.default().post(applicationWillResignActiveWithoutControlCenterNotification)
+            NotificationCenter.default.post(applicationWillResignActiveWithoutControlCenterNotification)
             
             self.layer.cornerRadius = inactiveCornerRadius
             self.layer.add(animateCornerRadius(activeCornerRadius, toValue: inactiveCornerRadius, withDuration: cornerRadiusAnimationDuration, forKey: "cornerRadius"), forKey: "cornerRadius")
