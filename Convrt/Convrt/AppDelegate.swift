@@ -10,15 +10,13 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
     var window: UIWindow?
-
-
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+    
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         return true
     }
-
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
@@ -41,31 +39,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
-    // MARK: Core Data Helper
-    
-    lazy var cdstore: CoreDataStore = {
-        let cdstore = CoreDataStore()
-        return cdstore
-    }()
-    
-    lazy var cdh: CoreDataHelper = {
-        let cdh = CoreDataHelper()
-        return cdh
-    }()
-    
     // MARK: 3D Touch
     
-    @available(iOS 9.0, *)
-    func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: (Bool) -> Void) {
-        print("shortcut call")
+    func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
         if shortcutItem.type == "com.ryce.convrt.openhundredeur" {
             guard let viewController = self.window?.rootViewController as? ViewController,
                 let shortcutCurrency = shortcutItem.userInfo?["currency"] as? String,
                 let currency = viewController.convrtSession.selectedCurrencies.filter({ $0.code == shortcutCurrency }).first,
                 let shortcutAmount = shortcutItem.userInfo?["amount"] as? String,
                 let currentAmount = Double(shortcutAmount) else {
-                completionHandler(false)
-                return
+                    completionHandler(false)
+                    return
             }
             
             viewController.updateView(currentAmount, currency: currency)
@@ -73,7 +57,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         completionHandler(true)
     }
-
-
+    
 }
 

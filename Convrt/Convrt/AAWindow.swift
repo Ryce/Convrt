@@ -10,18 +10,18 @@ import UIKit
 
 class AAWindow: UIWindow {
 
-    private var activeCornerRadius : CGFloat = 0
-    private var inactiveCornerRadius : CGFloat = 0
-    private var cornerRadiusAnimationDuration : Double = 0.15
+    fileprivate var activeCornerRadius : CGFloat = 0
+    fileprivate var inactiveCornerRadius : CGFloat = 0
+    fileprivate var cornerRadiusAnimationDuration : Double = 0.15
     
-    private var willOpenControlCenter : Bool = false
-    private var controlCenterOpened : Bool = false
+    fileprivate var willOpenControlCenter : Bool = false
+    fileprivate var controlCenterOpened : Bool = false
     var timer : Timer = Timer()
     
     //This notification will fire when the user opens Control Center.
-    private var applicationWillResignActiveWithControlCenterNotification = Notification(name: "applicationWillResignActiveWithControlCenter" as Notification.Name, object: nil)
+    fileprivate var applicationWillResignActiveWithControlCenterNotification = Notification(name: Notification.Name(rawValue: "applicationWillResignActiveWithControlCenter"), object: nil)
     //This notification will fire when the application becomes inactive for whatever reason, except when the user launches Control Center.
-    private var applicationWillResignActiveWithoutControlCenterNotification = Notification(name: "applicationWillResignActiveWithoutControlCenter" as Notification.Name, object: nil)
+    fileprivate var applicationWillResignActiveWithoutControlCenterNotification = Notification(name: Notification.Name(rawValue: "applicationWillResignActiveWithoutControlCenter"), object: nil)
 
     init(frame: CGRect, cornerRadius: Float) {
         super.init(frame: frame)
@@ -29,7 +29,7 @@ class AAWindow: UIWindow {
         //clipsToBounds is necessary for the cornerRadius to work.
         self.clipsToBounds = true
         self.layer.cornerRadius = inactiveCornerRadius
-        self.backgroundColor = UIColor.black()
+        self.backgroundColor = UIColor.black
         
         activeCornerRadius = CGFloat(cornerRadius)
         
@@ -38,7 +38,7 @@ class AAWindow: UIWindow {
     }
     
     //This will fire once the application becomes active (i.e. on startup or on return from Multitasking Switcher)
-    @objc private func applicationDidBecomeActive (_ notification : Notification) {
+    @objc fileprivate func applicationDidBecomeActive (_ notification : Notification) {
         
         if (controlCenterOpened) {
             controlCenterOpened = false
@@ -50,7 +50,7 @@ class AAWindow: UIWindow {
     }
     
     //This will fire once the application becomes inactive (i.e. user opens Multitasking Switcher, Control Center, Notification Center…)
-    @objc private func applicationWillResignActive (_ notification : Notification) {
+    @objc fileprivate func applicationWillResignActive (_ notification : Notification) {
         
         //willOpenControlCenter is true for a short period of time when the user touches in the bottom area of the screen. If in this period of time "applicationWillResignActive" is called it's highly likely (basically certain) that the user has launched Control Center.
         if (willOpenControlCenter) {
@@ -71,15 +71,15 @@ class AAWindow: UIWindow {
         }
     }
     
-    private var touchLocation : CGPoint = CGPoint()
+    fileprivate var touchLocation : CGPoint = CGPoint()
     
     override func sendEvent(_ event: UIEvent) {
         super.sendEvent(event)
         
         //Filter touches from other UIEventTypes.
         if (event.type == UIEventType.touches) {
-            for touchevent in event.allTouches()! {
-                let touch = touchevent as UITouch
+            for touchevent in event.allTouches! {
+                let touch = touchevent 
 
                 if (touch.phase == UITouchPhase.began && touch.location(in: self).y - self.frame.height * 0.9 >= 0) {
                     //willOpenControlCenter is true for a short period of time when the user touches in the bottom area of the screen. If in this period of time "applicationWillResignActive" is called it's highly likely (basically certain) that the user has launched Control Center.
@@ -91,7 +91,7 @@ class AAWindow: UIWindow {
                     
                     //If the Statusbar is hidden (which means the app is in full-screen mode) the timerInterval has to be longer since it will take the user a maximum amount of ~3 seconds to open Control Center since he has to use the little handle coming up from the bottom.
                     let timerInterval : Double = {
-                        if (UIApplication.shared().isStatusBarHidden) {
+                        if (UIApplication.shared.isStatusBarHidden) {
                             return 2.75
                         } else {
                             return 0.5
@@ -104,12 +104,12 @@ class AAWindow: UIWindow {
         }
     }
     
-    @objc private func handleTimer () {
+    @objc fileprivate func handleTimer () {
         willOpenControlCenter = false
     }
     
     //CornerRadius Animation setup.
-    private func animateCornerRadius(_ fromValue : CGFloat, toValue: CGFloat, withDuration : Double, forKey : String) -> CABasicAnimation {
+    fileprivate func animateCornerRadius(_ fromValue : CGFloat, toValue: CGFloat, withDuration : Double, forKey : String) -> CABasicAnimation {
         
         let animation : CABasicAnimation = CABasicAnimation(keyPath: forKey)
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)

@@ -10,27 +10,12 @@
 		AD47195C9602D181B34AECBF /* Pods_Convrt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39C865552B18A77439FD1A07 /* Pods_Convrt.framework */; };
 		DA277DEF1B36D1C500B2E28F /* currencies.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA277DEE1B36D1C500B2E28F /* currencies.plist */; };
 		DA277DF11B36D96400B2E28F /* CurrencyEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA277DF01B36D96400B2E28F /* CurrencyEditView.swift */; };
-		DA34933E1D27A1F1007053B4 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA34933D1D27A1F1007053B4 /* CoreData.framework */; };
-		DA34937A1D27EEFB007053B4 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3493661D27EEFB007053B4 /* Request.swift */; };
-		DA34937B1D27EEFB007053B4 /* RequestObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3493671D27EEFB007053B4 /* RequestObservable.swift */; };
-		DA34937C1D27EEFB007053B4 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3493681D27EEFB007053B4 /* Storage.swift */; };
-		DA34937D1D27EEFB007053B4 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA34936A1D27EEFB007053B4 /* Error.swift */; };
-		DA34937E1D27EEFB007053B4 /* RequestExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA34936C1D27EEFB007053B4 /* RequestExtension.swift */; };
-		DA34937F1D27EEFB007053B4 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA34936E1D27EEFB007053B4 /* Logger.swift */; };
-		DA3493801D27EEFB007053B4 /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3493701D27EEFB007053B4 /* Context.swift */; };
-		DA3493811D27EEFB007053B4 /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3493711D27EEFB007053B4 /* Entity.swift */; };
-		DA3493821D27EEFB007053B4 /* NSPredicateConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3493721D27EEFB007053B4 /* NSPredicateConvertible.swift */; };
-		DA3493831D27EEFB007053B4 /* NSSortDescriptorConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3493731D27EEFB007053B4 /* NSSortDescriptorConvertible.swift */; };
-		DA3493841D27EEFB007053B4 /* Requestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3493741D27EEFB007053B4 /* Requestable.swift */; };
-		DA3493851D27EEFB007053B4 /* DirUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3493761D27EEFB007053B4 /* DirUtils.swift */; };
-		DA3493861D27EEFB007053B4 /* VersionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3493781D27EEFB007053B4 /* VersionController.swift */; };
-		DA3493871D27EEFB007053B4 /* VersionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3493791D27EEFB007053B4 /* VersionProvider.swift */; };
+		DA3E3D521F12A539005A5DD2 /* AAWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3E3D511F12A539005A5DD2 /* AAWindow.swift */; };
 		DA51B94F1B356C5B006AD73B /* ConvrtCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA51B94E1B356C5B006AD73B /* ConvrtCollectionViewCell.swift */; };
 		DA686F6A1B35D38E004D62B2 /* ConvrtSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA686F691B35D38E004D62B2 /* ConvrtSessionTests.swift */; };
 		DA94A1211B3DCC2E00FFA025 /* Convrt_UI_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA94A1201B3DCC2E00FFA025 /* Convrt_UI_Tests.swift */; };
 		DAB2061C1B3C466D00E1900E /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2061B1B3C466D00E1900E /* Currency.swift */; };
 		DAB2061E1B3C469400E1900E /* CurrencyPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2061D1B3C469300E1900E /* CurrencyPair.swift */; };
-		DAC3EDB01B0741D200E304AC /* AAWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC3EDAF1B0741D200E304AC /* AAWindow.swift */; };
 		DAC3EDBB1B07B05600E304AC /* ConvrtSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC3EDBA1B07B05600E304AC /* ConvrtSession.swift */; };
 		DADD1B1C1B073D6A00DC9269 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD1B1B1B073D6A00DC9269 /* AppDelegate.swift */; };
 		DADD1B1E1B073D6A00DC9269 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD1B1D1B073D6A00DC9269 /* ViewController.swift */; };
@@ -78,20 +63,7 @@
 		DA277DEE1B36D1C500B2E28F /* currencies.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = currencies.plist; sourceTree = "<group>"; };
 		DA277DF01B36D96400B2E28F /* CurrencyEditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyEditView.swift; sourceTree = "<group>"; };
 		DA34933D1D27A1F1007053B4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		DA3493661D27EEFB007053B4 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
-		DA3493671D27EEFB007053B4 /* RequestObservable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestObservable.swift; sourceTree = "<group>"; };
-		DA3493681D27EEFB007053B4 /* Storage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
-		DA34936A1D27EEFB007053B4 /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
-		DA34936C1D27EEFB007053B4 /* RequestExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestExtension.swift; sourceTree = "<group>"; };
-		DA34936E1D27EEFB007053B4 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
-		DA3493701D27EEFB007053B4 /* Context.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Context.swift; sourceTree = "<group>"; };
-		DA3493711D27EEFB007053B4 /* Entity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
-		DA3493721D27EEFB007053B4 /* NSPredicateConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSPredicateConvertible.swift; sourceTree = "<group>"; };
-		DA3493731D27EEFB007053B4 /* NSSortDescriptorConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSSortDescriptorConvertible.swift; sourceTree = "<group>"; };
-		DA3493741D27EEFB007053B4 /* Requestable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Requestable.swift; sourceTree = "<group>"; };
-		DA3493761D27EEFB007053B4 /* DirUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirUtils.swift; sourceTree = "<group>"; };
-		DA3493781D27EEFB007053B4 /* VersionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersionController.swift; sourceTree = "<group>"; };
-		DA3493791D27EEFB007053B4 /* VersionProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersionProvider.swift; sourceTree = "<group>"; };
+		DA3E3D511F12A539005A5DD2 /* AAWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AAWindow.swift; sourceTree = "<group>"; };
 		DA51B94E1B356C5B006AD73B /* ConvrtCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvrtCollectionViewCell.swift; sourceTree = "<group>"; };
 		DA686F691B35D38E004D62B2 /* ConvrtSessionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvrtSessionTests.swift; sourceTree = "<group>"; };
 		DA94A11E1B3DCC2E00FFA025 /* Convrt UI Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Convrt UI Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -99,7 +71,6 @@
 		DA94A1221B3DCC2E00FFA025 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DAB2061B1B3C466D00E1900E /* Currency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		DAB2061D1B3C469300E1900E /* CurrencyPair.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyPair.swift; sourceTree = "<group>"; };
-		DAC3EDAF1B0741D200E304AC /* AAWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AAWindow.swift; path = Frameworks/AAWindow.swift; sourceTree = "<group>"; };
 		DAC3EDBA1B07B05600E304AC /* ConvrtSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvrtSession.swift; sourceTree = "<group>"; };
 		DADD1B161B073D6A00DC9269 /* Convrt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Convrt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DADD1B1A1B073D6A00DC9269 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -126,7 +97,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA34933E1D27A1F1007053B4 /* CoreData.framework in Frameworks */,
 				AD47195C9602D181B34AECBF /* Pods_Convrt.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -148,83 +118,6 @@
 				155CDA9A0DC0050773A1BB95 /* Pods-Convrt.release.xcconfig */,
 			);
 			name = Pods;
-			sourceTree = "<group>";
-		};
-		DA3493641D27EEFB007053B4 /* Foundation */ = {
-			isa = PBXGroup;
-			children = (
-				DA3493651D27EEFB007053B4 /* Entities */,
-				DA3493691D27EEFB007053B4 /* Errors */,
-				DA34936B1D27EEFB007053B4 /* Extensions */,
-				DA34936D1D27EEFB007053B4 /* Logger */,
-				DA34936F1D27EEFB007053B4 /* Protocols */,
-				DA3493751D27EEFB007053B4 /* Utils */,
-				DA3493771D27EEFB007053B4 /* Version */,
-			);
-			path = Foundation;
-			sourceTree = "<group>";
-		};
-		DA3493651D27EEFB007053B4 /* Entities */ = {
-			isa = PBXGroup;
-			children = (
-				DA3493661D27EEFB007053B4 /* Request.swift */,
-				DA3493671D27EEFB007053B4 /* RequestObservable.swift */,
-				DA3493681D27EEFB007053B4 /* Storage.swift */,
-			);
-			path = Entities;
-			sourceTree = "<group>";
-		};
-		DA3493691D27EEFB007053B4 /* Errors */ = {
-			isa = PBXGroup;
-			children = (
-				DA34936A1D27EEFB007053B4 /* Error.swift */,
-			);
-			path = Errors;
-			sourceTree = "<group>";
-		};
-		DA34936B1D27EEFB007053B4 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				DA34936C1D27EEFB007053B4 /* RequestExtension.swift */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
-		DA34936D1D27EEFB007053B4 /* Logger */ = {
-			isa = PBXGroup;
-			children = (
-				DA34936E1D27EEFB007053B4 /* Logger.swift */,
-			);
-			path = Logger;
-			sourceTree = "<group>";
-		};
-		DA34936F1D27EEFB007053B4 /* Protocols */ = {
-			isa = PBXGroup;
-			children = (
-				DA3493701D27EEFB007053B4 /* Context.swift */,
-				DA3493711D27EEFB007053B4 /* Entity.swift */,
-				DA3493721D27EEFB007053B4 /* NSPredicateConvertible.swift */,
-				DA3493731D27EEFB007053B4 /* NSSortDescriptorConvertible.swift */,
-				DA3493741D27EEFB007053B4 /* Requestable.swift */,
-			);
-			path = Protocols;
-			sourceTree = "<group>";
-		};
-		DA3493751D27EEFB007053B4 /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-				DA3493761D27EEFB007053B4 /* DirUtils.swift */,
-			);
-			path = Utils;
-			sourceTree = "<group>";
-		};
-		DA3493771D27EEFB007053B4 /* Version */ = {
-			isa = PBXGroup;
-			children = (
-				DA3493781D27EEFB007053B4 /* VersionController.swift */,
-				DA3493791D27EEFB007053B4 /* VersionProvider.swift */,
-			);
-			path = Version;
 			sourceTree = "<group>";
 		};
 		DA51B9501B356C67006AD73B /* Model */ = {
@@ -267,8 +160,7 @@
 		DAC3EDAE1B0741BB00E304AC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DA3493641D27EEFB007053B4 /* Foundation */,
-				DAC3EDAF1B0741D200E304AC /* AAWindow.swift */,
+				DA3E3D511F12A539005A5DD2 /* AAWindow.swift */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -415,7 +307,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = ryce;
 				TargetAttributes = {
 					DA94A11D1B3DCC2E00FFA025 = {
@@ -543,29 +435,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA3493841D27EEFB007053B4 /* Requestable.swift in Sources */,
 				DADD1B1E1B073D6A00DC9269 /* ViewController.swift in Sources */,
-				DA3493851D27EEFB007053B4 /* DirUtils.swift in Sources */,
-				DA34937E1D27EEFB007053B4 /* RequestExtension.swift in Sources */,
-				DA3493871D27EEFB007053B4 /* VersionProvider.swift in Sources */,
-				DA3493831D27EEFB007053B4 /* NSSortDescriptorConvertible.swift in Sources */,
-				DA34937F1D27EEFB007053B4 /* Logger.swift in Sources */,
 				DA51B94F1B356C5B006AD73B /* ConvrtCollectionViewCell.swift in Sources */,
 				DAF3539F1B6EA5DF005C0868 /* CurrencySelectionViewController.swift in Sources */,
 				DADD1B1C1B073D6A00DC9269 /* AppDelegate.swift in Sources */,
 				DAB2061C1B3C466D00E1900E /* Currency.swift in Sources */,
-				DA34937B1D27EEFB007053B4 /* RequestObservable.swift in Sources */,
-				DA3493801D27EEFB007053B4 /* Context.swift in Sources */,
 				DA277DF11B36D96400B2E28F /* CurrencyEditView.swift in Sources */,
-				DA3493821D27EEFB007053B4 /* NSPredicateConvertible.swift in Sources */,
-				DA34937A1D27EEFB007053B4 /* Request.swift in Sources */,
-				DA3493811D27EEFB007053B4 /* Entity.swift in Sources */,
 				DAC3EDBB1B07B05600E304AC /* ConvrtSession.swift in Sources */,
 				DAB2061E1B3C469400E1900E /* CurrencyPair.swift in Sources */,
-				DA34937C1D27EEFB007053B4 /* Storage.swift in Sources */,
-				DA34937D1D27EEFB007053B4 /* Error.swift in Sources */,
-				DAC3EDB01B0741D200E304AC /* AAWindow.swift in Sources */,
-				DA3493861D27EEFB007053B4 /* VersionController.swift in Sources */,
+				DA3E3D521F12A539005A5DD2 /* AAWindow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -648,8 +526,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -693,8 +573,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -730,10 +612,9 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Convrt/Frameworks",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = Convrt/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ryce.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -753,10 +634,9 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Convrt/Frameworks",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = Convrt/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ryce.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";

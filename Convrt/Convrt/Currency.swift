@@ -7,21 +7,33 @@
 //
 
 import Foundation
-import CoreData
+import RealmSwift
 
-let currencyNumberFormatter: NumberFormatter = {
-    let formatter = NumberFormatter()
-    formatter.numberStyle = NumberFormatter.Style.currency
-    formatter.currencySymbol = ""
-    return formatter
-}()
+class Currency: Object {
+    
+    dynamic var code: String = ""
+    dynamic var title: String = ""
+    dynamic var country: String = ""
+    let currentAmount = RealmOptional<Double>()
+    
+    static let numberFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = NumberFormatter.Style.currency
+        formatter.currencySymbol = ""
+        return formatter
+    }()
+    
+    override static func primaryKey() -> String {
+        return "code"
+    }
+    
+}
 
 extension Currency {
     
-    func numberFormatter() -> NumberFormatter { return currencyNumberFormatter }
-    
-    func displayAmount() -> String {
-        return self.numberFormatter().string(from: NSNumber(value: self.currentAmount))!
+    var displayAmount: String? {
+        guard let doubleValue = self.currentAmount.value else { return nil }
+        return Currency.numberFormatter.string(for: doubleValue)
     }
     
 }

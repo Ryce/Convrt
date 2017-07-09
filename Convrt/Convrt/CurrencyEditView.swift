@@ -48,19 +48,19 @@ class CurrencyEditView: UIView, UITextFieldDelegate {
     func keyboardWillShow(_ note: Notification) {
         guard let info = (note as NSNotification).userInfo else { return } // BAIL
         
-        guard let animationCurve = info[UIKeyboardAnimationCurveUserInfoKey],
-            let animationDuration = info[UIKeyboardAnimationDurationUserInfoKey] else {
+        guard let animationCurve = info[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber,
+            let animationDuration = info[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber else {
                 UIView.animate(withDuration: 0.5, animations: { () -> Void in
                     self.alpha = 1.0
                 })
                 return // BAIL
         }
         
-        if let keyboardRect = info[UIKeyboardFrameEndUserInfoKey]?.cgRectValue {
+        if let keyboardRect = (info[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             self.keyboardHeightConstraint.constant = keyboardRect.height + 8.0
         }
         
-        UIView.animate(withDuration: animationDuration.doubleValue, delay: 0.0, options:UIViewAnimationOptions(rawValue: (animationCurve as! UInt)), animations: { () -> Void in
+        UIView.animate(withDuration: animationDuration.doubleValue, delay: 0.0, options: UIViewAnimationOptions(rawValue: (animationCurve as! UInt)), animations: { () -> Void in
             self.alpha = 1.0
             }, completion: nil)
     }
@@ -68,15 +68,15 @@ class CurrencyEditView: UIView, UITextFieldDelegate {
     func keyboardWillHide(_ note: Notification) {
         guard let info = (note as NSNotification).userInfo else { return } // BAIL
         
-        guard let animationCurve = info[UIKeyboardAnimationCurveUserInfoKey],
-            let animationDuration = info[UIKeyboardAnimationDurationUserInfoKey] else {
+        guard let animationCurve = info[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber,
+            let animationDuration = info[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber else {
                 UIView.animate(withDuration: 0.5, animations: { () -> Void in
                     self.alpha = 0.0
                 })
                 return // BAIL
         }
         
-        UIView.animate(withDuration: animationDuration.doubleValue, delay: 0.0, options:UIViewAnimationOptions(rawValue: (animationCurve as! UInt)), animations: { () -> Void in
+        UIView.animate(withDuration: animationDuration.doubleValue, delay: 0.0, options: UIViewAnimationOptions(rawValue: (animationCurve as! UInt)), animations: { () -> Void in
             self.alpha = 0.0
             }, completion: nil)
     }
@@ -101,8 +101,8 @@ class CurrencyEditView: UIView, UITextFieldDelegate {
         self.didChangeAmount = true
         let oldString = textField.text!
         let newString = (oldString as NSString).replacingCharacters(in: range, with: string)
-        let decimalSeparator = Locale.current.object(forKey: Locale.Key.decimalSeparator) as! String
-        let thousandSeparator = Locale.current.object(forKey: Locale.Key.groupingSeparator) as! String
+        let decimalSeparator = Locale.current.decimalSeparator!
+        let thousandSeparator = Locale.current.groupingSeparator!
         
         switch newString.characters.count {
         case 0:
@@ -113,7 +113,6 @@ class CurrencyEditView: UIView, UITextFieldDelegate {
                 textField.text = "0" + decimalSeparator
                 return false
             }
-            break
         case _ where newString.characters.count > 10:
             return false
         case _ where newString.characters.last! == thousandSeparator.characters.last!:
@@ -123,17 +122,17 @@ class CurrencyEditView: UIView, UITextFieldDelegate {
             break
         }
         
-        var regex: RegularExpression?
+        var regex: NSRegularExpression?
         
         let pattern = NSString(format: "^[0-9]+([\\%@][0-9]+)?(\\%@[0-9]{0,2})?$", thousandSeparator, decimalSeparator) as String
         
         do {
-            regex = try RegularExpression(pattern: pattern, options: RegularExpression.Options.caseInsensitive)
+            regex = try NSRegularExpression(pattern: pattern, options: .caseInsensitive)
         } catch {
             return false
         }
         
-        let numberOfMatches = regex!.numberOfMatches(in: newString, options: RegularExpression.MatchingOptions.withoutAnchoringBounds, range: NSMakeRange(0, newString.characters.count))
+        let numberOfMatches = regex!.numberOfMatches(in: newString, options: .withoutAnchoringBounds, range: NSMakeRange(0, newString.characters.count))
         
         return numberOfMatches > 0
         
@@ -154,7 +153,7 @@ class CurrencyEditView: UIView, UITextFieldDelegate {
         
         guard let amountText = self.amountTextField?.text else { return }
         
-        guard let currentAmount = self.currency?.numberFormatter().number(from: amountText) else {
+        guard let currentAmount = Currency.numberFormatter.number(from: amountText) else {
             self.amountTextField?.text = "100"
             return // BAIL
         }
@@ -162,14 +161,14 @@ class CurrencyEditView: UIView, UITextFieldDelegate {
         let percentage = 1 + (xOffset/self.bounds.size.height)
         let filteredAmount = Double(currentAmount.doubleValue) * Double(percentage)
         
-        self.amountTextField?.text = self.currency?.numberFormatter().string(from: NSNumber(value: filteredAmount))
+        self.amountTextField?.text = Currency.numberFormatter.string(from: NSNumber(value: filteredAmount))
         self.didChangeAmount = true
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let amountText = self.amountTextField?.text else { return }
         
-        guard let currentAmount = self.currency?.numberFormatter().number(from: amountText) else { return }
+        guard let currentAmount = Currency.numberFormatter.number(from: amountText) else { return }
         
         let roundedAmountLength = ceil(log10(currentAmount.doubleValue))
         
@@ -179,7 +178,7 @@ class CurrencyEditView: UIView, UITextFieldDelegate {
             newAmount -= newAmount.truncatingRemainder(dividingBy: (pow(10, (roundedAmountLength - 3))))
         }
         
-        self.amountTextField?.text = self.currency?.numberFormatter().string(from: NSNumber(value: newAmount))
+        self.amountTextField?.text = Currency.numberFormatter.string(from: NSNumber(value: newAmount))
         self.didChangeAmount = true
     }
 

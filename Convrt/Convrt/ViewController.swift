@@ -30,7 +30,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.collectionView!.backgroundColor = UIColor.clear()
+        self.collectionView!.backgroundColor = UIColor.clear
         self.detailView?.delegate = self
         self.detailView?.amountTextField?.keyboardType = UIKeyboardType.decimalPad
         
@@ -43,7 +43,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         convrtSession.updateSavedCurrencyPairs()
         guard let savedCurrencyPairs = convrtSession.savedCurrencyPairs() else { return }
         self.showLoadingIndicator()
-        convrtSession.fetchRatesForCurrencies(savedCurrencyPairs) { (items, error) -> () in
+        convrtSession.fetchRatesForCurrencies(Array(savedCurrencyPairs)) { (items, error) -> () in
             self.hideLoadingIndicator()
             if error != .noError {
                 let alert = UIAlertController(title: "Whoops", message: "There was a problem fetching the rates", preferredStyle: .alert)
@@ -67,7 +67,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     func updateView(_ amount: CurrencyAmount, currency: Currency) {
-        currency.currentAmount = amount
+        currency.currentAmount.value = amount
         self.selectedCurrencyAmount = amount
         self.selectedCurrency = currency
         // TODO: asynchronously load selected currency rates and set
@@ -92,7 +92,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         if let selCurr = self.selectedCurrency, selCurr != currency {
             cell.amountLabel?.text = "" // TODO: convrt.calculateAmount(selCurr)
         } else {
-            cell.amountLabel?.text = currency.displayAmount()
+            cell.amountLabel?.text = currency.displayAmount
         }
         return cell
     }
@@ -105,7 +105,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         self.detailView?.currency = self.selectedCurrency
         self.detailView?.codeLabel?.text = self.selectedCurrency?.code
         self.detailView?.titleLabel?.text = self.selectedCurrency?.title
-        if let amount = self.selectedCurrency?.displayAmount(), self.selectedCurrency?.currentAmount > 0.0 {
+        if let amount = self.selectedCurrency?.displayAmount,
+            selectedCurrencyAmount > 0.0 {
             self.detailView?.amountTextField?.text = amount
         } else {
             self.detailView?.amountTextField?.text = ""
@@ -120,7 +121,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     // MARK: CurrencyEditDelegate
     
     func didDismiss(_ view: CurrencyEditView, _ currency: Currency, _ inputAmount: CurrencyAmount) {
-        currency.currentAmount = inputAmount
+        currency.currentAmount.value = inputAmount
         self.selectedCurrencyAmount = inputAmount
         self.selectedCurrency = currency
         // TODO: asynchronously load selected currency rates and set

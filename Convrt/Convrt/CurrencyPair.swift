@@ -7,17 +7,20 @@
 //
 
 import Foundation
-import CoreData
+import RealmSwift
+
+class CurrencyPair: Object {
+    
+    dynamic var fromCurrency: Currency?
+    dynamic var toCurrency: Currency?
+    let rate = RealmOptional<Double>()
+    
+}
 
 extension CurrencyPair {
     
     func merge(_ otherCurrencyPair: CurrencyPair) {
-        self.rate = otherCurrencyPair.rate
-    }
-    
-    override func isEqual(_ object: AnyObject?) -> Bool {
-        guard let currencyPair = object as? CurrencyPair else { return false }
-        return self.fromCurrency == currencyPair.fromCurrency && self.toCurrency == currencyPair.toCurrency
+        self.rate.value = otherCurrencyPair.rate.value
     }
     
 }
