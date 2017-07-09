@@ -1,6 +1,0 @@
-framework module Pods_ConvrtTests {
-  umbrella header "Pods-ConvrtTests-umbrella.h"
-
-  export *
-  module * { export * }
-}

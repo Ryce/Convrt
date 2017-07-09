@@ -1,21 +1,9 @@
-platform :ios, '8.0'
+platform :ios, '10.0'
 
 target 'Convrt' do
   use_frameworks!
 
-  # Pods for Convrt
-  # pod "SugarRecord/CoreData+iCloud"
-  pod 'Alamofire', :git => 'https://github.com/Alamofire/Alamofire.git', :branch => 'swift3'
-
-  target 'Convrt UI Tests' do
-    inherit! :search_paths
-    
-    # Pods for testing
-  end
-
-  target 'ConvrtTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
+  pod 'Alamofire'
+  pod 'RealmSwift'
 
 end
