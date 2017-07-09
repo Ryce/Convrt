@@ -106,9 +106,10 @@
                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q0P-v5-9FV" customClass="CurrencyEditView" customModule="Convrt" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
-                                    <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZDR-u4-fwA">
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" id="i9m-gB-f9r">
+                                    <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZDR-u4-fwA">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="i9m-gB-f9r">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </view>
                                         <blurEffect style="light"/>
@@ -158,12 +159,16 @@
                                     <constraint firstItem="FyK-SZ-BPW" firstAttribute="leading" secondItem="Q0P-v5-9FV" secondAttribute="leading" constant="30" id="4CR-uU-HvH"/>
                                     <constraint firstItem="xjL-X7-E8e" firstAttribute="centerX" secondItem="Q0P-v5-9FV" secondAttribute="centerX" id="Euh-7p-l0R"/>
                                     <constraint firstItem="nPh-JI-BIo" firstAttribute="top" secondItem="FyK-SZ-BPW" secondAttribute="bottom" constant="30" id="F8L-hn-hWB"/>
+                                    <constraint firstItem="ZDR-u4-fwA" firstAttribute="leading" secondItem="Q0P-v5-9FV" secondAttribute="leading" id="GuY-t4-dMe"/>
                                     <constraint firstAttribute="trailing" secondItem="FyK-SZ-BPW" secondAttribute="trailing" constant="30" id="IQS-dn-ELH"/>
                                     <constraint firstAttribute="bottom" secondItem="tG7-MQ-bFo" secondAttribute="bottom" constant="8" id="SMP-Tl-Y2w"/>
                                     <constraint firstItem="nPh-JI-BIo" firstAttribute="leading" secondItem="Q0P-v5-9FV" secondAttribute="leading" constant="20" id="Uc3-of-S1a"/>
+                                    <constraint firstAttribute="bottom" secondItem="ZDR-u4-fwA" secondAttribute="bottom" id="ebt-SX-HXC"/>
                                     <constraint firstItem="FyK-SZ-BPW" firstAttribute="top" secondItem="xjL-X7-E8e" secondAttribute="bottom" constant="30" id="f0U-75-v74"/>
+                                    <constraint firstAttribute="trailing" secondItem="ZDR-u4-fwA" secondAttribute="trailing" id="feg-OZ-K3a"/>
                                     <constraint firstAttribute="trailing" secondItem="nPh-JI-BIo" secondAttribute="trailing" constant="20" id="fxd-k8-UL3"/>
                                     <constraint firstItem="FyK-SZ-BPW" firstAttribute="centerX" secondItem="Q0P-v5-9FV" secondAttribute="centerX" id="gL9-tQ-mxs"/>
+                                    <constraint firstItem="ZDR-u4-fwA" firstAttribute="top" secondItem="Q0P-v5-9FV" secondAttribute="top" id="tCG-xC-9pO"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="amountTextField" destination="FyK-SZ-BPW" id="MAv-Ef-yFR"/>
@@ -194,7 +199,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PcX-ha-Wbn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="440" y="1484"/>
+            <point key="canvasLocation" x="439.19999999999999" y="1483.8080959520241"/>
         </scene>
         <!--Currency Selection View Controller-->
         <scene sceneID="ZjQ-Ct-Hch">
