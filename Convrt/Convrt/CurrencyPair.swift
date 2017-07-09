@@ -11,9 +11,30 @@ import RealmSwift
 
 class CurrencyPair: Object {
     
-    dynamic var fromCurrency: Currency?
-    dynamic var toCurrency: Currency?
+    dynamic var fromCurrency: Currency? {
+        didSet {
+            setIdentifierIfNeeded()
+        }
+    }
+    
+    dynamic var toCurrency: Currency? {
+        didSet {
+            setIdentifierIfNeeded()
+        }
+    }
+    
+    dynamic var identifier: String?
+    
     let rate = RealmOptional<Double>()
+    
+    static override func primaryKey() -> String {
+        return "identifier"
+    }
+    
+    func setIdentifierIfNeeded() {
+        guard let fromCurrency = fromCurrency, let toCurrency = toCurrency else { return }
+        identifier = fromCurrency.code + toCurrency.code
+    }
     
 }
 

@@ -20,7 +20,15 @@ let genericCurrencyArray: [Currency] = {
                                 ("Australian Dollar", "AUD", "Australia"),
                                 ("Renminbi", "CNY", "China")]
     
-    return [Currency]()
+    let currs: [Currency] = currencies.map {
+        let currency = Currency()
+        currency.title = $0.0
+        currency.code = $0.1
+        currency.country = $0.2
+        return currency
+    }
+    
+    return currs
     
 }()
 
@@ -37,8 +45,6 @@ class ConvrtSession {
         let formatter = DateFormatter()
         return formatter
     }()
-    
-    var selectedCurrencies = [Currency]()
     
     let fullCurrenyList: [Currency] = {
         let plistPath = Bundle.main.path(forResource: "currencies", ofType: "plist")!
@@ -59,8 +65,32 @@ class ConvrtSession {
         }
     }()
     
+    func savedCurrencies() -> Results<Currency>? {
+        let realm = try! Realm()
+        let allObjects = realm.objects(Currency.self)
+        if allObjects.count == 0 {
+            try? realm.write {
+                let defaultCurrencies = genericCurrencyArray
+                realm.add(defaultCurrencies, update: true)
+                let generatedCurrencyPairs = generateCurrencyPairs(defaultCurrencies)
+                realm.add(generatedCurrencyPairs, update: true)
+            }
+        }
+        return realm.objects(Currency.self)
+    }
+    
     func savedCurrencyPairs() -> Results<CurrencyPair>? {
-        return try? Realm().objects(CurrencyPair.self)
+        let realm = try! Realm()
+        let allObjects = realm.objects(CurrencyPair.self)
+        if allObjects.count == 0 {
+            try? realm.write {
+                let defaultCurrencies = genericCurrencyArray
+                realm.add(defaultCurrencies, update: true)
+                let generatedCurrencyPairs = generateCurrencyPairs(defaultCurrencies)
+                realm.add(generatedCurrencyPairs, update: true)
+            }
+        }
+        return realm.objects(CurrencyPair.self)
     }
     
     func findCurrencies(_ from: Currency) -> [CurrencyPair]? {
@@ -99,10 +129,6 @@ class ConvrtSession {
             }
         }
         return currPairs
-    }
-    
-    func updateSavedCurrencyPairs() {
-        // TODO: update savedCurrencyPairs
     }
     
     func amount(from fromCurrency: Currency, to toCurrency: Currency) -> String {
@@ -147,7 +173,10 @@ class ConvrtSession {
                     newCurrencies.append(currencyPair)
                 }
                 
-                
+                let realm = try! Realm()
+                try? realm.write {
+                    realm.add(newCurrencies, update: true)
+                }
                 
                 // merge new info into existing array
                 // update main view when save is complete

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, CurrencyEditDelegate {
     
@@ -14,6 +15,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     @IBOutlet var detailView: CurrencyEditView?
     
     let convrtSession = ConvrtSession()
+    
+    var currencies: Results<Currency>?
     
     var selectedCurrency: Currency?
     var selectedCurrencyAmount: CurrencyAmount = 0.0
@@ -37,10 +40,9 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         self.collectionView!.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(ViewController.showCurrencySelection)))
         // Do any additional setup after loading the view, typically from a nib.
     }
-
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        convrtSession.updateSavedCurrencyPairs()
         guard let savedCurrencyPairs = convrtSession.savedCurrencyPairs() else { return }
         self.showLoadingIndicator()
         convrtSession.fetchRatesForCurrencies(Array(savedCurrencyPairs)) { (items, error) -> () in
@@ -50,6 +52,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                 alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
                 self.present(alert, animated: true, completion: nil)
             }
+            self.currencies = self.convrtSession.savedCurrencies()
             self.collectionView?.reloadData()
         }
     }
@@ -81,18 +84,18 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return convrtSession.selectedCurrencies.count
+        return currencies?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ConvrtCollectionViewCell.kCellIdentifier, for: indexPath) as! ConvrtCollectionViewCell
-        let currency = convrtSession.selectedCurrencies[(indexPath as NSIndexPath).row]
-        cell.codeLabel?.text = currency.code
-        cell.countryLabel?.text = currency.title
+        let currency = currencies?[indexPath.row]
+        cell.codeLabel?.text = currency?.code
+        cell.countryLabel?.text = currency?.title
         if let selCurr = self.selectedCurrency, selCurr != currency {
             cell.amountLabel?.text = "" // TODO: convrt.calculateAmount(selCurr)
         } else {
-            cell.amountLabel?.text = currency.displayAmount
+            cell.amountLabel?.text = currency?.displayAmount
         }
         return cell
     }
@@ -100,7 +103,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     // MARK: UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.selectedCurrency = convrtSession.selectedCurrencies[(indexPath as NSIndexPath).row]
+        self.selectedCurrency = currencies?[indexPath.row]
         
         self.detailView?.currency = self.selectedCurrency
         self.detailView?.codeLabel?.text = self.selectedCurrency?.code
@@ -121,10 +124,12 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     // MARK: CurrencyEditDelegate
     
     func didDismiss(_ view: CurrencyEditView, _ currency: Currency, _ inputAmount: CurrencyAmount) {
-        currency.currentAmount.value = inputAmount
+        let realm = try! Realm()
+        try? realm.write {
+            currency.currentAmount.value = inputAmount
+        }
         self.selectedCurrencyAmount = inputAmount
         self.selectedCurrency = currency
-        // TODO: asynchronously load selected currency rates and set
         self.collectionView?.reloadData()
     }
     

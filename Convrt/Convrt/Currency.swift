@@ -11,8 +11,8 @@ import RealmSwift
 
 class Currency: Object {
     
-    dynamic var code: String = ""
     dynamic var title: String = ""
+    dynamic var code: String = ""
     dynamic var country: String = ""
     let currentAmount = RealmOptional<Double>()
     

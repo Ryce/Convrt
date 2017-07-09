@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 let currencySelectionCellIdentifier = "com.ryce.convrt.currencySelectionCell"
 
@@ -42,7 +43,8 @@ class CurrencySelectionViewController: UIViewController, UITableViewDelegate, UI
         let tableViewCell = tableView.dequeueReusableCell(withIdentifier: currencySelectionCellIdentifier, for: indexPath)
         let currentCurrency = convrtSession.fullCurrenyList[(indexPath as NSIndexPath).row]
         tableViewCell.textLabel?.text = currentCurrency.title
-        if convrtSession.selectedCurrencies.contains(currentCurrency) {
+        let savedCurrencies = convrtSession.savedCurrencies()
+        if savedCurrencies?.contains(currentCurrency) ?? false {
             tableViewCell.accessoryType = .checkmark
         } else {
             tableViewCell.accessoryType = .none
@@ -53,11 +55,15 @@ class CurrencySelectionViewController: UIViewController, UITableViewDelegate, UI
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let currentCurrency = convrtSession.fullCurrenyList[(indexPath as NSIndexPath).row]
-        if convrtSession.selectedCurrencies.contains(currentCurrency) {
-            guard let index = convrtSession.selectedCurrencies.index(of: currentCurrency) else { return }
-            convrtSession.selectedCurrencies.remove(at: index)
+        let realm = try! Realm()
+        if let currencyInRealm = realm.object(ofType: Currency.self, forPrimaryKey: currentCurrency.code) {
+            try? realm.write {
+                realm.delete(currencyInRealm)
+            }
         } else {
-            convrtSession.selectedCurrencies.append(currentCurrency)
+            try? realm.write {
+                realm.add(currentCurrency, update: true)
+            }
         }
         tableView.reloadRows(at: [indexPath], with: .fade)
     }
