@@ -31,9 +31,9 @@ class Currency: Object {
 
 extension Currency {
     
-    var displayAmount: String? {
-        guard let doubleValue = self.currentAmount.value else { return nil }
-        return Currency.numberFormatter.string(for: doubleValue)
+    var displayAmount: String {
+        guard let doubleValue = self.currentAmount.value else { return "0.00" }
+        return Currency.numberFormatter.string(for: doubleValue)!
     }
     
 }

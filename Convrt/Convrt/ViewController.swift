@@ -91,9 +91,9 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ConvrtCollectionViewCell.kCellIdentifier, for: indexPath) as! ConvrtCollectionViewCell
         let currency = currencies?[indexPath.row]
         cell.codeLabel?.text = currency?.code
-        cell.countryLabel?.text = currency?.title
+        cell.countryLabel?.text = currency?.country
         if let selCurr = self.selectedCurrency, selCurr != currency {
-            cell.amountLabel?.text = "" // TODO: convrt.calculateAmount(selCurr)
+            cell.amountLabel?.text = "0.00" // TODO: convrt.calculateAmount(selCurr)
         } else {
             cell.amountLabel?.text = currency?.displayAmount
         }
